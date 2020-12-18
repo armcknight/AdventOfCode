@@ -49,7 +49,7 @@ enum Field {
             guard value.count == 4 else { return false }
             let number = value.integerValue
             return number >= 1920 && number <= 2002
-        case .cid(let value): // (Country ID) - ignored, missing or not.
+        case .cid(_): // (Country ID) - ignored, missing or not.
             return true
         case .ecl(let value): // (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
             return ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(value)

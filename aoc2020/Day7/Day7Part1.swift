@@ -44,7 +44,7 @@ var cache = NSCache<NSString, NSNumber>()
 
 /// A DFS that finds all the ways a given bag may be contained
 func _search(rules: [Rule], rule: Rule, target: String) -> Bool {
-    guard let to = rule.to else {
+    guard rule.to != nil else {
         cache.setObject(NSNumber(booleanLiteral: false), forKey: rule.from as NSString)
         return false
     }
