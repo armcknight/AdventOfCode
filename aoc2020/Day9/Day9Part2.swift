@@ -8,6 +8,25 @@
 import aocHelpers
 import Foundation
 
-public func day9Part2(_ input: String) -> Int {
-    return -1
+func findWeakness(codes: [Int], errorCode: Int) -> Int? {
+    for i in 0..<codes.count {
+        for j in i+1..<codes.count {
+            let nextRange = Array<Int>(codes[i...j])
+            let nextSum = nextRange.reduce(0, { (partial, next) -> Int in
+                partial + next
+            })
+            if nextSum > errorCode {
+                break
+            } else if nextSum == errorCode {
+                let sorted = nextRange.sorted()
+                return sorted.first! + sorted.last!
+            }
+        }
+    }
+    return nil
+}
+
+public func day9Part2(_ input: String, codeAge: Int) -> Int {
+    let codes = input.split(separator: "\n").map({Int($0)!})
+    return findWeakness(codes: codes, errorCode: day9Part1(input, codeAge: codeAge))!
 }
