@@ -77,4 +77,5 @@
  What do you get if you multiply together the number of trees encountered on each of the listed slopes?
 
  Your puzzle answer was 2608962048.
+
  */
