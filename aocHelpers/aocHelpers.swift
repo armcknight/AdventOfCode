@@ -22,6 +22,25 @@ public extension String {
     var lineIntegers: [Int] {
         return lines.map({Int($0)!})
     }
+    
+    var integerValue: Int {
+        return (self as NSString).integerValue
+    }
+
+    func matches(_ regex: String) throws -> Bool {
+        let regex = try NSRegularExpression(pattern: regex, options: [])
+        let range = NSRange(location: 0, length: self.count)
+        let match = regex.firstMatch(in: self, options: [], range: range)
+        return match != nil
+    }
+
+    func enumerateMatches(with regex: String, block: ((NSTextCheckingResult?) -> Void)) throws {
+        let regex = try NSRegularExpression(pattern: regex, options: [])
+        let range = NSRange(location: 0, length: self.count)
+        regex.enumerateMatches(in: self, options: [], range: range) { (result, flags, stop) in
+            block(result)
+        }
+    }
 }
 
 public extension Array where Element == Array<String> {
