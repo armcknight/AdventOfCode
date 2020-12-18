@@ -1,0 +1,53 @@
+name: AdventOfCode
+fileGroups:
+  - AdventOfCode.yml
+packages:
+  Then:
+    url: https://github.com/devxoul/Then
+    from: 2.0.0
+schemes:
+  aocHelpers:
+    build:
+      targets:
+        aocHelpers: all
+  aoc2020:
+    build:
+      targets:
+          aoc2020: all
+  aoc2020Tests:
+    build:
+      targets:
+          aoc2020Tests: test
+    test:
+      targets: [aoc2020Tests]
+  createYear:
+    build:
+      targets:
+        createYear: run
+targets:
+  aocHelpers:
+    type: library.static
+    sources: [aocHelpers]
+    platform: iOS
+  aoc2020:
+    type: library.static
+    sources: [aoc2020]
+    dependencies:
+      - target: aocHelpers
+        link: true
+    platform: iOS
+    scheme:
+      testTargets:
+        - aoc2020Tests
+  aoc2020Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [aoc2020Tests]
+    dependencies:
+      - target: aoc2020
+  createYear:
+    type: tool
+    sources: [createYear]
+    platform: macOS
+    dependencies:
+      - package: Then

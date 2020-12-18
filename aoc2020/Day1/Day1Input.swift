@@ -7,7 +7,7 @@
 
 import Foundation
 
-public let testInput = """
+public let day1SampleInput = """
 1721
 979
 366
@@ -16,7 +16,7 @@ public let testInput = """
 1456
 """
 
-public let input = """
+public let day1Input = """
 2004
 1867
 1923

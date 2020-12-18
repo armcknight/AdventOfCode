@@ -8,8 +8,8 @@
 import aocHelpers
 import Foundation
 
-public func find2020By3(_ input: String) -> Int? {
-    let list = input.integers
+public func day1Part2(_ input: String) -> Int? {
+    let list = input.lineIntegers
     for x in list {
         for y in list {
             for z in list {
