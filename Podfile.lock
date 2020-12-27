@@ -1,0 +1,38 @@
+PODS:
+  - Anchorage (4.4.0)
+  - Closures (0.7)
+  - FastMath (4.0.0):
+    - PippinLibrary (~> 2)
+  - FastMath/Tests (4.0.0):
+    - PippinLibrary (~> 2)
+  - PippinLibrary (2.6.0):
+    - Anchorage
+    - Closures
+    - Then
+  - Then (2.7.0)
+
+DEPENDENCIES:
+  - FastMath (from `/Users/andrew/Work/TwoRingSoft/Frameworks/FastMath/`)
+  - FastMath/Tests (from `/Users/andrew/Work/TwoRingSoft/Frameworks/FastMath/`)
+
+SPEC REPOS:
+  trunk:
+    - Anchorage
+    - Closures
+    - PippinLibrary
+    - Then
+
+EXTERNAL SOURCES:
+  FastMath:
+    :path: "/Users/andrew/Work/TwoRingSoft/Frameworks/FastMath/"
+
+SPEC CHECKSUMS:
+  Anchorage: d7f02c4f9425b537053237aab11ae97e59b55f36
+  Closures: a83b9892a5b1c4125a9dfcd53e2754db5d7f6d22
+  FastMath: 8e3db953b1e753c36a05862ba9a961f69de08210
+  PippinLibrary: 8e42df6b8586738ad5832a3e496b3bd111e24690
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
+
+PODFILE CHECKSUM: ae5d06b28723e8a75f25a0bed1b6ca9341812731
+
+COCOAPODS: 1.10.0
