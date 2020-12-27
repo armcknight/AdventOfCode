@@ -10,5 +10,6 @@ public let day25SampleInput = """
 """
 
 public let day25Input = """
-
+13233401
+6552760
 """

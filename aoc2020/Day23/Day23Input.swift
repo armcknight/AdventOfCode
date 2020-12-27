@@ -6,9 +6,9 @@
 //
 
 public let day23SampleInput = """
-
+389125467
 """
 
 public let day23Input = """
-
+487912365
 """

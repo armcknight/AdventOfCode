@@ -6,9 +6,9 @@
 //
 
 public let day15SampleInput = """
-
+0,3,6
 """
 
 public let day15Input = """
-
+0,3,1,6,7,5
 """
