@@ -20,15 +20,15 @@ func buildRuleset(string: String) -> [Rule] {
     return string.split(separator: "\n").map({ line -> [Rule] in
         var rules = [Rule]()
         try! String(line).enumerateMatches(with: containerRegex) { (result) in
-            let container = String(line[Range(result!.range(at: 1), in: line)!])
-            let containees = String(line[Range(result!.range(at: 2), in: line)!])
+            let container = result[1, line]
+            let containees = result[2, line]
             if containees == "no other bags" {
                 rules.append(Rule(from: container))
             } else {
                 rules.append(contentsOf: containees.split(separator: ",").reduce(into: [Rule](), { (result, next) in
                     try! String(next).enumerateMatches(with: containeeRegex, block: { (match) in
-                        let containeeCount = Int(next[Range(match!.range(at: 1), in: next)!])!
-                        let containee = String(next[Range(match!.range(at: 2), in: next)!])
+                        let containeeCount = Int(match[1, next])!
+                        let containee = match[2, next]
                         result.append(Rule(from: container, to: containee, amount: containeeCount))
                     })
                 }))

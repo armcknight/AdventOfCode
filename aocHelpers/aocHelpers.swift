@@ -7,7 +7,35 @@
 
 import Foundation
 
+public extension String.SubSequence {
+    var integerValue: Int {
+        return String(self).integerValue
+    }
+
+    var doubleValue: Double {
+        return String(self).doubleValue
+    }
+
+    func captureGroup(at: Int, result: NSTextCheckingResult?) -> String {
+        String(self).captureGroup(at: at, result: result)
+    }
+}
+
+public extension NSTextCheckingResult {
+    subscript(captureGroup: Int, in: String.SubSequence) -> String {
+        return `in`.captureGroup(at: captureGroup, result: self)
+    }
+    
+    subscript(captureGroup: Int, in: String) -> String {
+        return `in`.captureGroup(at: captureGroup, result: self)
+    }
+}
+
 public extension String {
+    func captureGroup(at: Int, result: NSTextCheckingResult?) -> String {
+        String(self[Range(result!.range(at: at), in: self)!])
+    }
+
     var lines: [String] {
         return split(separator: "\n").map({String($0)})
     }
@@ -22,9 +50,13 @@ public extension String {
     var lineIntegers: [Int] {
         return lines.map({Int($0)!})
     }
-    
+
     var integerValue: Int {
         return (self as NSString).integerValue
+    }
+
+    var doubleValue: Double {
+        return (self as NSString).doubleValue
     }
 
     func matches(_ regex: String) throws -> Bool {
@@ -34,11 +66,11 @@ public extension String {
         return match != nil
     }
 
-    func enumerateMatches(with regex: String, block: ((NSTextCheckingResult?) -> Void)) throws {
+    func enumerateMatches(with regex: String, block: ((NSTextCheckingResult) -> Void)) throws {
         let regex = try NSRegularExpression(pattern: regex, options: [])
         let range = NSRange(location: 0, length: self.count)
         regex.enumerateMatches(in: self, options: [], range: range) { (result, flags, stop) in
-            block(result)
+            block(result!)
         }
     }
 }
