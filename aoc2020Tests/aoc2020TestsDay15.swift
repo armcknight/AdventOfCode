@@ -10,18 +10,22 @@ import XCTest
 
 class aoc2020Day15Tests: XCTestCase {
     func testPart1Sample() {
-        XCTAssertEqual(day15Part1(day15SampleInput), -1)
+        day15SampleInput.forEach {
+            XCTAssertEqual(day15Part1($0.key), $0.value)
+        }
     }
 
     func testPart1() {
-        XCTAssertEqual(day15Part1(day15Input), -1)
+        XCTAssertEqual(day15Part1(day15Input), 852)
     }
 
     func testPart2Sample() {
-        XCTAssertEqual(day15Part2(day15SampleInput), -1)
+        day15SampleInput2.forEach {
+            XCTAssertEqual(day15Part2($0.key), $0.value)
+        }
     }
 
     func testPart2() {
-        XCTAssertEqual(day15Part2(day15Input), -1)
+        XCTAssertEqual(day15Part2(day15Input), 6007666)
     }
 }

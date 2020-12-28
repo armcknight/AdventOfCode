@@ -9,5 +9,5 @@ import aocHelpers
 import Foundation
 
 public func day15Part2(_ input: String) -> Int {
-    return -1
+    return compute(turns: 30000000, input: input)
 }
