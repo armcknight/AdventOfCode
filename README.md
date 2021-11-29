@@ -1,4 +1,4 @@
-# AdvendOfCode
+# AdventOfCode
 
 My solutions to challenges at https://adventofcode.com.
 
