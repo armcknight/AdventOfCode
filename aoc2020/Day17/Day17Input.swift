@@ -6,7 +6,9 @@
 //
 
 public let day17SampleInput = """
-
+.#.
+..#
+###
 """
 
 public let day17Input = """
