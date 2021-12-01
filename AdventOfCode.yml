@@ -14,12 +14,22 @@ schemes:
     build:
       targets:
           aoc2020: all
+  aoc2021:
+    build:
+      targets:
+          aoc2021: all
   aoc2020Tests:
     build:
       targets:
           aoc2020Tests: test
     test:
       targets: [aoc2020Tests]
+  aoc2021Tests:
+    build:
+      targets:
+          aoc2021Tests: test
+    test:
+      targets: [aoc2021Tests]
   createYear:
     build:
       targets:
@@ -39,15 +49,32 @@ targets:
     scheme:
       testTargets:
         - aoc2020Tests
+  aoc2021:
+    type: library.static
+    sources: [aoc2021]
+    dependencies:
+      - target: aocHelpers
+        link: true
+    platform: iOS
+    scheme:
+      testTargets:
+        - aoc2021Tests
   aoc2020Tests:
     type: bundle.unit-test
     platform: iOS
     sources: [aoc2020Tests]
     dependencies:
       - target: aoc2020
+  aoc2021Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [aoc2021Tests]
+    dependencies:
+      - target: aoc2021
   createYear:
     type: tool
     sources: [createYear]
     platform: macOS
+    deploymentTarget: 10.15
     dependencies:
       - package: Then
