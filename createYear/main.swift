@@ -216,8 +216,8 @@ schemes:
     build:
       targets:
         aocHelpers: all
-  {{ yearSchemes }}
-  {{ yearTestSchemes }}
+{{ yearSchemes }}
+{{ yearTestSchemes }}
   createYear:
     build:
       targets:
@@ -227,12 +227,13 @@ targets:
     type: library.static
     sources: [aocHelpers]
     platform: iOS
-  {{ yearTargets }}
-  {{ yearTestTargets }}
+{{ yearTargets }}
+{{ yearTestTargets }}
   createYear:
     type: tool
     sources: [createYear]
     platform: macOS
+    deploymentTarget: 10.15
     dependencies:
       - package: Then
 """)
@@ -271,8 +272,8 @@ extension NSTextCheckingResult {
 }
 
 let years = try! fileManager.contentsOfDirectory(atPath: url.path).reduce(into: [String](), { (result, next) in
-    try! next.enumerateMatches(with: #"^aoc\d*Tests$"#) { (match) in
-        result.append(match[0, next])
+    try! next.enumerateMatches(with: #"^aoc(\d*)Tests$"#) { (match) in
+        result.append(match[1, next])
     }
 })
 
@@ -295,6 +296,7 @@ let resolvedSpec = xcodegenTemplate
     .replacingOccurrences(of: "{{ yearTestSchemes }}", with: yearTestSchemes)
     .replacingOccurrences(of: "{{ yearTargets }}", with: yearTargets)
     .replacingOccurrences(of: "{{ yearTestTargets }}", with: yearTestTargets)
+    .appending("\n")
 try! resolvedSpec.write(to: xcodegenSpecURL, atomically: true, encoding: .utf8)
 
 Process().do {
