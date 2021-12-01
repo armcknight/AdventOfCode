@@ -9,5 +9,14 @@ import aocHelpers
 import Foundation
 
 public func day1Part1(_ input: String) -> Int {
-    return -1
+    let depths = input.lineIntegers
+    var increases = 0
+    for i in 0 ..< depths.count - 1 {
+        let current = depths[i]
+        let next = depths[i + 1]
+        if next > current {
+            increases += 1
+        }
+    }
+    return increases
 }
