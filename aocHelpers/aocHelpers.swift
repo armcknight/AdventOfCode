@@ -47,7 +47,7 @@ public extension String {
         }
     }
 
-    var lineIntegers: [Int] {
+    var ints: [Int] {
         return lines.map({Int($0)!})
     }
 
@@ -85,5 +85,45 @@ public extension Array where Element == Array<String> {
             string.append("\n")
         }
         return string
+    }
+}
+
+public extension Array {
+    /// Given an array, return an array of arrays that are each a window of values from the original array
+    /// of the specified size. For example, `[1, 2, 3, 4, 5]` with window size of `3` yields
+    /// `[[1, 2, 3], [2, 3, 4], [3, 4, 5]]`.
+    func windows(ofSize size: Int) -> [[Element]] {
+        var windows = [[Element]]()
+        for i in 0 ... count - size {
+            var window = [Element]()
+            for j in 0 ..< size {
+                window.append(self[i + j])
+            }
+            windows.append(window)
+        }
+        return windows
+    }
+
+    /// Given an array, return an array of 2-tuples consisting of continuous pairs of elements. E.g
+    /// `[1, 2, 3]` yields `[(1, 2), (2, 3)]`.
+    var pairs: [(a: Element, b: Element)] {
+        windows(ofSize: 2).map { ($0[0], $0[1]) }
+    }
+
+    /// Count the number of elements that pass a test encapsulated in a specified block.
+    func count(where: (Element) -> Bool) -> Int {
+        filter(`where`).count
+    }
+}
+
+public extension Array where Element == Int {
+    var sum: Int {
+        reduce(0, +)
+    }
+
+    /// Given an array, return the sums of values in windows of a specified size. For example,
+    /// `[1, 2, 3, 4, 5]` with window sizes of `2` yields `[3, 5, 7, 9]`.
+    func sums(windowSize: Int) -> [Int] {
+        windows(ofSize: windowSize).map(\.sum)
     }
 }

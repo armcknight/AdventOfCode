@@ -9,7 +9,7 @@ import aocHelpers
 import Foundation
 
 public func day1Part1(_ input: String) -> Int? {
-    let list = input.lineIntegers
+    let list = input.ints
     for x in list {
         for y in list {
             if x + y == 2020 {

@@ -24,7 +24,7 @@ public func differences(sortedRatings: [Int]) -> [Int: Int] {
 }
 
 public func day10Part1(input: String) -> Int {
-    let sortedInput = input.lineIntegers.sorted()
+    let sortedInput = input.ints.sorted()
     let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
     let diffs = differences(sortedRatings: sortedRatings)
     return (diffs[1] ?? 0) * (diffs[3] ?? 0)
