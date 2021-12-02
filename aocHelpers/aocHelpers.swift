@@ -73,6 +73,11 @@ public extension String {
             block(result!)
         }
     }
+
+    var stringAndInt: (String, Int) {
+        let components = split(separator: " ")
+        return (String(components.first!), String(components.last!).integerValue)
+    }
 }
 
 public extension Array where Element == Array<String> {
@@ -113,6 +118,12 @@ public extension Array {
     /// Count the number of elements that pass a test encapsulated in a specified block.
     func count(where: (Element) -> Bool) -> Int {
         filter(`where`).count
+    }
+}
+
+public extension Array where Element == String {
+    var stringsAndInts: [(String, Int)] {
+        map(\.stringAndInt)
     }
 }
 
