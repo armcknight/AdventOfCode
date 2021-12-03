@@ -6,6 +6,7 @@
 //
 
 import aocHelpers
+import FastMath
 import Foundation
 
 func mostCommontDigit(idx: Int, lines: [String]) -> String {
@@ -17,16 +18,6 @@ func mostCommontDigit(idx: Int, lines: [String]) -> String {
     return count >= (lines.count / 2) + (lines.count % 2) ? "1" : "0"
 }
 
-func decimalValue(binaryNumber: String) -> Int {
-    var i = 0
-    return binaryNumber.reversed().reduce(into: 0) { (result, next) in
-        if next == "1" {
-            result += 2 ** i
-        }
-        i += 1
-    }
-}
-
 public func day3Part2(_ input: String) -> Int {
     let lines = input.lines
 
@@ -35,7 +26,6 @@ public func day3Part2(_ input: String) -> Int {
     var co2filtered = lines
     while co2filtered.count > 1 || o2filtered.count > 1 {
         let mostCommonDigit = mostCommontDigit(idx: i, lines: o2filtered)
-        let leastCommonDigit = mostCommonDigit == "1" ? "0" : "1"
         if o2filtered.count > 1 {
             let mostCommonDigit = mostCommontDigit(idx: i, lines: o2filtered)
             o2filtered = o2filtered.filter { line in
@@ -54,8 +44,8 @@ public func day3Part2(_ input: String) -> Int {
         i += 1
     }
 
-    let o2 = decimalValue(binaryNumber: o2filtered.first!)
-    let co2 = decimalValue(binaryNumber: co2filtered.first!)
+    let o2 = o2filtered.first!.decimalValueOfBinary
+    let co2 = co2filtered.first!.decimalValueOfBinary
 
     return o2 * co2
 }

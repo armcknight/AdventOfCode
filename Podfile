@@ -1,29 +1,17 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.0'
 
-target 'aoc2020' do
+abstract_target 'aocTargets' do
   # Comment the next line if you don't want to use dynamic frameworks
 
-  pod 'FastMath', :path => ENV['FASTMATH_PATH'], :testspecs => ['Tests']
-
-  target 'aoc2020Tests' do
-    # Pods for testing
+  unless ENV['FASTMATH_PATH'] == nil then
+    pod 'FastMath', :path => ENV['FASTMATH_PATH'], :testspecs => ['Tests']
+  else
+    pod 'FastMath'
   end
 
-end
-
-target 'aocHelpers' do
-  # Comment the next line if you don't want to use dynamic frameworks
-
-
-  # Pods for aocHelpers
-
-end
-
-target 'createYear' do
-  # Comment the next line if you don't want to use dynamic frameworks
-
-
-  # Pods for createYear
-
+  target 'aoc2020'
+  target 'aoc2021'
+  target 'aoc2020Tests'
+  target 'aoc2021Tests'
 end

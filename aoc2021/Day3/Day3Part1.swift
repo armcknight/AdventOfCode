@@ -6,29 +6,8 @@
 //
 
 import aocHelpers
+import FastMath
 import Foundation
-
-precedencegroup ExponentiationPrecedence {
-    associativity: right
-    higherThan: MultiplicationPrecedence
-}
-
-infix operator **: ExponentiationPrecedence
-
-public func **<T>(base: T, power: T) -> T where T: BinaryInteger {
-    return exponentiate(base, power)
-}
-
-func exponentiate<T>(_ base: T, _ power: T) -> T where T: BinaryInteger {
-    if power == 0 { return 1 }
-    var result = base
-    var mutablePower = power
-    while mutablePower > 1 {
-        result *= base
-        mutablePower -= 1 as T
-    }
-    return result
-}
 
 func counts(lines: [String]) -> (zeros: [Int], ones: [Int]) {
     let ones = lines.reduce(into: Array<Int>(repeating: 0, count: lines.first!.count)) { (result, next) in
@@ -61,7 +40,7 @@ public func day3Part1(_ input: String) -> Int {
         }
         i += 1
     }
-    let epsilon = gamma ^ decimalValue(binaryNumber: String(repeating: "1", count: lines.first!.count)) 
+    let epsilon = gamma ^ String(repeating: "1", count: lines.first!.count).decimalValueOfBinary
 
     return epsilon * gamma
 }
