@@ -126,12 +126,12 @@ class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
  path/
  ├── aoc<year>/
  │   ├── Day1/
- │   │   ├── Day1Input.swift
- │   │   ├── Day1Part1.swift
- │   │   ├── Day1Part2.swift
- │   │   └── Day1Problem.swift
+ │   │   ├── Day01Input.swift
+ │   │   ├── Day01Part1.swift
+ │   │   ├── Day01Part2.swift
+ │   │   └── Day01Problem.swift
  │   ├── Day2/
- │   │   ├── Day2Input.swift
+ │   │   ├── Day02Input.swift
  ...
  ...
  ├── aoc<year>Tests/
@@ -140,7 +140,8 @@ class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
  ```
  */
 func createDay(day: Int) {
-    let dayDirName = "Day\(day)"
+    let fixedWidthDay = day < 10 ? "0\(day)" : "\(day)"
+    let dayDirName = "Day\(fixedWidthDay)"
     let directory = url.appendingPathComponent("aoc\(year)").appendingPathComponent(dayDirName)
     if !fileManager.fileExists(atPath: directory.path) {
         try! fileManager.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
@@ -153,7 +154,7 @@ func createDay(day: Int) {
     }
 
     func resolve(template: String) -> String {
-        return template.replacingOccurrences(of: "{{ date }}", with: dateString).replacingOccurrences(of: "{{ day }}", with: "\(day)").replacingOccurrences(of: "{{ year }}", with: year)
+        return template.replacingOccurrences(of: "{{ date }}", with: dateString).replacingOccurrences(of: "{{ day }}", with: fixedWidthDay).replacingOccurrences(of: "{{ year }}", with: year)
     }
 
     writeFile(content: resolve(template: inputTemplate), name: "Input")
@@ -167,7 +168,7 @@ func createDay(day: Int) {
     if !fileManager.fileExists(atPath: testDirectory.path) {
         try! fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: false, attributes: nil)
     }
-    let testPath = testDirectory.appendingPathComponent("\(testYear)Day\(day).swift")
+    let testPath = testDirectory.appendingPathComponent("\(testYear)Day\(fixedWidthDay).swift")
     if !fileManager.fileExists(atPath: testPath.path) {
         try! testCase.write(to: testPath, atomically: false, encoding: .utf8)
     }
