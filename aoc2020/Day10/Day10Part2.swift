@@ -37,5 +37,7 @@ func permutations(array: [Int]) -> Int {
 public func day10Part2(input: String) -> Int {
     let sortedInput = input.ints.sorted()
     let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
-    return permutations(array: sortedRatings) + 1
+    let p = permutations(array: sortedRatings)
+    permutations = []
+    return p + 1
 }

@@ -10,11 +10,15 @@ import XCTest
 
 class aoc2020Day11Tests: XCTestCase {
     func testPart1Sample() {
-        XCTAssertEqual(day11Part1(input: day11TestInput), 37)
+        measure {
+            XCTAssertEqual(day11Part1(input: day11TestInput), 37)
+        }
     }
 
     func testPart1() {
-        XCTAssertEqual(day11Part1(input: day11Input), 2476)
+        measure {
+            XCTAssertEqual(day11Part1(input: day11Input), 2476)
+        }
     }
 
     func testPart2Sample1() {
@@ -29,10 +33,14 @@ class aoc2020Day11Tests: XCTestCase {
         #........
         ...#.....
         """
-        XCTAssertEqual(iterateVisible(grid: input.characterGrid, row: 4, col: 3), 8)
+        measure {
+            XCTAssertEqual(iterateVisible(grid: input.characterGrid, row: 4, col: 3), 8)
+        }
     }
 
     func testPart2() {
-        XCTAssertEqual(day11Part2(input: day11Input), 0)
+        measure {
+            XCTAssertEqual(day11Part2(input: day11Input), 2257)
+        }
     }
 }
