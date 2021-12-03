@@ -10,11 +10,13 @@ My solutions to challenges at https://adventofcode.com.
 
 ## 2021 Stats
 
+```
       --------Part 1--------   --------Part 2--------
 Day       Time   Rank  Score       Time   Rank  Score
   3   00:42:26  12148      0   01:42:56  10475      0
   2   00:08:12   5780      0   00:10:03   4108      0
   1   00:06:13   3537      0   00:13:50   3589      0
+```
 
 ## 2020 Stats
 
