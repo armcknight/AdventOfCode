@@ -8,43 +8,53 @@
 import aocHelpers
 import Foundation
 
+func printBoard(boards: [[[(Int, Bool)]]], boardIdx: Int) {
+    print("\nboard \(boardIdx)")
+    print(boards[boardIdx].map{ (row) -> String in
+        row.map { (item) -> String in
+            "\(item.0 < 10 ? " \(item.0)" : "\(item.0)")\(item.1 ? "*" : " ")"
+        }.joined(separator: " ")
+    }.joined(separator: "\n"))
+}
+
+/// for a given call, play the specified board and returns the score if it won, or `nil` otherwise
+func playBoard(boards: inout [[[(Int, Bool)]]], boardIdx: Int, call: Int) -> Int? {
+//    defer { printBoard(boards: boards, boardIdx: boardIdx) }
+    for rowIdx in 0..<boards[boardIdx].count {
+        for colIdx in 0..<boards[boardIdx][rowIdx].count {
+            if boards[boardIdx][rowIdx][colIdx].0 == call {
+                boards[boardIdx][rowIdx][colIdx].1 = true
+
+                if isWin(board: boards[boardIdx], row: rowIdx, col: colIdx) {
+                    return score(board: boards[boardIdx]) * call
+                } else {
+                    return nil
+                }
+            }
+        }
+    }
+    return nil
+}
+
 public func day04Part2(_ input: String) -> Int {
     let lines = input.lines
 
-    let boardDefs = Array(lines[1..<lines.count])
-    var boards = [[[(Int, Bool)]]]()
-    stride(from: 0, to: boardDefs.count, by: 5).forEach { (i) in
-        var board = [[(Int, Bool)]]()
-        for j in 0..<5 {
-            board.append(boardDefs[i+j].split(separator: " ").map({ (col) -> (Int, Bool) in
-                (col.integerValue, false)
-            }))
-        }
-        boards.append(board)
-    }
-
     let calls = lines.first!.split(separator: ",").map { $0.integerValue }
-    for callIdx in 0..<calls.count {
-        let call = calls[callIdx]
-        for boardIdx in 0..<boards.count {
-            for rowIdx in 0..<boards[boardIdx].count {
-                for colIdx in 0..<boards[boardIdx][rowIdx].count {
-                    if boards[boardIdx][rowIdx][colIdx].0 == call {
-                        boards[boardIdx][rowIdx][colIdx].1 = true
-                    }
-                }
-            }
-        }
+    var boards = parseBoards(lines: Array(lines[1..<lines.count]))
 
-        let testBoards = boards
-        for i in (0..<testBoards.count).reversed() {
-            if isWin(board: testBoards[i]) {
-                if boards.count == 1 {
-                    return score(board: testBoards[i]) * call
-                } else {
-                    boards.remove(at: i)
+    for call in calls {
+//        print("\ncall: \(call)")
+        var boardIdx = boards.count - 1
+        while (boardIdx >= 0) {
+            if let winningScore = playBoard(boards: &boards, boardIdx: boardIdx, call: call) {
+                boards.remove(at: boardIdx)
+//                print("\nremoved board \(boardIdx)")
+
+                if boards.count == 0 {
+                    return winningScore
                 }
             }
+            boardIdx -= 1
         }
     }
 

@@ -9,27 +9,15 @@ import aocHelpers
 import Foundation
 
 // return if the board is a winner
-func isWin(board: [[(Int, Bool)]]) -> Bool {
+func isWin(board: [[(Int, Bool)]], row: Int, col: Int) -> Bool {
     // rows
-    for i in (0..<5) {
-        let row = board[i]
-        if row.reduce(true, { (result, col) -> Bool in
-            result && col.1
-        }) {
-            return true
-        }
-    }
-
-    // cols
-    for col in 0..<5 {
-        if (0..<5).reduce(true, { (result, row) -> Bool in
-            result && board[row][col].1
-        }) {
-            return true
-        }
-    }
-
-    return false
+    board[row].reduce(true, { (result, col) -> Bool in
+        result && col.1
+    })
+        ||
+    (0..<5).reduce(true, { (result, row) -> Bool in
+        result && board[row][col].1
+    })
 }
 
 // score is sum of all unmarked numbers
@@ -41,22 +29,23 @@ func score(board: [[(Int, Bool)]]) -> Int {
     }
 }
 
+func parseBoards(lines: [String]) -> [[[(Int, Bool)]]] {
+    stride(from: 0, to: lines.count, by: 5).reduce([[[(Int, Bool)]]](), { (result, i) -> [[[(Int, Bool)]]] in
+        let board = (0..<5).reduce([[(Int, Bool)]](), { (result, j) -> [[(Int, Bool)]] in
+            result + [lines[i+j].split(separator: " ").map({ (col) -> (Int, Bool) in
+                (col.integerValue, false)
+            })]
+        })
+        return result + [board]
+    })
+}
+
 public func day04Part1(_ input: String) -> Int {
     let lines = input.lines
 
-    let boardDefs = Array(lines[1..<lines.count])
-    var boards = [[[(Int, Bool)]]]()
-    stride(from: 0, to: boardDefs.count, by: 5).forEach { (i) in
-        var board = [[(Int, Bool)]]()
-        for j in 0..<5 {
-            board.append(boardDefs[i+j].split(separator: " ").map({ (col) -> (Int, Bool) in
-                (col.integerValue, false)
-            }))
-        }
-        boards.append(board)
-    }
-
     let calls = lines.first!.split(separator: ",").map { $0.integerValue }
+    var boards = parseBoards(lines: Array(lines[1..<lines.count]))
+
     for callIdx in 0..<calls.count {
         let call = calls[callIdx]
         for boardIdx in 0..<boards.count {
@@ -64,12 +53,12 @@ public func day04Part1(_ input: String) -> Int {
                 for colIdx in 0..<boards[boardIdx][rowIdx].count {
                     if boards[boardIdx][rowIdx][colIdx].0 == call {
                         boards[boardIdx][rowIdx][colIdx].1 = true
+
+                        if isWin(board: boards[boardIdx], row: rowIdx, col: colIdx) {
+                            return score(board: boards[boardIdx]) * call
+                        }
                     }
                 }
-            }
-
-            if isWin(board: boards[boardIdx]) {
-                return score(board: boards[boardIdx]) * call
             }
         }
     }
