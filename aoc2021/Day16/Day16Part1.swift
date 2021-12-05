@@ -2,12 +2,14 @@
 //  Day16Part1.swift
 //  aoc2021
 //
-//  Created by Andrew McKnight on Nov 30, 2021.
+//  Created by Andrew McKnight on Dec 5, 2021.
 //
 
 import aocHelpers
 import Foundation
 
-public func day16Part1(_ input: String) -> Int {
-    return -1
+public extension Day16 {
+    var part1: Int {
+        return -1
+    }
 }

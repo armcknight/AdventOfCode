@@ -23,101 +23,6 @@ let path = #file.components(separatedBy: "/").with {
 let url = URL(fileURLWithPath: path, isDirectory: true)
 let fileManager = FileManager.default
 
-let inputTemplate = ("""
-//
-//  Day{{ day }}Input.swift
-//  aoc{{ year }}
-//
-//  Created by Andrew McKnight on {{ date }}.
-//
-
-public let day{{ day }}SampleInput = (\"\"\"
-
-\"\"\")
-
-public let day{{ day }}Input = (\"\"\"
-
-\"\"\")
-""")
-let part1Template = ("""
-//
-//  Day{{ day }}Part1.swift
-//  aoc{{ year }}
-//
-//  Created by Andrew McKnight on {{ date }}.
-//
-
-import aocHelpers
-import Foundation
-
-public func day{{ day }}Part1(_ input: String) -> Int {
-    return -1
-}
-""")
-let part2Template = ("""
-//
-//  Day{{ day }}Part2.swift
-//  aoc{{ year }}
-//
-//  Created by Andrew McKnight on {{ date }}.
-//
-
-import aocHelpers
-import Foundation
-
-public func day{{ day }}Part2(_ input: String) -> Int {
-    return -1
-}
-""")
-let problemTemplate = ("""
-//
-//  Day{{ day }}Problem.swift
-//  aoc{{ year }}
-//
-//  Created by Andrew McKnight on {{ date }}.
-//
-
-/*
-
- */
-
-""")
-let testCaseTemplate = ("""
-//
-//  Day{{ day }}Problem.swift
-//  aoc{{ year }}
-//
-//  Created by Andrew McKnight on {{ date }}.
-//
-
-import aoc{{ year }}
-import XCTest
-
-class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
-    func testPart1Sample() {
-        XCTAssertEqual(day{{ day }}Part1(day{{ day }}SampleInput), -1)
-    }
-
-    func testPart1() {
-        XCTAssertEqual(day{{ day }}Part1(day{{ day }}Input), -1)
-    }
-
-    func testPart2Sample() {
-        XCTAssertEqual(day{{ day }}Part2(day{{ day }}SampleInput), -1)
-    }
-
-    func testPart2() {
-        XCTAssertEqual(day{{ day }}Part2(day{{ day }}Input), -1)
-    }
-
-    func testPart2Benchmarked() {
-        measure {
-            XCTAssertEqual(day{{ day }}Part2(day{{ day }}Input), -1)
-        }
-    }
-}
-""")
-
 func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
 }
@@ -139,28 +44,33 @@ func fixedWidthDay(day: Int) -> String {
  ```
  */
 func createDay(day: Int) {
+    let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+    let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: currentDirectoryURL)
+    let bundle = Bundle(url: bundleURL)
+    func contentsOfTemplate(named name: String) -> String {
+        // if this line crashes, make sure createYearResources is listed in createYear's Depedencies Build Phase. It doesn't get put there by XcodeGen, see https://github.com/yonaskolb/XcodeGen/issues/1155
+        try! String(contentsOf: bundle!.url(forResource: name, withExtension: "txt")!)
+    }
+
     let fixedWidthDayString = fixedWidthDay(day: day)
     let dayDirName = "Day" + fixedWidthDayString
     let directory = url.appendingPathComponent("aoc\(year)").appendingPathComponent(dayDirName)
     if !fileManager.fileExists(atPath: directory.path) {
         try! fileManager.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
     }
-
-    func writeFile(content: String, name: String) {
+    func resolveTemplate(named name: String) {
         let fileURL = directory.appendingPathComponent("\(dayDirName)\(name).swift")
         guard !fileManager.fileExists(atPath: fileURL.path) else { return }
-        try! content.write(to: fileURL, atomically: false, encoding: .utf8)
+        try! contentsOfTemplate(named: name)
+            .replacingOccurrences(of: "{{ date }}", with: dateString)
+            .replacingOccurrences(of: "{{ day }}", with: fixedWidthDayString)
+            .replacingOccurrences(of: "{{ year }}", with: year)
+            .write(to: fileURL, atomically: false, encoding: .utf8)
     }
 
-    func resolve(template: String) -> String {
-        return template.replacingOccurrences(of: "{{ date }}", with: dateString).replacingOccurrences(of: "{{ day }}", with: fixedWidthDayString).replacingOccurrences(of: "{{ year }}", with: year)
+    ["Description", "Part1", "Part2", "Tests"].forEach {
+        resolveTemplate(named: $0)
     }
-
-    writeFile(content: resolve(template: inputTemplate), name: "Input")
-    writeFile(content: resolve(template: part1Template), name: "Part1")
-    writeFile(content: resolve(template: part2Template), name: "Part2")
-    writeFile(content: resolve(template: problemTemplate), name: "Problem")
-    writeFile(content: resolve(template: testCaseTemplate), name: "Tests")
 }
 
 for day in 1...25 {
@@ -191,7 +101,8 @@ let xcodegenYearTargetTemplate = ("""
     dependencies:
       - target: aocHelpers
         link: true
-    platform: iOS
+    platform: macOS
+    deploymentTarget: 10.15
     scheme:
       testTargets:
         - aoc{{ year }}Tests
@@ -199,7 +110,8 @@ let xcodegenYearTargetTemplate = ("""
 let xcodegenYearTestsTargetTemplate = ("""
   aoc{{ year }}Tests:
     type: bundle.unit-test
-    platform: iOS
+    platform: macOS
+    deploymentTarget: 10.15
     sources: [{{ testSources }}]
     dependencies:
       - target: aoc{{ year }}
@@ -230,7 +142,8 @@ targets:
   aocHelpers:
     type: library.static
     sources: [aocHelpers]
-    platform: iOS
+    platform: macOS
+    deploymentTarget: 10.15
 {{ yearTargets }}
 {{ yearTestTargets }}
   createYear:
@@ -240,6 +153,12 @@ targets:
     deploymentTarget: 10.15
     dependencies:
       - package: Then
+      - bundle: copyYearResources
+  createYearResources:
+    type: bundle
+    sources: [createYearResources]
+    platform: macOS
+    deploymentTarget: 10.15
 """)
 
 // TODO: this is copied from aocHelpers; get that to link instead, but it must be a universal library target that can link into both iOS and macOS; this will require using xcconfigs; OR, put these in Pippin/Extensions for regex; this will require publishing it as a Swift package since this is a CLI that cannot link in pods... or, to link Pippin/Extensions as a static library

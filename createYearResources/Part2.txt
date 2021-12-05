@@ -1,0 +1,15 @@
+//
+//  Day{{ day }}Part2.swift
+//  aoc{{ year }}
+//
+//  Created by Andrew McKnight on {{ date }}.
+//
+
+import aocHelpers
+import Foundation
+
+public extension Day{{ day }} {
+    var part2: Int {
+        return -1
+    }
+}

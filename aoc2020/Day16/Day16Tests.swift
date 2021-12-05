@@ -8,7 +8,7 @@
 import aoc2020
 import XCTest
 
-class aoc2020Day16Tests: XCTestCase {
+class Day16Tests: XCTestCase {
     func testPart1Sample() {
         XCTAssertEqual(day16Part1(day16SampleInput), 71)
     }
