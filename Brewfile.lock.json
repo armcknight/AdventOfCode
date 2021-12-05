@@ -1,0 +1,52 @@
+{
+  "entries": {
+    "brew": {
+      "xcodegen": {
+        "version": "2.25.0",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/xcodegen/blobs/sha256:c75414fd0917557984b1f4157ffa8b604c41c3de094e503e68500e877917a4a8",
+              "sha256": "c75414fd0917557984b1f4157ffa8b604c41c3de094e503e68500e877917a4a8"
+            },
+            "arm64_big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/xcodegen/blobs/sha256:558d80be972d11ef397faf078060b06eec90a8c0e8371202ec5691660c27c3af",
+              "sha256": "558d80be972d11ef397faf078060b06eec90a8c0e8371202ec5691660c27c3af"
+            },
+            "monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/xcodegen/blobs/sha256:45edd1789a68c07909c29dad1eb25cda02a8fe50e5d44e62660949170c84964d",
+              "sha256": "45edd1789a68c07909c29dad1eb25cda02a8fe50e5d44e62660949170c84964d"
+            },
+            "big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/xcodegen/blobs/sha256:88f2036496a41621c151480d5841a7f7bed90157a292e7cd48efb121a082a29b",
+              "sha256": "88f2036496a41621c151480d5841a7f7bed90157a292e7cd48efb121a082a29b"
+            },
+            "catalina": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/xcodegen/blobs/sha256:366ce43fa5f03f0fa975bb4f1433b4aa8a8ba3a745148cf4800b7e25266aa800",
+              "sha256": "366ce43fa5f03f0fa975bb4f1433b4aa8a8ba3a745148cf4800b7e25266aa800"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "3.3.6",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "31eb2b60addbc243c55c38cfaeb3ff8c12991938",
+        "CLT": "12.4.0.0.1.1610135815",
+        "Xcode": "12.4",
+        "macOS": "10.15.7"
+      }
+    }
+  }
+}

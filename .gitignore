@@ -4,4 +4,5 @@ xcuserdata/
 *.xcworkspace/
 Pods/
 vendor/
-createYear/
+createYearBuild/
+create-year
