@@ -16,9 +16,7 @@ class aoc2020Day15Tests: XCTestCase {
     }
 
     func testPart1() {
-        measure {
-            XCTAssertEqual(day15Part1(day15Input), 852)
-        }
+        XCTAssertEqual(day15Part1(day15Input), 852)
     }
 
     func testPart2Sample() {

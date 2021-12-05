@@ -95,24 +95,22 @@ import XCTest
 
 class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
     func testPart1Sample() {
-        measure {
-            XCTAssertEqual(day{{ day }}Part1(day{{ day }}SampleInput), -1)
-        }
+        XCTAssertEqual(day{{ day }}Part1(day{{ day }}SampleInput), -1)
     }
 
     func testPart1() {
-        measure {
-            XCTAssertEqual(day{{ day }}Part1(day{{ day }}Input), -1)
-        }
+        XCTAssertEqual(day{{ day }}Part1(day{{ day }}Input), -1)
     }
 
     func testPart2Sample() {
-        measure {
-            XCTAssertEqual(day{{ day }}Part2(day{{ day }}SampleInput), -1)
-        }
+        XCTAssertEqual(day{{ day }}Part2(day{{ day }}SampleInput), -1)
     }
 
     func testPart2() {
+        XCTAssertEqual(day{{ day }}Part2(day{{ day }}Input), -1)
+    }
+
+    func testPart2Benchmarked() {
         measure {
             XCTAssertEqual(day{{ day }}Part2(day{{ day }}Input), -1)
         }

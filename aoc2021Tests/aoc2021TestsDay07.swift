@@ -10,24 +10,22 @@ import XCTest
 
 class aoc2021Day07Tests: XCTestCase {
     func testPart1Sample() {
-        measure {
-            XCTAssertEqual(day07Part1(day07SampleInput), -1)
-        }
+        XCTAssertEqual(day07Part1(day07SampleInput), -1)
     }
 
     func testPart1() {
-        measure {
-            XCTAssertEqual(day07Part1(day07Input), -1)
-        }
+        XCTAssertEqual(day07Part1(day07Input), -1)
     }
 
     func testPart2Sample() {
-        measure {
-            XCTAssertEqual(day07Part2(day07SampleInput), -1)
-        }
+        XCTAssertEqual(day07Part2(day07SampleInput), -1)
     }
 
     func testPart2() {
+        XCTAssertEqual(day07Part2(day07Input), -1)
+    }
+
+    func testPart2Benchmarked() {
         measure {
             XCTAssertEqual(day07Part2(day07Input), -1)
         }
