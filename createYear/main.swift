@@ -118,6 +118,10 @@ class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
 }
 """)
 
+func fixedWidthDay(day: Int) -> String {
+    day < 10 ? "0\(day)" : "\(day)"
+}
+
 /**
  Location of directory in which problem sets are located.
  ```
@@ -127,19 +131,16 @@ class aoc{{ year }}Day{{ day }}Tests: XCTestCase {
  │   │   ├── Day01Input.swift
  │   │   ├── Day01Part1.swift
  │   │   ├── Day01Part2.swift
- │   │   └── Day01Problem.swift
+ │   │   ├── Day01Problem.swift
+ │   │   └── Day1Tests.swift
  │   ├── Day2/
  │   │   ├── Day02Input.swift
- ...
- ...
- ├── aoc<year>Tests/
- │   ├── aoc<year>Tests.swift/ <- append a test case class at the end of this test file
  ...
  ```
  */
 func createDay(day: Int) {
-    let fixedWidthDay = day < 10 ? "0\(day)" : "\(day)"
-    let dayDirName = "Day\(fixedWidthDay)"
+    let fixedWidthDayString = fixedWidthDay(day: day)
+    let dayDirName = "Day" + fixedWidthDayString
     let directory = url.appendingPathComponent("aoc\(year)").appendingPathComponent(dayDirName)
     if !fileManager.fileExists(atPath: directory.path) {
         try! fileManager.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
@@ -152,24 +153,14 @@ func createDay(day: Int) {
     }
 
     func resolve(template: String) -> String {
-        return template.replacingOccurrences(of: "{{ date }}", with: dateString).replacingOccurrences(of: "{{ day }}", with: fixedWidthDay).replacingOccurrences(of: "{{ year }}", with: year)
+        return template.replacingOccurrences(of: "{{ date }}", with: dateString).replacingOccurrences(of: "{{ day }}", with: fixedWidthDayString).replacingOccurrences(of: "{{ year }}", with: year)
     }
 
     writeFile(content: resolve(template: inputTemplate), name: "Input")
     writeFile(content: resolve(template: part1Template), name: "Part1")
     writeFile(content: resolve(template: part2Template), name: "Part2")
     writeFile(content: resolve(template: problemTemplate), name: "Problem")
-
-    let testCase = resolve(template: testCaseTemplate)
-    let testYear = "aoc\(year)Tests"
-    let testDirectory = url.appendingPathComponent(testYear)
-    if !fileManager.fileExists(atPath: testDirectory.path) {
-        try! fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: false, attributes: nil)
-    }
-    let testPath = testDirectory.appendingPathComponent("\(testYear)Day\(fixedWidthDay).swift")
-    if !fileManager.fileExists(atPath: testPath.path) {
-        try! testCase.write(to: testPath, atomically: false, encoding: .utf8)
-    }
+    writeFile(content: resolve(template: testCaseTemplate), name: "Tests")
 }
 
 for day in 1...25 {
@@ -193,7 +184,10 @@ let xcodegenYearTestsSchemeTemplate = ("""
 let xcodegenYearTargetTemplate = ("""
   aoc{{ year }}:
     type: library.static
-    sources: [aoc{{ year }}]
+    sources:
+      - path: aoc{{ year }}
+        excludes:
+          - "**/*Tests.swift"
     dependencies:
       - target: aocHelpers
         link: true
@@ -206,7 +200,7 @@ let xcodegenYearTestsTargetTemplate = ("""
   aoc{{ year }}Tests:
     type: bundle.unit-test
     platform: iOS
-    sources: [aoc{{ year }}Tests]
+    sources: [{{ testSources }}]
     dependencies:
       - target: aoc{{ year }}
 """)
@@ -296,8 +290,12 @@ let yearTestSchemes = years.map({
 let yearTargets = years.map({
     xcodegenYearTargetTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
 }).joined(separator: "\n")
-let yearTestTargets = years.map({
-    xcodegenYearTestsTargetTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
+let yearTestTargets = years.map({ year in
+    xcodegenYearTestsTargetTemplate
+        .replacingOccurrences(of: "{{ year }}", with: year)
+        .replacingOccurrences(of: "{{ testSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
+            "aoc\(year)/Day\(day)/Day\(day)Tests.swift"
+        }).joined(separator: ","))
 }).joined(separator: "\n")
 
 let xcodegenSpecURL = url.appendingPathComponent("AdventOfCode.yml")
