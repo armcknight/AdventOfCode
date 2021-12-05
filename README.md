@@ -13,6 +13,7 @@ My solutions to challenges at https://adventofcode.com.
 ```
       --------Part 1--------   --------Part 2--------
 Day       Time   Rank  Score       Time   Rank  Score
+  5   00:39:14   5335      0   01:13:28   6136      0
   4   01:04:05   6342      0   01:12:35   5371      0
   3   00:42:26  12148      0   01:42:56  10475      0
   2   00:08:12   5780      0   00:10:03   4108      0
