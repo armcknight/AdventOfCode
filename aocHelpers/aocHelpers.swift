@@ -51,6 +51,10 @@ public extension String {
         return lines.map({Int($0)!})
     }
 
+    func ints(separator: Character) -> [Int] {
+        split(separator: separator).map(\.integerValue)
+    }
+
     var integerValue: Int {
         return (self as NSString).integerValue
     }
@@ -118,6 +122,14 @@ public extension Array {
     /// Count the number of elements that pass a test encapsulated in a specified block.
     func count(where: (Element) -> Bool) -> Int {
         filter(`where`).count
+    }
+}
+
+public extension Array where Element: Hashable {
+    var frequencies: [Element: Int] {
+        reduce(into: [Element: Int]()) { (result, next) in
+            result[next, default: 0] += 1
+        }
     }
 }
 

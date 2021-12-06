@@ -10,6 +10,19 @@ import Foundation
 
 public extension Day06 {
     var part1: Int {
-        return -1
+        var fish = rawValue.split(separator: ",").map { $0.integerValue }
+        (0..<80).forEach { day in
+            var newFish = [Int]()
+            fish = fish.map { nextFish -> Int in
+                if nextFish == 0 {
+                    newFish.append(8)
+                    return 6
+                } else {
+                    return nextFish - 1
+                }
+            }
+            fish.append(contentsOf: newFish)
+        }
+        return fish.count
     }
 }
