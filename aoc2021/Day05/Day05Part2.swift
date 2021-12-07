@@ -25,7 +25,7 @@ public func day05Part2(_ input: String) -> Int {
         return edge!
     }
 
-    var initialGrid = Array<[Int]>(repeating: Array<Int>(repeating: 0, count: maxY), count: maxX)
+    let initialGrid = Array<[Int]>(repeating: Array<Int>(repeating: 0, count: maxY), count: maxX)
     let grid = edges.reduce(into: initialGrid) { (grid, nextEdge) in
         if nextEdge.0.0 == nextEdge.1.0 || nextEdge.0.1 == nextEdge.1.1 {
             let x1 = nextEdge.0.0 < nextEdge.1.0 ? nextEdge.0.0 : nextEdge.1.0
