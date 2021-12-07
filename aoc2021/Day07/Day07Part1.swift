@@ -6,10 +6,15 @@
 //
 
 import aocHelpers
+import FastMath
 import Foundation
 
 public extension Day07 {
     var part1: Int {
-        return -1
+        let starts = rawValue.ints(separator: ",")
+        let startMedian = starts.median
+        return starts.reduce(0) { (result, next) -> Int in
+            result + abs(next - startMedian)
+        }
     }
 }
