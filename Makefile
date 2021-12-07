@@ -6,6 +6,7 @@ init:
 xcode:
 	xcodegen --spec AdventOfCode.yml
 	rbenv exec bundle exec pod update
+	xed AdventOfCode.xcworkspace
 
 scaffold:
 	xcrun xcodebuild -scheme createYear -derivedDataPath createYearBuild | rbenv exec bundle exec xcpretty

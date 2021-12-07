@@ -120,6 +120,10 @@ let xcodegenTemplate = ("""
 name: AdventOfCode
 fileGroups:
   - AdventOfCode.yml
+  - README.md
+  - Gemfile
+  - Brewfile
+  - Makefile
 packages:
   Then:
     url: https://github.com/devxoul/Then
