@@ -205,7 +205,7 @@ extension NSTextCheckingResult {
 }
 
 let years = try! fileManager.contentsOfDirectory(atPath: url.path).reduce(into: [String](), { (result, next) in
-    try! next.enumerateMatches(with: #"^aoc(\d*)Tests$"#) { (match) in
+    try! next.enumerateMatches(with: #"^aoc(\d*)$"#) { (match) in
         result.append(match[1, next])
     }
 })
