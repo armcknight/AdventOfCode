@@ -1,8 +1,6 @@
 PODS:
   - Anchorage (4.5.0)
-  - FastMath (4.0.0):
-    - PippinLibrary (~> 2)
-  - FastMath/Tests (4.0.0):
+  - FastMath (4.1.0):
     - PippinLibrary (~> 2)
   - PippinLibrary (2.6.0):
     - Anchorage
@@ -11,25 +9,21 @@ PODS:
   - Then (2.7.0)
 
 DEPENDENCIES:
-  - FastMath (from `../../TwoRingSoft/Frameworks/FastMath`)
-  - FastMath/Tests (from `../../TwoRingSoft/Frameworks/FastMath`)
+  - FastMath
 
 SPEC REPOS:
-  trunk:
+  https://github.com/TwoRingSoft/podspecs.git:
     - Anchorage
+    - FastMath
     - PippinLibrary
     - Then
 
-EXTERNAL SOURCES:
-  FastMath:
-    :path: "../../TwoRingSoft/Frameworks/FastMath"
-
 SPEC CHECKSUMS:
-  Anchorage: 1961bc81c84aeed54ad7ffc697c50cd9de748ba6
-  FastMath: 8e3db953b1e753c36a05862ba9a961f69de08210
-  PippinLibrary: 8e42df6b8586738ad5832a3e496b3bd111e24690
-  Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  Anchorage: 59fa258516dba0677ba44fe2ad61c574155e9c17
+  FastMath: 3149a83d273945502ff60a2125caa31d2bed2e51
+  PippinLibrary: b9e24025b39762fa57e4f7ece46299268b1c23e0
+  Then: e300741480d0847b9a9ad522bd163ac4523c7b19
 
-PODFILE CHECKSUM: d112211224164fe3cd7ed307aa9df95d1613352a
+PODFILE CHECKSUM: b974f29a3113ab6675a55852f745140f78dd7cb8
 
 COCOAPODS: 1.11.2
