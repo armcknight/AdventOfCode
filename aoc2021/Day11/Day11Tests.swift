@@ -10,11 +10,11 @@ import XCTest
 
 class Day11Tests: XCTestCase {
     func testPart1Sample() {
-        XCTAssertEqual(Day11.sample.part1, -1)
+        XCTAssertEqual(Day11.sample.part1, 1656)
     }
 
     func testPart1() {
-        XCTAssertEqual(Day11.input.part1, -1)
+        XCTAssertEqual(Day11.input.part1, 1755)
     }
 
     func testPart2Sample() {
