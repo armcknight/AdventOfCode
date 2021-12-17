@@ -13,7 +13,7 @@
  As your submarine slowly makes its way through the cave system, you notice that the four-digit seven-segment displays in your submarine are malfunctioning; they must have been damaged during the escape. You'll be in a lot of trouble without them, so you'd better figure out what's wrong.
 
  Each digit of a seven-segment display is rendered by turning on or off any of seven segments named a through g:
-
+```
    0:      1:      2:      3:      4:
   aaaa    ....    aaaa    aaaa    ....
  b    c  .    c  .    c  .    c  b    c
@@ -31,6 +31,7 @@
  .    f  e    f  .    f  e    f  .    f
  .    f  e    f  .    f  e    f  .    f
   gggg    gggg    ....    gggg    gggg
+ ```
  So, to render a 1, only segments c and f would be turned on; the rest would be off. To render a 7, only segments a, c, and f would be turned on.
 
  The problem is that the signals which control the segments have been mixed up on each display. The submarine is still trying to display numbers by producing output on signal wires a through g, but those wires are connected to segments randomly. Worse, the wire/segment connections are mixed up separately for each four-digit display! (All of the digits within a display use the same connections, though.)
@@ -82,7 +83,7 @@
  acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
  cdfeb fcadb cdfeb cdbaf
  After some careful analysis, the mapping between signal wires and segments only make sense in the following configuration:
-
+```
   dddd
  e    a
  e    a
@@ -90,6 +91,7 @@
  g    b
  g    b
   cccc
+ ```
  So, the unique signal patterns would correspond to the following digits:
 
  acedgfb: 8
