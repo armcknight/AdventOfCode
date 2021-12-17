@@ -32,6 +32,20 @@ public extension NSTextCheckingResult {
 }
 
 public extension String {
+    func substrings(ofLength length: Int) -> [String] {
+        let chars = Array(self)
+        var substrings = [String]()
+        for i in 0 ... (chars.count - length) {
+            var substring = String()
+            for j in 0 ..< length {
+                let char = String(chars[i + j])
+                substring.append(char)
+            }
+            substrings.append(substring)
+        }
+        return substrings
+    }
+
     func captureGroup(at: Int, result: NSTextCheckingResult?) -> String {
         String(self[Range(result!.range(at: at), in: self)!])
     }
@@ -45,6 +59,10 @@ public extension String {
         return lines.map {
             return $0.map({String($0)})
         }
+    }
+
+    var intGrid: [[Int]] {
+        return characterGrid.map { $0.map { String($0).integerValue } }
     }
 
     var ints: [Int] {
@@ -84,16 +102,150 @@ public extension String {
     }
 }
 
-public extension Array where Element == Array<String> {
+public extension Array where Element == Array<Int> {
+    /// Return the 4 values neighboring the value of this cell. Cells on edges of the grid have `nil` values for invalid neighbor locations.
+    func neighbors4(row: Int, col: Int) -> (up: Int?, right: Int?, down: Int?, left: Int?) {
+        var left: Int? = nil
+        var up: Int? = nil
+        var down: Int? = nil
+        var right: Int? = nil
+
+        if col > 0 {
+            left = self[row][col - 1]
+        }
+        if row > 0 {
+            up = self[row - 1][col]
+        }
+        if col < self[row].count - 1 {
+            right = self[row][col + 1]
+        }
+        if row < self.count - 1 {
+            down = self[row + 1][col]
+        }
+
+        return (up: up, right: right, down: down, left: left)
+    }
+
+    /// Return the neighbors from `neighbors4(row:int:)` in an array in clockwise order starting from the value in the location directly above the specified location.
+    func neighbors4Array(row: Int, col: Int) -> [Int] {
+        let neighbors = neighbors4(row: row, col: col)
+        return [neighbors.up, neighbors.right, neighbors.down, neighbors.left].compactMap { return $0 }
+    }
+
+    func neighbors4Coordinates(row: Int, col: Int) -> [CGPoint] {
+        var coords = [CGPoint]()
+        if col > 0 {
+            coords.append(CGPoint(x: row, y: col - 1))
+        }
+        if row > 0 {
+            coords.append(CGPoint(x: row - 1, y: col))
+        }
+        if col < self[row].count - 1 {
+            coords.append(CGPoint(x: row, y: col + 1))
+        }
+        if row < self.count - 1 {
+            coords.append(CGPoint(x: row + 1, y: col))
+        }
+        return coords
+    }
+
+    /// Return the 8 values neighboring the value of this cell. Cells on edges of the grid have `nil` values for invalid neighbor locations.
+    func neighbors8(row: Int, col: Int) -> (up: Int?, upRight: Int?, right: Int?, rightDown: Int?, down: Int?, downLeft: Int?, left: Int?, leftUp: Int?) {
+        var left: Int? = nil
+        var upRight: Int? = nil
+        var up: Int? = nil
+        var rightDown: Int? = nil
+        var down: Int? = nil
+        var downLeft: Int? = nil
+        var right: Int? = nil
+        var leftUp: Int? = nil
+
+        if col > 0 {
+            left = self[row][col - 1]
+        }
+        if row > 0 {
+            up = self[row - 1][col]
+        }
+        if col < self[row].count - 1 {
+            right = self[row][col + 1]
+        }
+        if row < self.count - 1 {
+            down = self[row + 1][col]
+        }
+
+        if col > 0 && row > 0 {
+            leftUp = self[row - 1][col - 1]
+        }
+        if col < self[row].count - 1 && row > 0 {
+            upRight = self[row - 1][col + 1]
+        }
+
+        if col > 0 && row < count - 1 {
+            downLeft = self[row + 1][col - 1]
+        }
+        if col < self[row].count - 1 && row < count - 1 {
+            rightDown = self[row + 1][col + 1]
+        }
+
+        return (up: up, upRight: upRight, right: right, rightDown: rightDown, down: down, downLeft: downLeft, left: left, leftUp: leftUp)
+    }
+
+    /// Return the neighbors from `neighbors8(row:int:)` in an array in clockwise order starting from the value in the location directly above the specified location.
+    func neighbors8Array(row: Int, col: Int) -> [Int] {
+        let neighbors = neighbors8(row: row, col: col)
+        return [neighbors.up, neighbors.upRight, neighbors.right, neighbors.rightDown, neighbors.down, neighbors.downLeft, neighbors.left, neighbors.leftUp].compactMap { return $0 }
+    }
+
+    func neighbors8Coordinates(row: Int, col: Int) -> [CGPoint] {
+        var coords = [CGPoint]()
+        if col > 0 {
+            coords.append(CGPoint(x: row, y: col - 1))
+        }
+        if row > 0 {
+            coords.append(CGPoint(x: row - 1, y: col))
+        }
+        if col < self[row].count - 1 {
+            coords.append(CGPoint(x: row, y: col + 1))
+        }
+        if row < self.count - 1 {
+            coords.append(CGPoint(x: row + 1, y: col))
+        }
+
+        if col > 0 && row > 0 {
+            coords.append(CGPoint(x: row - 1, y: col - 1))
+        }
+        if col < self[row].count - 1 && row > 0 {
+            coords.append(CGPoint(x: row - 1, y: col + 1))
+        }
+
+        if col > 0 && row < count - 1 {
+            coords.append(CGPoint(x: row + 1, y: col - 1))
+        }
+        if col < self[row].count - 1 && row < count - 1 {
+            coords.append(CGPoint(x: row + 1, y: col + 1))
+        }
+        return coords
+    }
+}
+
+public extension Array where Element == Array<CustomStringConvertible> {
     var gridDescription: String {
         var string = String()
         for x in self {
             for y in x {
-                string.append(y + " ")
+                string.append(y.description + " ")
             }
             string.append("\n")
         }
         return string
+    }
+}
+
+public extension Array where Element == [Int] {
+    var flattened: [Int] {
+        reduce([Int]()) { partialResult, next in
+            partialResult + next
+        }
     }
 }
 
