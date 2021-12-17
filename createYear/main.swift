@@ -128,15 +128,21 @@ packages:
   Then:
     url: https://github.com/devxoul/Then
     from: 2.0.0
-  Algorithms:
-    url: https://github.com/apple/swift-algorithms
-    from: 1.0.0
   RegularExpressionDecoder:
     url: https://github.com/Flight-School/RegularExpressionDecoder
     from: 0.1.0
   AnyCodable:
     url: https://github.com/Flight-School/AnyCodable
     from: 0.6.2
+  SwiftAlgorithms:
+    url: https://github.com/apple/swift-algorithms
+    from: 1.0.0
+  SwiftCollections:
+    url: https://github.com/apple/swift-collections.git
+    from: 1.0.0
+  SwiftNumerics:
+    url: https://github.com/apple/swift-numerics
+    from: 1.0.0
 schemes:
   aocHelpers:
     build:
