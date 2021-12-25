@@ -6,15 +6,17 @@
 //
 
 import aocHelpers
+import FastMath
 import Foundation
 
 public extension Day15 {
     var part2: Int {
         let grid = rawValue.intGrid
 
+        var nodes = Array<Node<Int>>()
         var biggrid = [[Int]]()
-        for row in 0..<grid.count {
-            let row = grid[row]
+        for rowIdx in 0..<grid.count {
+            let row = grid[rowIdx]
             var bigrow = row
             for i in 1..<5 {
                 let repeated = row.map { val -> Int in
@@ -25,6 +27,9 @@ public extension Day15 {
                 bigrow.append(contentsOf: repeated)
             }
             biggrid.append(bigrow)
+            if rowIdx == 0 {
+                nodes = (0..<row.count).map { .init(value: $0, index: $0) }
+            }
         }
         var newrows = [[Int]]()
         for i in 1..<5 {
@@ -43,34 +48,10 @@ public extension Day15 {
 
         biggrid[0][0] = 0
 
+        typealias GraphType = AdjacencyMatrixGraph<DirectedEdge<Node<Int>, Int>>
+        let am: GraphType = .init(adjacencyMatrix: biggrid, nodes: nodes)
+
         // find the path... needs djikstra or a*
-
-//        for(int i=0;i<n-1;i++){ //loop n-1 times
-//                 int u; //u is the vertex to be selected
-//                 int min=inf; //Make the initial minimum value>max, so that the vertices with a distance of max can also be added to S
-//                for(int j=0;j<n;j++){
-//                     if((!S[j])&&dist[j]<min){ //Find the vertex u with the smallest distance S
-//                        min=dist[j];
-//                        u=j;
-//                    }
-//                }
-//                 S[u]=1; //Set its flag to 1
-//                 for(int k=0;k<n;k++){ //Adjust the distance value of the point without adding S
-//                    if((!S[k])&&dist[k]>dist[u]+cost[u][k]){
-//                        dist[k]=dist[u]+cost[u][k];
-//                         pre[k]=u; //If the distance of k is reduced by u, then modify the predecessor of k to u
-//                    }
-//                }
-//            }
-
-        let maximum = biggrid.flattened
-        for i in 0..<biggrid.count - 1 {
-            var min = 10
-            for j in 0..<biggrid[i].count {
-                let test = biggrid[i][j]
-
-            }
-        }
 
         return biggrid.last!.last!
     }
