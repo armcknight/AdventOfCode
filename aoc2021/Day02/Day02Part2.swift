@@ -35,7 +35,7 @@ enum Day02Part2 {
 
     static func refactored(_ input: String) -> Int {
         var aim = 0
-        return input.lines.stringsAndInts.reduce(into: [0, 0]) { // v, h
+        return input.stringsAndInts.reduce(into: [0, 0]) { // v, h
             switch $1.0 {
             case "forward":
                 $0[0] += aim * $1.1

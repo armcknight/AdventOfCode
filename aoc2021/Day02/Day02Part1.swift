@@ -32,7 +32,7 @@ enum Day02Part1 {
     }
 
     static func refactored(_ input: String) -> Int {
-        input.lines.stringsAndInts.reduce(into: [0, 0]) { // v, h
+        input.stringsAndInts.reduce(into: [0, 0]) { // v, h
             switch $1.0 {
             case "forward": $0[1] += $1.1
             default: $0[0] += $1.1 * ($1.0 == "up" ? -1 : 1)

@@ -21,10 +21,10 @@ public extension Day08 {
             (inputSet.first!, inputSet.last!)
         }
         let counts = cleaned.reduce(into: [Int: Int]()) { result, next in
-            let frequencies = next.1.map(\.count).frequencies.filter({ frequency in
+            let counts = next.1.map(\.count).counts.filter({ frequency in
                 targetCounts.contains(frequency.0)
             })
-            frequencies.forEach { frequency in
+            counts.forEach { frequency in
                 result[frequency.0, default: 0] += frequency.1
             }
         }

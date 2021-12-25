@@ -11,8 +11,8 @@ import Foundation
 public extension Day14 {
     var part2: Int {
         let lines = rawValue.lines
-        var pairs = lines.first!.substrings(ofLength: 2).frequencies
-        var chars = Array(lines.first!).frequencies
+        var pairs = lines.first!.substrings(ofLength: 2).counts
+        var chars = Array(lines.first!).counts
         let rules = Array(lines[1..<lines.count]).reduce(into: [String: String](), { result, next in
             let parts = next.components(separatedBy: " -> ")
             result[parts.first!] = parts.last!

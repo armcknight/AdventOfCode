@@ -32,7 +32,7 @@ public extension Day06 {
 
     /// from https://www.reddit.com/r/adventofcode/comments/r9z49j/comment/hnfue6a/?utm_source=share&utm_medium=web2x&context=3
     func simulate1(input: String) -> Int {
-        var fish = input.ints(separator: ",").frequencies
+        var fish = input.ints(separator: ",").counts
         (0 ..< 256).forEach {
             fish[($0 + 7) % 9, default: 0] += fish[$0 % 9] ?? 0
         }
@@ -41,7 +41,7 @@ public extension Day06 {
 
     /// from https://gist.github.com/natecook1000/b169012fdbaeb9324be0455afb0a7c2b
     func simulate2(input: String) -> Int {
-        var fish = input.ints(separator: ",").frequencies
+        var fish = input.ints(separator: ",").counts
         (0 ..< 256).forEach {
             let hatchlings = fish[$0 % 7] ?? 0
 

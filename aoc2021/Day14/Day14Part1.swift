@@ -34,7 +34,7 @@ public extension Day14 {
 //            print("i: \(i); polymer: \(polymer)")
         }
 
-        let sorted = Array(polymer).frequencies.sorted(by: { a, b in
+        let sorted = Array(polymer).counts.sorted(by: { a, b in
             a.value < b.value
         })
         return sorted.last!.value - sorted.first!.value
