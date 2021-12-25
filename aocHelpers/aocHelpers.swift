@@ -123,17 +123,52 @@ public extension Array where Element == Array<Int> {
     }
 }
 
+public extension Array where Element == Array<Any> {
 
+    /// Return the 8 values neighboring the value of this cell. Cells on edges of the grid have `nil` values for invalid neighbor locations.
+    func neighbors8(row: Int, col: Int) -> (up: Any?, upRight: Any?, right: Any?, rightDown: Any?, down: Any?, downLeft: Any?, left: Any?, leftUp: Any?) {
+        var left: Any? = nil
+        var upRight: Any? = nil
+        var up: Any? = nil
+        var rightDown: Any? = nil
+        var down: Any? = nil
+        var downLeft: Any? = nil
+        var right: Any? = nil
+        var leftUp: Any? = nil
+
+        if col > 0 {
+            left = self[row][col - 1]
         }
+        if row > 0 {
+            up = self[row - 1][col]
         }
+        if col < self[row].count - 1 {
+            right = self[row][col + 1]
         }
+        if row < self.count - 1 {
+            down = self[row + 1][col]
         }
 
+        if col > 0 && row > 0 {
+            leftUp = self[row - 1][col - 1]
         }
+        if col < self[row].count - 1 && row > 0 {
+            upRight = self[row - 1][col + 1]
         }
 
+        if col > 0 && row < count - 1 {
+            downLeft = self[row + 1][col - 1]
         }
+        if col < self[row].count - 1 && row < count - 1 {
+            rightDown = self[row + 1][col + 1]
         }
+
+        return (up: up, upRight: upRight, right: right, rightDown: rightDown, down: down, downLeft: downLeft, left: left, leftUp: leftUp)
     }
 
+    /// Return the neighbors from `neighbors8(row:int:)` in an array in clockwise order starting from the value in the location directly above the specified location.
+    func neighbors8Array(row: Int, col: Int) -> Element {
+        let neighbors = neighbors8(row: row, col: col)
+        return [neighbors.up, neighbors.upRight, neighbors.right, neighbors.rightDown, neighbors.down, neighbors.downLeft, neighbors.left, neighbors.leftUp].compactMap { return $0 }
+    }
 }
