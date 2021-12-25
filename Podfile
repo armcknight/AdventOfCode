@@ -11,6 +11,12 @@ abstract_target 'aocTargets' do
     pod 'FastMath'
   end
 
+  unless ENV['PIPPIN_LIBRARY_PATH'] == nil then
+    pod 'PippinLibrary', :path => ENV['PIPPIN_LIBRARY_PATH'], :testspecs => ['Tests']
+  else
+    pod 'PIPPIN_LIBRARY_PATH'
+  end
+
   target 'aoc2020'
   target 'aoc2021'
   target 'aoc2020Tests'

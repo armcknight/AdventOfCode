@@ -2,28 +2,41 @@ PODS:
   - Anchorage (4.5.0)
   - FastMath (4.1.0):
     - PippinLibrary (~> 2)
+  - FastMath/Tests (4.1.0):
+    - PippinLibrary (~> 2)
   - PippinLibrary (2.6.0):
+    - Anchorage
+    - Closures
+    - Then
+  - PippinLibrary/Tests (2.6.0):
     - Anchorage
     - Closures
     - Then
   - Then (2.7.0)
 
 DEPENDENCIES:
-  - FastMath
+  - FastMath (from `../../TwoRingSoft/Frameworks/FastMath`)
+  - FastMath/Tests (from `../../TwoRingSoft/Frameworks/FastMath`)
+  - PippinLibrary (from `../../TwoRingSoft/Frameworks/Pippin`)
+  - PippinLibrary/Tests (from `../../TwoRingSoft/Frameworks/Pippin`)
 
 SPEC REPOS:
   https://github.com/TwoRingSoft/podspecs.git:
     - Anchorage
-    - FastMath
-    - PippinLibrary
     - Then
+
+EXTERNAL SOURCES:
+  FastMath:
+    :path: "../../TwoRingSoft/Frameworks/FastMath"
+  PippinLibrary:
+    :path: "../../TwoRingSoft/Frameworks/Pippin"
 
 SPEC CHECKSUMS:
   Anchorage: 59fa258516dba0677ba44fe2ad61c574155e9c17
-  FastMath: 3149a83d273945502ff60a2125caa31d2bed2e51
-  PippinLibrary: b9e24025b39762fa57e4f7ece46299268b1c23e0
+  FastMath: 0e47a7dd931cdc747404cec2f8e8682077b0534f
+  PippinLibrary: 8e42df6b8586738ad5832a3e496b3bd111e24690
   Then: e300741480d0847b9a9ad522bd163ac4523c7b19
 
-PODFILE CHECKSUM: b974f29a3113ab6675a55852f745140f78dd7cb8
+PODFILE CHECKSUM: 7ee159effd39a5e3323e92102e076e44d763ebca
 
 COCOAPODS: 1.11.2

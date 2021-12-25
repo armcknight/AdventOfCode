@@ -1,0 +1,6 @@
+[submodule "Pippin"]
+	path = Pippin
+	url = git@github.com:tworingsoft/pippin.git
+[submodule "FastMath"]
+	path = FastMath
+	url = git@github.com:tworingsoft/fastmath.git

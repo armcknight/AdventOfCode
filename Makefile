@@ -2,10 +2,11 @@ init:
 	brew bundle
 	rbenv install --skip-existing
 	rbenv exec bundle update
+	git submodule sync --init --recursive
 
 xcode:
 	xcodegen --spec AdventOfCode.yml
-	rbenv exec bundle exec pod update
+	FASTMATH_PATH="FastMath" PIPPIN_LIBRARY_PATH="Pippin" rbenv exec bundle exec pod update
 	xed AdventOfCode.xcworkspace
 
 scaffold:
