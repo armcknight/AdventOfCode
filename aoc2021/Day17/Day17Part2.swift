@@ -21,10 +21,6 @@ public extension Day17 {
             yMax = result[4, rawValue].integerValue
         }
 
-        /// this is the min x velocity at which the probe would wind up falling straight down toward the target area, drawing the highest arc path; lower velocity will never reach the target area; higher velocity may pass through the area on one of the steps, but will trace out a lower arc
-        let xVMin = triangularNumbers.enumerated().filter { $0.1 >= xMin && $0.1 <= xMax }.first!
-
-        // see if there's a y velocity that can combine with xVMin to hit the target area; if not, we'll need to start increasing x beyond xVMin and trying again
         var candidates = [(x: Int, y: Int)]()
         for xV0 in 0 ... xMax {
             for yV0 in yMin ..< 600 {
