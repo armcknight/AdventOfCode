@@ -7,9 +7,13 @@
 
 import aocHelpers
 import Foundation
+import RegularExpressionDecoder
 
 public extension Day22 {
+    typealias Location = Bool
     var part1: Int {
+//        let cuboids =
+//        let grid = [[[Location]]](repeating: [[Location]](repeating: [Location](repeating: false, count: <#T##Int#>), count: <#T##Int#>), count: <#T##Int#>)
         return -1
     }
 }
