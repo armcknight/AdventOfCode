@@ -101,6 +101,18 @@ let xcodegenYearTargetTemplate = ("""
     dependencies:
       - target: aocHelpers
         link: true
+      - package: AnyCodable
+        link: true
+      - package: RegularExpressionDecoder
+        link: true
+      - package: Algorithms
+        link: true
+      - package: Collections
+        link: true
+      - package: Numerics
+        link: true
+      - package: Then
+        link: true
     platform: macOS
     deploymentTarget: 10.15
     scheme:

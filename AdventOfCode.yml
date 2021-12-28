@@ -15,13 +15,13 @@ packages:
   AnyCodable:
     url: https://github.com/Flight-School/AnyCodable
     from: 0.6.2
-  SwiftAlgorithms:
+  Algorithms:
     url: https://github.com/apple/swift-algorithms
     from: 1.0.0
-  SwiftCollections:
+  Collections:
     url: https://github.com/apple/swift-collections.git
     from: 1.0.0
-  SwiftNumerics:
+  Numerics:
     url: https://github.com/apple/swift-numerics
     from: 1.0.0
 schemes:
@@ -67,6 +67,18 @@ targets:
           - "**/*Tests.swift"
     dependencies:
       - target: aocHelpers
+        link: true
+      - package: AnyCodable
+        link: true
+      - package: RegularExpressionDecoder
+        link: true
+      - package: Algorithms
+        link: true
+      - package: Collections
+        link: true
+      - package: Numerics
+        link: true
+      - package: Then
         link: true
     platform: macOS
     deploymentTarget: 10.15
