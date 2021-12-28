@@ -1,8 +1,9 @@
 init:
 	brew bundle
 	rbenv install --skip-existing
+	rbenv exec gem update bundler
 	rbenv exec bundle update
-	git submodule sync --init --recursive
+	git submodule update --init --recursive
 
 xcode:
 	xcodegen --spec AdventOfCode.yml
