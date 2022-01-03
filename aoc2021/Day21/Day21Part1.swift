@@ -9,7 +9,11 @@ import aocHelpers
 import Foundation
 
 public extension Day21 {
-    struct Player {
+    struct Player: Decodable {
+        enum CodingKeys: String, CodingKey {
+            case number
+            case position
+        }
         let number: Int
         var position: Int
         var score: Int = 0

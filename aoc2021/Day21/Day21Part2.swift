@@ -7,15 +7,15 @@
 
 import aocHelpers
 import Foundation
+import RegularExpressionDecoder
 
 public extension Day21 {
     var part2: Int {
-        var players = [Player]()
-        try! rawValue.enumerateMatches(with: #"Player (\d*) starting position: (\d*)"#) { (result) in
-            players.append(Player(number: result[1, rawValue].integerValue, position: result[2, rawValue].integerValue))
-        }
-        var a = players.first!
-        var b = players.last!
+        let pattern: RegularExpressionPattern<Player, Player.CodingKeys> = #"Player (?<.number>\d*) starting position: (?<.position>\d*)"#
+        let players = try! RegularExpressionDecoder<Player>(pattern: pattern).decode([Player].self, from: rawValue)
+
+        let a = players.first!
+        let b = players.last!
 
         func roll(value: Int, player: inout Player) {
             player.position += value
