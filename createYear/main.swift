@@ -249,7 +249,7 @@ let yearTestTargets = years.map({ year in
         .replacingOccurrences(of: "{{ year }}", with: year)
         .replacingOccurrences(of: "{{ testSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
             "aoc\(year)/Day\(day)/Day\(day)Tests.swift"
-        }).joined(separator: ",").appending("aoc\(year)/Info.plist"))
+        }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
 }).joined(separator: "\n")
 
 let xcodegenSpecURL = url.appendingPathComponent("AdventOfCode.yml")
