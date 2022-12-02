@@ -77,16 +77,16 @@ public extension Array where Element == Array<Int> {
     func neighbors4Coordinates(row: Int, col: Int) -> [CGPoint] {
         var coords = [CGPoint]()
         if col > 0 {
-            coords.append(CGPoint(x: row, y: col - 1))
+            coords.append(CGPoint(x: Double(row), y: Double(col) - 1))
         }
         if row > 0 {
-            coords.append(CGPoint(x: row - 1, y: col))
+            coords.append(CGPoint(x: Double(row) - 1, y: Double(col)))
         }
         if col < self[row].count - 1 {
-            coords.append(CGPoint(x: row, y: col + 1))
+            coords.append(CGPoint(x: Double(row), y: Double(col) + 1))
         }
         if row < self.count - 1 {
-            coords.append(CGPoint(x: row + 1, y: col))
+            coords.append(CGPoint(x: Double(row) + 1, y: Double(col)))
         }
         return coords
     }
@@ -94,30 +94,30 @@ public extension Array where Element == Array<Int> {
     func neighbors8Coordinates(row: Int, col: Int) -> [CGPoint] {
         var coords = [CGPoint]()
         if col > 0 {
-            coords.append(CGPoint(x: row, y: col - 1))
+            coords.append(CGPoint(x: Double(row), y: Double(col) - 1))
         }
         if row > 0 {
-            coords.append(CGPoint(x: row - 1, y: col))
+            coords.append(CGPoint(x: Double(row) - 1, y: Double(col)))
         }
         if col < self[row].count - 1 {
-            coords.append(CGPoint(x: row, y: col + 1))
+            coords.append(CGPoint(x: Double(row), y: Double(col) + 1))
         }
         if row < self.count - 1 {
-            coords.append(CGPoint(x: row + 1, y: col))
+            coords.append(CGPoint(x: Double(row) + 1, y: Double(col)))
         }
 
         if col > 0 && row > 0 {
-            coords.append(CGPoint(x: row - 1, y: col - 1))
+            coords.append(CGPoint(x: Double(row) - 1, y: Double(col) - 1))
         }
         if col < self[row].count - 1 && row > 0 {
-            coords.append(CGPoint(x: row - 1, y: col + 1))
+            coords.append(CGPoint(x: Double(row) - 1, y: Double(col) + 1))
         }
 
         if col > 0 && row < count - 1 {
-            coords.append(CGPoint(x: row + 1, y: col - 1))
+            coords.append(CGPoint(x: Double(row) + 1, y: Double(col) - 1))
         }
         if col < self[row].count - 1 && row < count - 1 {
-            coords.append(CGPoint(x: row + 1, y: col + 1))
+            coords.append(CGPoint(x: Double(row) + 1, y: Double(col) + 1))
         }
         return coords
     }
