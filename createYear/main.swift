@@ -22,6 +22,7 @@ let path = #file.components(separatedBy: "/").with {
 }.joined(separator: "/")
 let url = URL(fileURLWithPath: path, isDirectory: true)
 let fileManager = FileManager.default
+let yearDirectory = url.appendingPathComponent("aoc\(year)")
 
 func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
@@ -32,6 +33,7 @@ func fixedWidthDay(day: Int) -> String {
  ```
  path/
  ├── aoc<year>/
+ │   ├── Info.plist (for the test target)
  │   ├── Day1/
  │   │   ├── Day01Input.swift
  │   │   ├── Day01Part1.swift
@@ -48,13 +50,13 @@ func createDay(day: Int) {
     let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: currentDirectoryURL)
     let bundle = Bundle(url: bundleURL)
     func contentsOfTemplate(named name: String) -> String {
-        // if this line crashes, make sure createYearResources is listed in createYear's Depedencies Build Phase. It doesn't get put there by XcodeGen, see https://github.com/yonaskolb/XcodeGen/issues/1155
+        // if this line crashes, make sure createYearResources is listed in createYear's Dependencies Build Phase. It doesn't get put there by XcodeGen, see https://github.com/yonaskolb/XcodeGen/issues/1155
         try! String(contentsOf: bundle!.url(forResource: name, withExtension: "txt")!)
     }
 
     let fixedWidthDayString = fixedWidthDay(day: day)
     let dayDirName = "Day" + fixedWidthDayString
-    let directory = url.appendingPathComponent("aoc\(year)").appendingPathComponent(dayDirName)
+    let directory = yearDirectory.appendingPathComponent(dayDirName)
     if !fileManager.fileExists(atPath: directory.path) {
         try! fileManager.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
     }
@@ -77,6 +79,32 @@ for day in 1...25 {
     createDay(day: day)
 }
 
+let infoplistContents = ("""
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>NSPrincipalClass</key>
+    <string></string>
+</dict>
+</plist>
+""")
 let xcodegenYearSchemeTemplate = ("""
   aoc{{ year }}:
     build:
@@ -101,18 +129,6 @@ let xcodegenYearTargetTemplate = ("""
     dependencies:
       - target: aocHelpers
         link: true
-      - package: AnyCodable
-        link: true
-      - package: RegularExpressionDecoder
-        link: true
-      - package: Algorithms
-        link: true
-      - package: Collections
-        link: true
-      - package: Numerics
-        link: true
-      - package: Then
-        link: true
     platform: macOS
     deploymentTarget: 10.15
     scheme:
@@ -127,6 +143,8 @@ let xcodegenYearTestsTargetTemplate = ("""
     sources: [{{ testSources }}]
     dependencies:
       - target: aoc{{ year }}
+      - package: RegularExpressionDecoder
+        link: true
 """)
 let xcodegenTemplate = ("""
 name: AdventOfCode
@@ -143,18 +161,6 @@ packages:
   RegularExpressionDecoder:
     url: https://github.com/Flight-School/RegularExpressionDecoder
     from: 0.1.0
-  AnyCodable:
-    url: https://github.com/Flight-School/AnyCodable
-    from: 0.6.2
-  SwiftAlgorithms:
-    url: https://github.com/apple/swift-algorithms
-    from: 1.0.0
-  SwiftCollections:
-    url: https://github.com/apple/swift-collections.git
-    from: 1.0.0
-  SwiftNumerics:
-    url: https://github.com/apple/swift-numerics
-    from: 1.0.0
 schemes:
   aocHelpers:
     build:
@@ -221,6 +227,7 @@ extension NSTextCheckingResult {
         return `in`.captureGroup(at: captureGroup, result: self)
     }
 }
+// end copied portion from aocHelpers
 
 let years = try! fileManager.contentsOfDirectory(atPath: url.path).reduce(into: [String](), { (result, next) in
     try! next.enumerateMatches(with: #"^aoc(\d*)$"#) { (match) in
@@ -242,7 +249,7 @@ let yearTestTargets = years.map({ year in
         .replacingOccurrences(of: "{{ year }}", with: year)
         .replacingOccurrences(of: "{{ testSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
             "aoc\(year)/Day\(day)/Day\(day)Tests.swift"
-        }).joined(separator: ","))
+        }).joined(separator: ",").appending("aoc\(year)/Info.plist"))
 }).joined(separator: "\n")
 
 let xcodegenSpecURL = url.appendingPathComponent("AdventOfCode.yml")
@@ -253,6 +260,8 @@ let resolvedSpec = xcodegenTemplate
     .replacingOccurrences(of: "{{ yearTestTargets }}", with: yearTestTargets)
     .appending("\n")
 try! resolvedSpec.write(to: xcodegenSpecURL, atomically: true, encoding: .utf8)
+
+try! infoplistContents.write(to: yearDirectory.appendingPathComponent("Info.plist"), atomically: true, encoding: .utf8)
 
 Process().do {
     $0.executableURL = URL(fileURLWithPath: "/usr/local/bin/xcodegen")

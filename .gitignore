@@ -6,3 +6,4 @@ Pods/
 vendor/
 createYearBuild/
 create-year
+/AdventOfCode.yml
