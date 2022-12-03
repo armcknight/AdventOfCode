@@ -263,7 +263,13 @@ try! resolvedSpec.write(to: xcodegenSpecURL, atomically: true, encoding: .utf8)
 try! infoplistContents.write(to: yearDirectory.appendingPathComponent("Info.plist"), atomically: true, encoding: .utf8)
 
 Process().do {
-    $0.executableURL = URL(fileURLWithPath: "/usr/local/bin/xcodegen")
+    let x86_64URL = URL(fileURLWithPath: "/usr/local/bin/xcodegen")
+    let arm64URL = URL(fileURLWithPath: "/opt/homebrew/bin/xcodegen")
+    if fileManager.fileExists(atPath: x86_64URL.path) {
+        $0.executableURL = x86_64URL
+    } else {
+        $0.executableURL = arm64URL
+    }
     $0.arguments = ["--spec", xcodegenSpecURL.path]
     try! $0.run()
 }
