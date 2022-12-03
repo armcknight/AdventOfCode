@@ -20,9 +20,9 @@ let year = String(dateComponents.year!)
 let path = #file.components(separatedBy: "/").with {
     $0.removeSubrange($0.count - 2 ... $0.count - 1)
 }.joined(separator: "/")
-let url = URL(fileURLWithPath: path, isDirectory: true)
+let rootURL = URL(fileURLWithPath: path, isDirectory: true)
 let fileManager = FileManager.default
-let yearDirectory = url.appendingPathComponent("aoc\(year)")
+let yearDirectory = rootURL.appendingPathComponent("aoc\(year)")
 
 func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
@@ -229,7 +229,7 @@ extension NSTextCheckingResult {
 }
 // end copied portion from aocHelpers
 
-let years = try! fileManager.contentsOfDirectory(atPath: url.path).reduce(into: [String](), { (result, next) in
+let years = try! fileManager.contentsOfDirectory(atPath: rootURL.path).reduce(into: [String](), { (result, next) in
     try! next.enumerateMatches(with: #"^aoc(\d*)$"#) { (match) in
         result.append(match[1, next])
     }
@@ -252,7 +252,7 @@ let yearTestTargets = years.map({ year in
         }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
 }).joined(separator: "\n")
 
-let xcodegenSpecURL = url.appendingPathComponent("AdventOfCode.yml")
+let xcodegenSpecURL = rootURL.appendingPathComponent("AdventOfCode.yml")
 let resolvedSpec = xcodegenTemplate
     .replacingOccurrences(of: "{{ yearSchemes }}", with: yearSchemes)
     .replacingOccurrences(of: "{{ yearTestSchemes }}", with: yearTestSchemes)
