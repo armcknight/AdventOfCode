@@ -2,13 +2,18 @@
 
 My solutions to challenges at https://adventofcode.com.
 
-`make init` to set up the dev env.
+# Top-level operations
 
-`make xcode` to generate the Xcode project from the XcodeGen spec.
+This is generally the order of operations each year to prepare for the next competition.
 
-`make scaffold` to generate the next year's source files and the library and unit test targets. Each day gets a file defining the input strings, a file with a single function each for each part of each day (basically `func part1()` and `func part2()`) and a file with a multiline comment to paste in the problem text. Then the test target has a separate file for each day containing a class with 4 test functions: parts 1 and 2 sample and real input.
+- `make init` to set up the dev env.
+- `make scaffold` to generate the next year's source files and the library and unit test targets.
+- `make xcode` to generate the Xcode project from the XcodeGen spec.
+- `make test` to run the tests for all years present.
 
-## 2021 Stats
+# Performance
+
+## 2021
 
 ```
       --------Part 1--------   --------Part 2--------
@@ -30,7 +35,7 @@ Day       Time   Rank  Score       Time   Rank  Score
   1   00:06:13   3537      0   00:13:50   3589      0
 ```
 
-## 2020 Stats
+## 2020
 
 ```
       --------Part 1--------   --------Part 2--------
