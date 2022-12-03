@@ -268,3 +268,7 @@ Process().do {
     $0.arguments = ["--spec", xcodegenSpecURL.path]
     try! $0.run()
 }
+
+let makefileURL = rootURL.appendingPathComponent("Makefile")
+let makefileContents = try! String(contentsOfFile: makefileURL.path)
+try! makefileContents.appending("\txcodebuild -scheme aoc\(year)Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | rbenv exec bundle exec xcpretty -t").write(to: makefileURL, atomically: true, encoding: .utf8)
