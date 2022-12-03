@@ -50,7 +50,6 @@ func createDay(day: Int) {
     let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: currentDirectoryURL)
     let bundle = Bundle(url: bundleURL)
     func contentsOfTemplate(named name: String) -> String {
-        // if this line crashes, make sure createYearResources is listed in createYear's Dependencies Build Phase. It doesn't get put there by XcodeGen, see https://github.com/yonaskolb/XcodeGen/issues/1155
         try! String(contentsOf: bundle!.url(forResource: name, withExtension: "txt")!)
     }
 
@@ -187,7 +186,7 @@ targets:
     deploymentTarget: 10.15
     dependencies:
       - package: Then
-      - bundle: copyYearResources
+      - bundle: createYearResources
   createYearResources:
     type: bundle
     sources: [createYearResources]
