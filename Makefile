@@ -4,13 +4,12 @@ init:
 	rbenv exec gem update bundler
 	rbenv exec bundle update
 	git submodule update --init --recursive
+	make pods
 
-xcode:
-	xcodegen --spec AdventOfCode.yml
+pods:
 	FASTMATH_PATH="FastMath" PIPPIN_LIBRARY_PATH="Pippin" rbenv exec bundle exec pod update
-	xed AdventOfCode.xcworkspace
 
-scaffold:
+update:
 	xcrun xcodebuild -scheme createYear -derivedDataPath createYearBuild | rbenv exec bundle exec xcpretty
 	cp ./createYearBuild/Build/Products/Debug/createYear ./create-year
 	rm -rf ./createYearBuild

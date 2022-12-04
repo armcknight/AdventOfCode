@@ -18,7 +18,7 @@ abstract_target 'aocTargets' do
   end
 
   target 'aoc2020'
-  target 'aoc2021'
   target 'aoc2020Tests'
+  target 'aoc2021'
   target 'aoc2021Tests'
 end

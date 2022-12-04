@@ -7,8 +7,7 @@ My solutions to challenges at https://adventofcode.com.
 This is generally the order of operations each year to prepare for the next competition.
 
 - `make init` to set up the dev env.
-- `make scaffold` to generate the next year's source files and the library and unit test targets.
-- `make xcode` to generate the Xcode project from the XcodeGen spec.
+- `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date.
 - `make test` to run the tests for all years present.
 
 # Performance
