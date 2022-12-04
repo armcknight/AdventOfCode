@@ -9,11 +9,11 @@
 {{ description }}
 */
 public enum Day{{ day }}: String {
-    case sample = """
+    case sample = ("""
 {{ sample-input }}
-"""
+""")
 
-    case input = """
+    case input = ("""
 {{ input }}
-"""
+""")
 }
