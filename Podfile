@@ -18,6 +18,4 @@ abstract_target 'aocTargets' do
   target 'aoc2020Tests'
   target 'aoc2021'
   target 'aoc2021Tests'
-  target 'aoc2022'
-  target 'aoc2022Tests'
 end
