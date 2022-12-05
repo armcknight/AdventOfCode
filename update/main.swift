@@ -8,7 +8,7 @@
 import Foundation
 import Then
 
-for year in 2016 ..< AoC.Date.currentYear {
+for year in 2015 ..< AoC.Date.currentYear {
     createSourceFiles(for: year)
     injectMissingTestTasks(for: year)
     injectMissingPodfileTargets(for: year)

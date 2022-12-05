@@ -148,8 +148,8 @@ enum AoC {
         """)
 
         static let podfileTargets = ("""
-        \ttarget "aoc{{ year }}"
-        \ttarget "aoc{{ year }}Tests"\n
+          target "aoc{{ year }}"
+          target "aoc{{ year }}Tests"\n
         """)
     }
 
@@ -161,10 +161,10 @@ enum AoC {
         static let date = Foundation.Date()
         static let dateString = formatter.string(from: date)
         static let calendar = Calendar(identifier: .gregorian)
-        static let dateComponents = calendar.dateComponents(Set([.day, .year]), from: date)
-        static let currentDay = dateComponents.day!
+        static let currentDateComponents = calendar.dateComponents(Set([.day, .year, .hour]), from: date)
+        static let currentDay = currentDateComponents.day!
         static let currentDayString = String(currentDay)
-        static let currentYear = dateComponents.year!
+        static let currentYear = currentDateComponents.year!
         static let currentYearString = String(currentYear)
     }
 
@@ -219,7 +219,7 @@ func fetchSynchronously(url: String) -> String {
         assert(status >= 200 && status < 300)
         assert(error == nil)
         result = String(data: data!, encoding: .utf8)
-    }
+    }.resume()
     group.wait()
     return result
 }
@@ -235,7 +235,7 @@ func extractSampleInput(description: String) -> String {
 func extractDescription(description: String) -> String {
     let descriptionStart = (description as NSString).range(of: "<article class=\"day-desc\">")
     let descriptionEnd = (description as NSString).range(of: "</article>")
-    let descStartIdx = description.index(description.startIndex, offsetBy: (descriptionStart.location + descriptionStart.length + 1))
+    let descStartIdx = description.index(description.startIndex, offsetBy: (descriptionStart.location + descriptionStart.length))
     let descEndIdx = description.index(description.startIndex, offsetBy: descriptionEnd.location)
     let range = descStartIdx ..< descEndIdx
     return String(description[range])
@@ -248,11 +248,12 @@ fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: S
     let sampleInputPlaceholder = "{{ sample-input }}"
 
     lazy var description: String = {
-        let problem = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(fixedWidthDay)")
+        let problem = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)")
         return extractDescription(description: problem)
     }()
     if content.contains(descriptionPlaceholder) {
-        content = content.replacingOccurrences(of: descriptionPlaceholder, with: description).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
+        let markdown = Process.runBrewedWithResult("pandoc", stdin: description, "--from", "html", "--to", "markdown_strict")
+        content = content.replacingOccurrences(of: descriptionPlaceholder, with: markdown).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
     }
     if content.contains(sampleInputPlaceholder) {
         let sampleInput = extractSampleInput(description: description).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
@@ -285,6 +286,8 @@ fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: S
  */
 func createSourceFiles(for year: Int) {
     let yearDirectoryURL = AoC.File.rootURL.appendingPathComponent("aoc\(year)")
+    try! AoC.File.fileManager.createDirectory(at: yearDirectoryURL, withIntermediateDirectories: true)
+
     let infoPlistURL = yearDirectoryURL.appendingPathComponent("Info.plist")
     if !AoC.File.fileManager.fileExists(atPath: infoPlistURL.path) {
         try! AoC.Template.infoplistContents.write(to: infoPlistURL, atomically: true, encoding: .utf8)
@@ -301,7 +304,7 @@ func createSourceFiles(for year: Int) {
             let fileURL = dayDirectoryURL.appendingPathComponent("\(dayName)\(name).swift")
 
             defer {
-                if name == "Description" && isPastMidnightUTCForCurrentDay(year: year, day: day) {
+                if name == "Description" && isProblemAvailable(year: year, day: day) {
                     injectProblemDetails(fileURL, day: day, fixedWidthDay: fixedWidthDay, year: year)
                 }
             }
@@ -317,15 +320,13 @@ func createSourceFiles(for year: Int) {
     }
 }
 
-func isPastMidnightUTCForCurrentDay(year: Int, day: Int) -> Bool {
-    let isCurrentYear = year == AoC.Date.currentYear
-    let isPreviousDay = day < AoC.Date.currentDay
-    let isCurrentDay = day == AoC.Date.currentDay
+func isProblemAvailable(year: Int, day: Int) -> Bool {
+    if year < AoC.Date.currentYear { return true }
+    if day < AoC.Date.currentDay { return true }
+    if day > AoC.Date.currentYear || year > AoC.Date.currentYear { return false }
 
-    let hoursBehindGMT = Int(Double(AoC.Date.calendar.timeZone.secondsFromGMT()) / 60.0 / 60.0)
-    let isPastMidnightUTC = AoC.Date.dateComponents.hour! - hoursBehindGMT >= 0
-
-    return isCurrentYear && (isPreviousDay || isCurrentDay && isPastMidnightUTC)
+    let timezoneHoursBehindGMT = Int(Double(AoC.Date.calendar.timeZone.secondsFromGMT()) / 60.0 / 60.0)
+    return AoC.Date.currentDateComponents.hour! - timezoneHoursBehindGMT >= 0
 }
 
 func generateXcodeGenSpec() {
@@ -363,18 +364,54 @@ func generateXcodeGenSpec() {
 
 extension Process {
     static func run(_ path: String, _ arguments: String ...) {
+        _run(path, Array(arguments))
+    }
+
+    static func runBrewed(_ utility: String, stdin: String? = nil, _ arguments: String ...) {
+        _run(_path(forBrewed: utility), stdin: stdin, Array(arguments))
+    }
+
+    static func runBrewedWithResult(_ utility: String, stdin: String? = nil, _ arguments: String ...) -> String {
+        var result: String!
+        let group = DispatchGroup()
+        let stdout = Pipe().then {
+            $0.fileHandleForReading.readabilityHandler = {
+                result = String(data: $0.readDataToEndOfFile(), encoding: .utf8)!
+                try! $0.close()
+                group.leave()
+            }
+        }
+        group.enter()
+        _run(_path(forBrewed: utility), stdin: stdin, stdout: stdout, Array(arguments))
+        group.wait()
+        return result
+    }
+
+    private static func _path(forBrewed utility: String) -> String {
+        let x86_64Path = "/usr/local/bin/\(utility)"
+        return AoC.File.fileManager.fileExists(atPath: x86_64Path) ? x86_64Path : "/opt/homebrew/bin/\(utility)"
+    }
+
+    private static func _run(_ path: String, stdin: String? = nil, stdout: Pipe? = nil, _ arguments: [String]) {
         Process().do {
             $0.executableURL = URL(fileURLWithPath: path)
-            $0.arguments = Array(arguments)
+            $0.arguments = arguments
+            if let stdin {
+                $0.standardInput = Pipe().then {
+                    $0.fileHandleForWriting.write(stdin.data(using: .utf8)!)
+                    try! $0.fileHandleForWriting.close()
+                }
+            }
+            if let stdout {
+                $0.standardOutput = stdout
+            }
             try! $0.run()
         }
     }
 }
 
 func generateXcodeProject() {
-    let x86_64Path = "/usr/local/bin/xcodegen"
-    let path = AoC.File.fileManager.fileExists(atPath: x86_64Path) ? x86_64Path : "/opt/homebrew/bin/xcodegen"
-    Process.run(path, "--spec", AoC.File.xcodegenSpecURL.path)
+    Process.runBrewed("xcodegen", "--spec", AoC.File.xcodegenSpecURL.path)
 }
 
 func openXcodeProject() {
