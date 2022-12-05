@@ -7,9 +7,11 @@
 
 import aocHelpers
 import Foundation
+import FastMath
+import PippinLibrary
 
 public extension Day01 {
     var part2: Int {
-        return -1
+        rawValue.components(separatedBy: "\n\n").map { $0.ints.sum }.sorted().reversed()[0..<3].sum
     }
 }

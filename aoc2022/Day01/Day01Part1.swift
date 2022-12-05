@@ -6,10 +6,14 @@
 //
 
 import aocHelpers
+import FastMath
 import Foundation
+import PippinLibrary
 
 public extension Day01 {
     var part1: Int {
-        return -1
+        rawValue.components(separatedBy: "\n\n").reduce(into: 0) { partialResult, next in
+            partialResult = max(partialResult, String(next).ints.sum)
+        }
     }
 }
