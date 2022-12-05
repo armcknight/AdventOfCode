@@ -7,7 +7,7 @@ My solutions to challenges at https://adventofcode.com.
 This is generally the order of operations each year to prepare for the next competition.
 
 - `make init` to set up the dev env.
-- `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date.
+- `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date. (Currently doesn't work in terminal, must run the `update` scheme in the Xcode project.)
 - `make test` to run the tests for all years present.
 
 # Performance

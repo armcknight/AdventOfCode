@@ -13,7 +13,7 @@ import Then
 public extension String {
     /// Break up a multiline string into an array of each line's string value.
     var lines: [String] {
-        return split(separator: "\n").map({String($0)})
+        return components(separatedBy: "\n").map({String($0)})
     }
 }
 // end copied code from Pippin
@@ -261,7 +261,8 @@ fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: S
         content = content.replacingOccurrences(of: descriptionPlaceholder, with: markdown).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
     }
     if content.contains(sampleInputPlaceholder) {
-        let sampleInput = extractSampleInput(description: description).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
+        let extractedSection = extractSampleInput(description: description)
+        let sampleInput = extractedSection.lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
         content = content.replacingOccurrences(of: sampleInputPlaceholder, with: sampleInput)
     }
 
@@ -375,8 +376,8 @@ func generateXcodeGenSpec() {
 }
 
 extension Process {
-    static func run(_ path: String, _ arguments: String ...) {
-        _run(path, Array(arguments))
+    static func run(_ path: String, cwd: URL? = nil, _ arguments: String ...) {
+        _run(path, cwd: cwd, Array(arguments))
     }
 
     static func runBrewed(_ utility: String, stdin: String? = nil, _ arguments: String ...) {
@@ -404,7 +405,7 @@ extension Process {
         return AoC.File.fileManager.fileExists(atPath: x86_64Path) ? x86_64Path : "/opt/homebrew/bin/\(utility)"
     }
 
-    private static func _run(_ path: String, stdin: String? = nil, stdout: Pipe? = nil, _ arguments: [String]) {
+    private static func _run(_ path: String, stdin: String? = nil, stdout: Pipe? = nil, cwd: URL? = nil, _ arguments: [String]) {
         Process().do {
             $0.executableURL = URL(fileURLWithPath: path)
             $0.arguments = arguments
@@ -416,6 +417,9 @@ extension Process {
             }
             if let stdout {
                 $0.standardOutput = stdout
+            }
+            if let cwd {
+                $0.currentDirectoryURL = cwd
             }
             try! $0.run()
         }
@@ -445,5 +449,5 @@ func injectMissingPodfileTargets(for year: Int) {
 }
 
 func reinstallPods() {
-    Process.run("/usr/bin/make", "pods")
+    Process.run("/usr/bin/make", cwd: AoC.File.rootURL, "pods")
 }
