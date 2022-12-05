@@ -13,10 +13,10 @@ pods:
 
 .PHONY: update
 update:
-	xcrun xcodebuild -scheme createYear -derivedDataPath createYearBuild | rbenv exec bundle exec xcpretty
-	cp ./createYearBuild/Build/Products/Debug/createYear ./create-year
-	rm -rf ./createYearBuild
-	./create-year
+	xcrun xcodebuild -scheme update -derivedDataPath updateBuild | rbenv exec bundle exec xcpretty
+	cp ./updateBuild/Build/Products/Debug/update ./update
+	rm -rf updateBuild
+	./update
 
 .PHONY: test
 test:

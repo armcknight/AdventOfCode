@@ -198,7 +198,7 @@ func injectMissingTestTasks(for year: Int) {
 
     AoC.File.makefileContents.do {
         if !$0.contains(taskLine) {
-            try! $0.appending(taskLine).write(to: AoC.File.makefileURL, atomically: true, encoding: .utf8)
+            try! $0.appending(taskLine + "\n").write(to: AoC.File.makefileURL, atomically: true, encoding: .utf8)
         }
     }
 }
@@ -207,7 +207,12 @@ func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
 }
 
-let urlSession = URLSession(configuration: .default)
+let config = URLSessionConfiguration.default.then {
+    var headers = $0.httpAdditionalHeaders ?? [:]
+    headers["Cookie"] = "session=53616c7465645f5f5c26d8a40e3bae214739c44a49c6a2ff3c57ad3f2be7ce6d62c7a761617d78b1d5aa237ec25d5d623433df04c745f6a3f312edccaa866404"
+    $0.httpAdditionalHeaders = headers
+}
+let urlSession = URLSession(configuration: config)
 let group = DispatchGroup()
 
 func fetchSynchronously(url: String) -> String {
@@ -323,10 +328,17 @@ func createSourceFiles(for year: Int) {
 func isProblemAvailable(year: Int, day: Int) -> Bool {
     if year < AoC.Date.currentYear { return true }
     if day < AoC.Date.currentDay { return true }
-    if day > AoC.Date.currentYear || year > AoC.Date.currentYear { return false }
+    if day > AoC.Date.currentDay || year > AoC.Date.currentYear { return false }
 
-    let timezoneHoursBehindGMT = Int(Double(AoC.Date.calendar.timeZone.secondsFromGMT()) / 60.0 / 60.0)
-    return AoC.Date.currentDateComponents.hour! - timezoneHoursBehindGMT >= 0
+    var cal = Calendar(identifier: .gregorian)
+    cal.timeZone = TimeZone(secondsFromGMT: 0)!
+    var components = DateComponents()
+    components.hour = 0
+    components.year = AoC.Date.currentYear
+    components.day = AoC.Date.currentDay
+    let midnightUTC = cal.date(from: components)
+
+    return midnightUTC?.compare(Date()) == .orderedDescending
 }
 
 func generateXcodeGenSpec() {
@@ -427,7 +439,7 @@ func injectMissingPodfileTargets(for year: Int) {
                 line.contains("end")
             }!
             lines.insert(targetLine, at: lastEnd)
-            try! lines.joined(separator: "\n").write(to: AoC.File.podfileURL, atomically: true, encoding: .utf8)
+            try! (lines.joined(separator: "\n") + "\n").write(to: AoC.File.podfileURL, atomically: true, encoding: .utf8)
         }
     }
 }
