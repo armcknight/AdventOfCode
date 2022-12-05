@@ -229,21 +229,22 @@ func fetchSynchronously(url: String) -> String {
     return result
 }
 
+extension String {
+    func substring(from: String, to: String) -> String {
+        let startRange = (self as NSString).range(of: from)
+        let endRange = (self as NSString).range(of: to)
+        let startIdx = self.index(self.startIndex, offsetBy: (startRange.location + startRange.length))
+        let endIdx = self.index(self.startIndex, offsetBy: endRange.location)
+        return String(self[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
+    }
+}
+
 func extractSampleInput(description: String) -> String {
-    let sampleInputStart = (description as NSString).range(of: "<code>")
-    let sampleInputEnd = (description as NSString).range(of: "</code>")
-    let startIdx = description.index(description.startIndex, offsetBy: (sampleInputStart.location + sampleInputStart.length))
-    let endIdx = description.index(description.startIndex, offsetBy: sampleInputEnd.location)
-    return String(description[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
+    description.substring(from: "<pre>", to: "</pre>").substring(from: "<code>", to: "</code>")
 }
 
 func extractDescription(description: String) -> String {
-    let descriptionStart = (description as NSString).range(of: "<article class=\"day-desc\">")
-    let descriptionEnd = (description as NSString).range(of: "</article>")
-    let descStartIdx = description.index(description.startIndex, offsetBy: (descriptionStart.location + descriptionStart.length))
-    let descEndIdx = description.index(description.startIndex, offsetBy: descriptionEnd.location)
-    let range = descStartIdx ..< descEndIdx
-    return String(description[range]).trimmingCharacters(in: .newlines)
+    description.substring(from: "<article class=\"day-desc\">", to: "</article>")
 }
 
 fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year: Int) {
