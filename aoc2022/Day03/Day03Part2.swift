@@ -7,9 +7,12 @@
 
 import aocHelpers
 import Foundation
+import PippinLibrary
 
 public extension Day03 {
     var part2: Int {
-        return -1
+        rawValue.lines.chunk(intoSubarraysOfSize: 3).reduce(into: 0) {
+            $0 += priorities[String(Set(Array($1[0])).intersection(Set(Array($1[1]))).intersection(Set(Array($1[2]))).first!)]!
+        }
     }
 }
