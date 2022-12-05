@@ -232,9 +232,9 @@ func fetchSynchronously(url: String) -> String {
 func extractSampleInput(description: String) -> String {
     let sampleInputStart = (description as NSString).range(of: "<code>")
     let sampleInputEnd = (description as NSString).range(of: "</code>")
-    let startIdx = description.index(description.startIndex, offsetBy: (sampleInputStart.location + sampleInputStart.length + 1))
+    let startIdx = description.index(description.startIndex, offsetBy: (sampleInputStart.location + sampleInputStart.length))
     let endIdx = description.index(description.startIndex, offsetBy: sampleInputEnd.location)
-    return String(description[startIdx ..< endIdx])
+    return String(description[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
 }
 
 func extractDescription(description: String) -> String {
@@ -243,7 +243,7 @@ func extractDescription(description: String) -> String {
     let descStartIdx = description.index(description.startIndex, offsetBy: (descriptionStart.location + descriptionStart.length))
     let descEndIdx = description.index(description.startIndex, offsetBy: descriptionEnd.location)
     let range = descStartIdx ..< descEndIdx
-    return String(description[range])
+    return String(description[range]).trimmingCharacters(in: .newlines)
 }
 
 fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year: Int) {
@@ -267,7 +267,7 @@ fileprivate func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: S
     }
 
     if content.contains(inputPlaceholder) {
-        let input = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)/input")
+        let input = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)/input").trimmingCharacters(in: .newlines)
         content = content.replacingOccurrences(of: inputPlaceholder, with: input)
     }
     try! content.write(to: fileURL, atomically: false, encoding: .utf8)
