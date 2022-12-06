@@ -42,6 +42,15 @@ public extension String {
             block(result!)
         }
     }
+
+    /// - returns: the substring between the two provided strings (not inclusive).
+    func substring(from: String, to: String) -> String {
+        let startRange = (self as NSString).range(of: from)
+        let endRange = (self as NSString).range(of: to)
+        let startIdx = self.index(self.startIndex, offsetBy: (startRange.location + startRange.length))
+        let endIdx = self.index(self.startIndex, offsetBy: endRange.location)
+        return String(self[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
+    }
 }
 
 public extension Array where Element == Array<Int> {
