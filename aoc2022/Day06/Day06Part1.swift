@@ -7,9 +7,12 @@
 
 import aocHelpers
 import Foundation
+import PippinLibrary
 
 public extension Day06 {
     var part1: Int {
-        return -1
+        return Array(rawValue).windows(ofSize: 4).firstIndex {
+            return Set($0).count == 4
+        }! + 4
     }
 }
