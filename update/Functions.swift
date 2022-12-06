@@ -124,14 +124,13 @@ func createSourceFiles(for year: Int) {
 }
 
 func isProblemAvailable(year: Int, day: Int) -> Bool {
-    if year < AoC.Date.currentYear { return true }
-    if day < AoC.Date.currentDay { return true }
-    if day > AoC.Date.currentDay || year > AoC.Date.currentYear { return false }
-
     var utcCalendar = Calendar(identifier: .gregorian)
     utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
-    let currentDayUTC = utcCalendar.dateComponents([.day], from: AoC.Date.date).day!
-    return day <= currentDayUTC
+    let currentDateComponentsUTC = utcCalendar.dateComponents([.day, .year], from: AoC.Date.date)
+    let currentDayUTC = currentDateComponentsUTC.day!
+    let currentYearUTC = currentDateComponentsUTC.year!
+
+    return year <= currentYearUTC && day <= currentDayUTC
 }
 
 func generateXcodeGenSpec() {
