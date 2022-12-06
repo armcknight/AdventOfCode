@@ -332,15 +332,10 @@ func isProblemAvailable(year: Int, day: Int) -> Bool {
     if day < AoC.Date.currentDay { return true }
     if day > AoC.Date.currentDay || year > AoC.Date.currentYear { return false }
 
-    var cal = Calendar(identifier: .gregorian)
-    cal.timeZone = TimeZone(secondsFromGMT: 0)!
-    var components = DateComponents()
-    components.hour = 0
-    components.year = AoC.Date.currentYear
-    components.day = AoC.Date.currentDay
-    let midnightUTC = cal.date(from: components)
-
-    return midnightUTC?.compare(Date()) == .orderedDescending
+    var utcCalendar = Calendar(identifier: .gregorian)
+    utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+    let currentDayUTC = utcCalendar.dateComponents([.day], from: AoC.Date.date).day!
+    return day <= currentDayUTC
 }
 
 func generateXcodeGenSpec() {
