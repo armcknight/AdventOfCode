@@ -10,7 +10,7 @@ import Foundation
 
 public func findMessage(input: String) -> Int {
     return Array(input).windows(ofSize: 14).firstIndex {
-        return Set($0).count == 14
+        Set($0).count == 14
     }! + 14
 }
 
