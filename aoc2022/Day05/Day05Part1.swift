@@ -10,19 +10,6 @@ import Foundation
 import PippinLibrary
 
 public extension Day05 {
-    struct Problem {
-        struct Stack {
-
-        }
-
-        struct Instruction {
-
-        }
-
-        var stack: Stack
-        var instructions: [Instruction]
-    }
-
     static func part1(input: ([[String]], String)) -> String {
         var stacks = input.0
         input.1.lines.map { line -> (amount: Int, from: Int, to: Int) in
