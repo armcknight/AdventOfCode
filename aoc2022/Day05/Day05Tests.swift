@@ -10,36 +10,30 @@ import XCTest
 
 class Day05Tests: XCTestCase {
     func testPart1Sample() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day05.sample.part1, -1)
+        XCTAssertEqual(Day05.part1(input: Day05.sample), "CMZ")
     }
 
     func testPart1() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day05.input.part1, -1)
+        XCTAssertEqual(Day05.part1(input: Day05.input), "CFFHVVHNC")
     }
 
     func testPart1Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
-            let _ = Day05.input.part1
+            let _ = Day05.part1(input: Day05.input)
         }
     }
 
     func testPart2Sample() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day05.sample.part2, -1)
+        XCTAssertEqual(Day05.part2(input: Day05.sample), "MCD")
     }
 
     func testPart2() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day05.input.part2, -1)
+        XCTAssertEqual(Day05.part2(input: Day05.input), "FSZWBPTBG")
     }
 
     func testPart2Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
-            let _ = Day05.input.part2
+            let _ = Day05.part2(input: Day05.input)
         }
     }
 }
