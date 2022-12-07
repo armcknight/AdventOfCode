@@ -7,6 +7,8 @@
 
 import aocHelpers
 import Foundation
+import PippinLibrary
+import FastMath
 
 public extension Day{{ day }} {
     var part2: Int {
