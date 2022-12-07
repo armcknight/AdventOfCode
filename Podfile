@@ -11,6 +11,7 @@ abstract_target 'aocTargets' do
   else
     pod 'PippinLibrary'
   end
+  target "aocHelpers"
   target "aoc2015"
   target "aoc2015Tests"
   target "aoc2016"

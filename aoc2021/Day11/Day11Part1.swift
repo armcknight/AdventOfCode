@@ -8,12 +8,6 @@
 import aocHelpers
 import Foundation
 
-extension CGPoint: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine("(x: \(x), y: \(y))")
-    }
-}
-
 public extension Day11 {
     var part1: Int {
         var grid = rawValue.intGrid

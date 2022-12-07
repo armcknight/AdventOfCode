@@ -8,13 +8,6 @@
 import aocHelpers
 import Foundation
 
-extension ClosedRange {
-    func overlaps(other: ClosedRange) -> Bool {
-        lowerBound <= other.lowerBound && lowerBound >= other.upperBound
-        || upperBound >= other.lowerBound && upperBound <= other.upperBound
-    }
-}
-
 public extension Day04 {
     var part2: Int {
         return rawValue.lines.map { line -> (ClosedRange<Int>, ClosedRange<Int>) in

@@ -12,15 +12,6 @@ public let priorities = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW
     partialResult[String(next)] = partialResult.count + 1
 }
 
-extension String {
-    var midpoint: Index {
-        index(startIndex, offsetBy: count / 2)
-    }
-    var halves: (String, String) {
-        (String(self[startIndex ..< midpoint]), String(self[midpoint ..< endIndex]))
-    }
-}
-
 public extension Day03 {
     var part1: Int {
         let halves = rawValue.lines.map { $0.halves }

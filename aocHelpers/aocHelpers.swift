@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import PippinLibrary
+import Then
 
 public extension String.SubSequence {
     func captureGroup(at: Int, result: NSTextCheckingResult?) -> String {
@@ -43,6 +45,16 @@ public extension String {
         }
     }
 
+    func regexResult(from regex: String) throws -> NSTextCheckingResult {
+        let regex = try NSRegularExpression(pattern: regex, options: [])
+        let range = NSRange(location: 0, length: self.count)
+        var regexResult: NSTextCheckingResult!
+        regex.enumerateMatches(in: self, options: [], range: range) { (result, flags, stop) in
+            regexResult = result
+        }
+        return regexResult
+    }
+
     /// - returns: the substring between the two provided strings (not inclusive).
     func substring(from: String, to: String) -> String {
         let startRange = (self as NSString).range(of: from)
@@ -50,6 +62,32 @@ public extension String {
         let startIdx = self.index(self.startIndex, offsetBy: (startRange.location + startRange.length))
         let endIdx = self.index(self.startIndex, offsetBy: endRange.location)
         return String(self[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
+    }
+
+    /**
+     * Given columnar input, return an array of columns, each of which is represented as an array of its elements.
+     * For example, given the string:
+     * ```
+     * """
+     * a b c
+     * d e f
+     * g h i
+     * """
+     * ```
+     * the result is `[["a", "d", "g"], ["b", "e", "h"], ["c", "f", "i"]]`.
+     * - warning: The strings must all have the same number of elements delimited by whitespace.
+     */
+    var columns: [[String]] {
+        guard count > 0 else { return [] }
+        return lines.columns
+    }
+
+    var midpoint: Index {
+        index(startIndex, offsetBy: count / 2)
+    }
+
+    var halves: (String, String) {
+        (String(self[startIndex ..< midpoint]), String(self[midpoint ..< endIndex]))
     }
 }
 
@@ -179,5 +217,100 @@ public extension Array where Element == Array<Any> {
     func neighbors8Array(row: Int, col: Int) -> Element {
         let neighbors = neighbors8(row: row, col: col)
         return [neighbors.up, neighbors.upRight, neighbors.right, neighbors.rightDown, neighbors.down, neighbors.downLeft, neighbors.left, neighbors.leftUp].compactMap { return $0 }
+    }
+}
+
+public extension Array<String> {
+    /**
+     * Given columnar input, return an array of columns, each of which is represented as an array of its elements.
+     * For example, given the array of strings:
+     * ```
+     * [
+     *  "a b c",
+     *  "d e f",
+     *  "g h i"
+     * ]
+     * ```
+     * the result is `[["a", "d", "g"], ["b", "e", "h"], ["c", "f", "i"]]`.
+     */
+    var columns: [[String]] {
+        guard count > 0 else { return [] }
+        var columns = [[String]]()
+        let numberOfCols = first!.components(separatedBy: .whitespaces).count
+        for _ in 0 ..< numberOfCols {
+            columns.append([String]())
+        }
+        forEach {
+            let colElements = $0.components(separatedBy: .whitespaces)
+            assert(colElements.count == numberOfCols)
+            for i in 0 ..< numberOfCols {
+                columns[i].append(colElements[i])
+            }
+        }
+        return columns
+    }
+}
+
+extension CGPoint: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine("(x: \(x), y: \(y))")
+    }
+}
+
+public extension ClosedRange {
+    func overlaps(other: ClosedRange) -> Bool {
+        lowerBound <= other.lowerBound && lowerBound >= other.upperBound
+        || upperBound >= other.lowerBound && upperBound <= other.upperBound
+    }
+}
+
+public extension Process {
+    static func run(_ path: String, cwd: URL? = nil, _ arguments: String ...) {
+        _run(path, cwd: cwd, Array(arguments))
+    }
+
+    static func runBrewed(_ utility: String, stdin: String? = nil, _ arguments: String ...) {
+        _run(_path(forBrewed: utility), stdin: stdin, Array(arguments))
+    }
+
+    static func runBrewedWithResult(_ utility: String, stdin: String? = nil, _ arguments: String ...) -> String {
+        var result: String!
+        let group = DispatchGroup()
+        let stdout = Pipe().then {
+            $0.fileHandleForReading.readabilityHandler = {
+                result = String(data: $0.readDataToEndOfFile(), encoding: .utf8)!
+                try! $0.close()
+                group.leave()
+            }
+        }
+        group.enter()
+        _run(_path(forBrewed: utility), stdin: stdin, stdout: stdout, Array(arguments))
+        group.wait()
+        return result
+    }
+
+    private static func _path(forBrewed utility: String) -> String {
+        let x86_64Path = "/usr/local/bin/\(utility)"
+        return FileManager.default.fileExists(atPath: x86_64Path) ? x86_64Path : "/opt/homebrew/bin/\(utility)"
+    }
+
+    private static func _run(_ path: String, stdin: String? = nil, stdout: Pipe? = nil, cwd: URL? = nil, _ arguments: [String]) {
+        Process().do {
+            $0.executableURL = URL(fileURLWithPath: path)
+            $0.arguments = arguments
+            if let stdin {
+                $0.standardInput = Pipe().then {
+                    $0.fileHandleForWriting.write(stdin.data(using: .utf8)!)
+                    try! $0.fileHandleForWriting.close()
+                }
+            }
+            if let stdout {
+                $0.standardOutput = stdout
+            }
+            if let cwd {
+                $0.currentDirectoryURL = cwd
+            }
+            try! $0.run()
+        }
     }
 }
