@@ -97,6 +97,20 @@ public extension String {
 }
 
 public extension Array where Element == Array<Int> {
+    func enumerate(rowStartOffset: Int = 0, rowEndOffset: Int = 0, colStartOffset: Int = 0, colEndOffset: Int = 0, _ block: (_ row: Int, _ col: Int, _ element: Int) -> Void) {
+        let rowEnd = count - rowEndOffset
+        let colEnd = self[0].count - colEndOffset
+        for rowIdx in rowStartOffset ..< rowEnd {
+            for colIdx in colStartOffset ..< colEnd {
+                block(rowIdx, colIdx, self[rowIdx][colIdx])
+            }
+        }
+    }
+
+    func enumerate(allOffsets: Int = 0, _ block: (_ row: Int, _ col: Int, _ element: Int) -> Void) {
+        enumerate(rowStartOffset: allOffsets, rowEndOffset: allOffsets, colStartOffset: allOffsets, colEndOffset: allOffsets, block)
+    }
+
     func neighboringRowAndColMembers(row: Int, col: Int) -> (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int]) {
         var colUpElements = [Int]()
         for i in 0 ..< row {
