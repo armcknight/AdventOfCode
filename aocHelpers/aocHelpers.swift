@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import PippinLibrary
 import Then
 
 public extension String.SubSequence {
@@ -64,6 +63,12 @@ public extension String {
         return String(self[startIdx ..< endIdx]).trimmingCharacters(in: .newlines)
     }
 
+    // TODO: copied this here because we can't link PippinLibrary as a framework because this aocHelpers lib is linked into the update CLI tool
+    /// Break up a multiline string into an array of each line's string value.
+    private var lines: [String] {
+        return components(separatedBy: "\n").map({String($0)})
+    }
+
     /**
      * Given columnar input, return an array of columns, each of which is represented as an array of its elements.
      * For example, given the string:
@@ -92,6 +97,31 @@ public extension String {
 }
 
 public extension Array where Element == Array<Int> {
+    func neighboringRowAndColMembers(row: Int, col: Int) -> (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int]) {
+        var colUpElements = [Int]()
+        for i in 0 ..< row {
+            colUpElements.append(self[i][col])
+        }
+
+        var colDownElements = [Int]()
+        for i in row + 1 ..< count {
+            colDownElements.append(self[i][col])
+        }
+
+        var rowLeftElements = [Int]()
+        let row = self[row]
+        for i in 0 ..< col {
+            rowLeftElements.append(row[i])
+        }
+
+        var rowRightElements = [Int]()
+        for i in col + 1 ..< row.count {
+            rowRightElements.append(row[i])
+        }
+
+        return (rowLeftElements, rowRightElements, colUpElements, colDownElements)
+    }
+
     /// Return the 4 values neighboring the value of this cell. Cells on edges of the grid have `nil` values for invalid neighbor locations.
     func neighbors4(row: Int, col: Int) -> (up: Int?, right: Int?, down: Int?, left: Int?) {
         var left: Int? = nil
