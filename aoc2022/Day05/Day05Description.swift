@@ -146,33 +146,29 @@ of each stack?*
 
  Your puzzle answer was FSZWBPTBG.
 */
-public enum Day05 {
-public static let sample = (
-    [
-        ["Z", "N"],
-        ["M", "C", "D"],
-        ["P"],
-    ],
-"""
+public enum Day05: String {
+case sample = """
+    [D]
+[N] [C]
+[Z] [M] [P]
+ 1   2   3
 move 1 from 2 to 1
 move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2
-""")
-
-public static let input = (
-    [
-        Array(["C", "S", "G", "B"].reversed()),
-        Array(["G", "V", "N", "J", "H", "W", "M", "T"].reversed()),
-        Array(["S", "Q", "M"].reversed()),
-        Array(["M", "N", "W", "T", "L", "S", "B"].reversed()),
-        Array(["P", "W", "G", "V", "T", "F", "Z", "J"].reversed()),
-        Array(["S", "H", "Q", "G", "B", "T", "C"].reversed()),
-        Array(["W", "B", "P", "J", "T"].reversed()),
-        Array(["M", "Q", "T", "F", "Z", "C", "D", "G"].reversed()),
-        Array(["F", "P", "B", "H", "S", "N"].reversed()),
-    ],
 """
+
+case input = """
+    [G]         [P]         [M]
+    [V]     [M] [W] [S]     [Q]
+    [N]     [N] [G] [H]     [T] [F]
+    [J]     [W] [V] [Q] [W] [F] [P]
+[C] [H]     [T] [T] [G] [B] [Z] [B]
+[S] [W] [S] [L] [F] [B] [P] [C] [H]
+[G] [M] [Q] [S] [Z] [T] [J] [D] [S]
+[B] [T] [M] [B] [J] [C] [T] [G] [N]
+ 1   2   3   4   5   6   7   8   9
+
 move 2 from 4 to 2
 move 6 from 9 to 7
 move 4 from 7 to 2
@@ -674,5 +670,5 @@ move 2 from 8 to 2
 move 4 from 6 to 9
 move 3 from 2 to 4
 move 1 from 8 to 6
-""")
+"""
 }

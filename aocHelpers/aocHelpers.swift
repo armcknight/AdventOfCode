@@ -87,6 +87,10 @@ public extension String {
         return lines.columns
     }
 
+    var transpose: [[String]] {
+        return lines.transpose
+    }
+
     var midpoint: Index {
         index(startIndex, offsetBy: count / 2)
     }
@@ -293,6 +297,30 @@ public extension Array<String> {
             }
         }
         return columns
+    }
+
+    /// - note: If input is not rectangular, but rather has a ragged right edge, the right ends of strings are padded with whitespace to the length of the longest string.
+    /// - returns: A character-by-character transposition of an array of strings.
+    var transpose: [[String]] {
+        guard count > 0 else { return [] }
+        guard count > 1 else { return [Array(self)] }
+        var rectified = self
+
+        let lengths = map { $0.count }
+        if Set(lengths).count > 1 {
+            let longest = lengths.sorted().last!
+            rectified = map {
+                $0.appending(String(repeating: " ", count: longest - $0.count))
+            }
+        }
+
+        var result = [[String]]()
+        let matrix = rectified.map { $0.map { String($0) } }
+        matrix.enumerate { row, col, element in
+            result[col][row] = element
+        }
+
+        return result
     }
 }
 
