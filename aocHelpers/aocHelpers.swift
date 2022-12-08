@@ -101,7 +101,7 @@ public extension String {
 }
 
 public extension Array where Element == Array<Int> {
-    func neighboringRowAndColMembers(row: Int, col: Int) -> (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int]) {
+    func sightLineRanges(row: Int, col: Int) -> (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int]) {
         var colUpElements = [Int]()
         for i in 0 ..< row {
             colUpElements.append(self[i][col])

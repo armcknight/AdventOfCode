@@ -13,7 +13,7 @@ public extension Day08 {
         let grid = rawValue.intGrid
         var highestScore = 0
         grid.enumerate(allOffsets: 1) { row, col, height in
-            let others = grid.neighboringRowAndColMembers(row: row, col: col)
+            let others = grid.sightLineRanges(row: row, col: col)
 
             let score = [
                 (others.rowLeft, true),

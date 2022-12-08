@@ -13,8 +13,17 @@ public extension Day08 {
         let grid = rawValue.intGrid
         var visible = 0
         grid.enumerate(allOffsets: 1) { row, col, height in
-            let others = grid.neighboringRowAndColMembers(row: row, col: col)
-            if [others.rowLeft, others.rowRight, others.colUp, others.colDown].reduce(false, { partialResult, others in
+            let ranges = [
+                
+            ]
+
+            let others = grid.sightLineRanges(row: row, col: col)
+            if [
+                others.rowLeft,
+                others.rowRight,
+                others.colUp,
+                others.colDown
+            ].reduce(false, { partialResult, others in
                 partialResult || others.filter{
                     $0 >= height
                 }.count == 0
