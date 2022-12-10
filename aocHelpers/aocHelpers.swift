@@ -204,6 +204,17 @@ public extension Array where Element == Array<Int> {
     }
 }
 
+public extension Collection where Element == Array<String> {
+    func printGrid() {
+        let separator = String(repeating: "-", count: first!.count * 2 - 1)
+        let output = map({ row in
+            row.joined(separator: " ")
+        }).joined(separator: "\n")
+        print("\(separator)\n\(output)\n\(separator)\n")
+    }
+}
+
+// MARK: Generic 2D Collection Functions
 public extension Collection where Iterator.Element: Collection, Self.Index == Int, Iterator.Element.Index == Int {
     func enumerate<T>(rowStartOffset: Int = 0, rowEndOffset: Int = 0, colStartOffset: Int = 0, colEndOffset: Int = 0, _ block: (_ row: Int, _ col: Int, _ element: T) -> Void) {
         let rowEnd = count - rowEndOffset
