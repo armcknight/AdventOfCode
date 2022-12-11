@@ -11,6 +11,19 @@ import Foundation
 public extension Day09 {
     var part2: Int {
         var knotPositions = Array(repeating: (x: 0, y:0), count: 10)
+
+        func printBoard() {
+            let limit = 10
+            var board = Array(repeating: Array(repeating: ".", count: limit * 2), count: limit * 2)
+            for (i, knot) in knotPositions.enumerated() {
+                if board[knot.y + limit][knot.x + limit] == "." {
+                    board[knot.y + limit][knot.x + limit] = String(i)
+                }
+            }
+
+            board.printGrid()
+        }
+
         let tailVisited = NSMutableOrderedSet()
         func insertTailVisited(x: Int, y: Int) {
             if !tailVisited.contains([x, y]) {
@@ -20,97 +33,60 @@ public extension Day09 {
         }
         insertTailVisited(x: 0, y: 0)
 
-        func printBoard() {
-            let limit = 100
-            var board = Array(repeating: Array(repeating: ".", count: limit), count: limit)
-            for (i, knot) in knotPositions.enumerated() {
-                board[knot.x + limit / 2][knot.y + limit / 2] = String(i)
+        func adjustDiagonally(direction: String, leadingKnotIndex: Int, trailingKnotIndex: Int) {
+            let xOrtho = orthoFactors[direction]!.0
+            let yOrtho = orthoFactors[direction]!.1
+            let xFactor = orthoFactors[direction]!.2
+            let yFactor = orthoFactors[direction]!.3
+
+            if yFactor != 0 && knotPositions[trailingKnotIndex].x * xOrtho < knotPositions[leadingKnotIndex].x * xOrtho {
+                if knotPositions[trailingKnotIndex].y * yOrtho < knotPositions[leadingKnotIndex].y * yOrtho {
+                    knotPositions[trailingKnotIndex].y += yFactor
+                } else if knotPositions[trailingKnotIndex].y * yOrtho > knotPositions[leadingKnotIndex].y * yOrtho {
+                    knotPositions[trailingKnotIndex].y -= yFactor
+                }
             }
-            print(board.map({ row in
-                row.joined(separator: " ")
-            }).joined(separator: "\n"))
-            print(String(repeating: "-", count: 50))
+
+            if xFactor != 0 && knotPositions[trailingKnotIndex].y * yOrtho < knotPositions[leadingKnotIndex].y * yOrtho {
+                if knotPositions[trailingKnotIndex].x * xOrtho < knotPositions[leadingKnotIndex].x * xOrtho {
+                    knotPositions[trailingKnotIndex].x += xFactor
+                } else if knotPositions[trailingKnotIndex].x * xOrtho > knotPositions[leadingKnotIndex].x * xOrtho {
+                    knotPositions[trailingKnotIndex].x -= xFactor
+                }
+            }
         }
 
-        func performMove(move: (String, Int)) {
+        func performMove(direction: String, leadingKnotIndex: Int, trailingKnotIndex: Int) {
+            let xFactor = moveFactors[direction]!.0
+            let yFactor = moveFactors[direction]!.1
 
+            adjustDiagonally(direction: direction, leadingKnotIndex: leadingKnotIndex, trailingKnotIndex: trailingKnotIndex)
+
+            if knotPositions[trailingKnotIndex].x * xFactor < knotPositions[leadingKnotIndex].x * xFactor {
+                knotPositions[trailingKnotIndex].x += xFactor
+            }
+            if knotPositions[trailingKnotIndex].y * yFactor < knotPositions[leadingKnotIndex].y * yFactor {
+                knotPositions[trailingKnotIndex].y += yFactor
+            }
+
+            knotPositions[leadingKnotIndex].x += xFactor
+            knotPositions[leadingKnotIndex].y += yFactor
+
+            print("moved knot \(leadingKnotIndex) to \(knotPositions[leadingKnotIndex]); knot \(trailingKnotIndex) to \(knotPositions[trailingKnotIndex])")
         }
 
         rawValue.stringsAndInts.forEach { move in
-            print("move: \(move)")
+            print("Performing move \(move)")
 
-                if move.0 == "R" {
-                    for distFactor in (0 ..< move.1).reversed() {
-                        for knotIdx in 0 ..< knotPositions.count - 1 {
-                            let dist = distFactor - knotIdx
-                            if knotPositions[knotIdx + 1].y < knotPositions[knotIdx].y && knotPositions[knotIdx + 1].x < knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].y += dist
-                            } else if knotPositions[knotIdx + 1].y > knotPositions[knotIdx].y && knotPositions[knotIdx + 1].x < knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].y -= dist
-                            }
-
-                            if knotPositions[knotIdx + 1].x < knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].x += dist
-                            }
-
-                            knotPositions[knotIdx].x += dist
-                        }
-                    }
-                } else if move.0 == "L" {
-                    for distFactor in (0 ..< move.1).reversed() {
-                        for knotIdx in 0 ..< knotPositions.count - 1 {
-                            let dist = distFactor - knotIdx
-                            if knotPositions[knotIdx + 1].y < knotPositions[knotIdx].y && knotPositions[knotIdx + 1].x > knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].y += dist
-                            } else if knotPositions[knotIdx + 1].y > knotPositions[knotIdx].y && knotPositions[knotIdx + 1].x > knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].y -= dist
-                            }
-
-                            if knotPositions[knotIdx + 1].x > knotPositions[knotIdx].x {
-                                knotPositions[knotIdx + 1].x -= dist
-                            }
-
-                            knotPositions[knotIdx].x -= dist
-                        }
-                    }
-                } else if move.0 == "U" {
-                    for distFactor in (0 ..< move.1).reversed() {
-                        for knotIdx in 0 ..< knotPositions.count - 1 {
-                            let dist = distFactor - knotIdx
-                            if knotPositions[knotIdx + 1].x < knotPositions[knotIdx].x && knotPositions[knotIdx + 1].y < knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].x += dist
-                            } else if knotPositions[knotIdx + 1].x > knotPositions[knotIdx].x && knotPositions[knotIdx + 1].y < knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].x -= dist
-                            }
-
-                            if knotPositions[knotIdx + 1].y < knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].y += dist
-                            }
-
-                            knotPositions[knotIdx].y += dist
-                        }
-                    }
-                } else /* if move.0 == "D" */ {
-                    for distFactor in (0 ..< move.1).reversed() {
-                        for knotIdx in 0 ..< knotPositions.count - 1 {
-                            let dist = distFactor - knotIdx
-                            if knotPositions[knotIdx + 1].x < knotPositions[knotIdx].x && knotPositions[knotIdx + 1].y > knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].x += dist
-                            } else if knotPositions[knotIdx + 1].x > knotPositions[knotIdx].x && knotPositions[knotIdx + 1].y > knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].x -= dist
-                            }
-
-                            if knotPositions[knotIdx + 1].y > knotPositions[knotIdx].y {
-                                knotPositions[knotIdx + 1].y -= dist
-                            }
-
-                            knotPositions[knotIdx].y -= dist
-                        }
-                    }
+            for dist in 0 ..< move.1 {
+                for knotIdx in (max(0, knotPositions.count - dist - 2) ... knotPositions.count - 2).reversed() {
+                    performMove(direction: move.0, leadingKnotIndex: knotIdx + 1, trailingKnotIndex: knotIdx)
                 }
-            insertTailVisited(x: knotPositions.first!.x, y: knotPositions.first!.y)
+                print("---")
+            }
 
-            printBoard()
+            insertTailVisited(x: knotPositions.first!.x, y: knotPositions.first!.y)
+//            printBoard()
         }
         return tailVisited.count
     }

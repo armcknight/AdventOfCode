@@ -9,6 +9,20 @@ import aocHelpers
 import Foundation
 import PippinLibrary
 
+let orthoFactors = [
+    "R": (1, 1, 0, 1),
+    "L": (-1, 1, 0, 1),
+    "U": (1, 1, 1, 0),
+    "D": (1, -1, 1, 0)
+]
+
+let moveFactors = [
+    "R": (1, 0),
+    "L": (-1, 0),
+    "U": (0, 1),
+    "D": (0, -1)
+]
+
 public extension Day09 {
     var part1: Int {
         var headPosition = (x: 0, y:0)
@@ -23,13 +37,6 @@ public extension Day09 {
         }
 
         insertTailVisited(x: 0, y: 0)
-
-        let orthoFactors = [
-            "R": (1, 1, 0, 1),
-            "L": (-1, 1, 0, 1),
-            "U": (1, 1, 1, 0),
-            "D": (1, -1, 1, 0)
-        ]
 
         func adjustDiagonally(move: (String, Int)) {
             let xOrtho = orthoFactors[move.0]!.0
@@ -53,13 +60,6 @@ public extension Day09 {
                 }
             }
         }
-
-        let moveFactors = [
-            "R": (1, 0),
-            "L": (-1, 0),
-            "U": (0, 1),
-            "D": (0, -1)
-        ]
 
         func perform(move: (String, Int)) {
             for _ in 0 ..< move.1 {
