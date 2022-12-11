@@ -34,6 +34,12 @@ public extension Day11 {
                     monkey.itemWorryLevels.removeAll()
                 }
             }
+
+            return monkeys.sorted(by: { a, b in
+                a.itemsInspected > b.itemsInspected
+            })[0...1].reduce(Int(1)) { partialResult, monkey in
+                partialResult * monkey.itemsInspected
+            }
         }
 
         func playGame(monkeys: [Monkey], rounds: Int) -> Int {
