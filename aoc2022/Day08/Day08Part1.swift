@@ -8,16 +8,14 @@
 import aocHelpers
 import Foundation
 
+typealias SightLines = (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int])
+
 public extension Day08 {
     var part1: Int {
         let grid = rawValue.intGrid
         var visible = 0
         grid.enumerate(allOffsets: 1) { row, col, height in
-            let ranges = [
-                
-            ]
-
-            let others = grid.sightLineRanges(row: row, col: col)
+            let others: SightLines = grid.sightLineRanges(row: row, col: col)
             if [
                 others.rowLeft,
                 others.rowRight,
