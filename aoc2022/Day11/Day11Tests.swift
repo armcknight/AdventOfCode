@@ -10,34 +10,28 @@ import XCTest
 
 class Day11Tests: XCTestCase {
     func testPart1Sample() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day11.sample.part1, -1)
+        XCTAssertEqual(Day11.sample.part1, 10605)
     }
 
     func testPart1() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day11.input.part1, -1)
+        XCTAssertEqual(Day11.input.part1, 55216)
     }
 
     func testPart1Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
             let _ = Day11.input.part1
         }
     }
 
     func testPart2Sample() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day11.sample.part2, -1)
+        XCTAssertEqual(Day11.sample.part2, 2713310158)
     }
 
     func testPart2() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day11.input.part2, -1)
+        XCTAssertEqual(Day11.input.part2, 12848882750)
     }
 
     func testPart2Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
             let _ = Day11.input.part2
         }
