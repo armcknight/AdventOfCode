@@ -39,7 +39,7 @@ public extension Day12 {
             }
         }
         while (currentPosition.row != endPosition.col && currentPosition.row != endPosition.col) {
-            let neighbors = grid.neighbors4(row: currentPosition.row, col: currentPosition.col)
+            let neighbors: (Int?, Int?, Int?, Int?) = grid.neighbors4(row: currentPosition.row, col: currentPosition.col)
 
         }
 
