@@ -4,3 +4,6 @@
 [submodule "FastMath"]
 	path = FastMath
 	url = git@github.com:tworingsoft/fastmath.git
+[submodule "swift-armcknight"]
+	path = swift-armcknight
+	url = git@github.com:armcknight/swift-armcknight

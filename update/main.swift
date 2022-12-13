@@ -11,12 +11,8 @@ import Then
 for year in 2015 ... AoC.Date.currentYear {
     createSourceFiles(for: year)
     injectMissingTestTasks(for: year)
-    injectMissingPodfileTargets(for: year)
 }
 
 generateXcodeGenSpec()
 generateXcodeProject()
-
-reinstallPods()
-
 openXcodeProject()

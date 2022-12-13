@@ -7,7 +7,7 @@
 
 import aocHelpers
 import Foundation
-import PippinLibrary
+import SwiftArmcknight
 
 
 enum Instruction {

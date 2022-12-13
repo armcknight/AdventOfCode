@@ -173,21 +173,3 @@ func generateXcodeProject() {
 func openXcodeProject() {
     Process.run("/usr/bin/xed", AoC.File.xcodeWorkspaceURL.path)
 }
-
-func injectMissingPodfileTargets(for year: Int) {
-    let targetLine = AoC.Template.podfileTargets.replacingOccurrences(of: "{{ year }}", with: String(year))
-    AoC.File.podfileContents.do {
-        if !$0.contains(targetLine) {
-            var lines = ($0 as String).lines
-            let lastEnd = lines.lastIndex { line in
-                line.contains("end")
-            }!
-            lines.insert(targetLine, at: lastEnd)
-            try! (lines.joined(separator: "\n") + "\n").write(to: AoC.File.podfileURL, atomically: true, encoding: .utf8)
-        }
-    }
-}
-
-func reinstallPods() {
-    Process.run("/usr/bin/make", cwd: AoC.File.rootURL, "pods")
-}

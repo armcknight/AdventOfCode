@@ -7,7 +7,7 @@
 
 import aocHelpers
 import Foundation
-import PippinLibrary
+import SwiftArmcknight
 
 extension ClosedRange {
     func containsOtherRange(other: ClosedRange) -> Bool {

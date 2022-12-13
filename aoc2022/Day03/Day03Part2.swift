@@ -7,7 +7,7 @@
 
 import aocHelpers
 import Foundation
-import PippinLibrary
+import SwiftArmcknight
 
 public extension Day03 {
     var part2: Int {

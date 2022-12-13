@@ -7,6 +7,7 @@
 
 import aocHelpers
 import Foundation
+import SwiftArmcknight
 
 public extension Day12 {
     var part1: Int {

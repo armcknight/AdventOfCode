@@ -73,8 +73,10 @@ enum AoC {
             dependencies:
               - target: aocHelpers
                 link: true
+              - package: RegularExpressionDecoder
             platform: macOS
             deploymentTarget: 10.15
+            requiresObjCLinking: false
             scheme:
               testTargets:
                 - aoc{{ year }}Tests
@@ -84,12 +86,11 @@ enum AoC {
           aoc{{ year }}Tests:
             type: bundle.unit-test
             platform: macOS
+            requiresObjCLinking: false
             deploymentTarget: 10.15
             sources: [{{ testSources }}]
             dependencies:
               - target: aoc{{ year }}
-              - package: RegularExpressionDecoder
-                link: true
         """)
 
         static let xcodegenTemplate = ("""
@@ -107,6 +108,8 @@ enum AoC {
           RegularExpressionDecoder:
             url: https://github.com/Flight-School/RegularExpressionDecoder
             from: 0.1.0
+          SwiftArmcknight:
+            path: ./swift-armcknight
         schemes:
           aocHelpers:
             build:
@@ -124,6 +127,10 @@ enum AoC {
             sources: [aocHelpers]
             platform: macOS
             deploymentTarget: 10.15
+            requiresObjCLinking: false
+            dependencies:
+              - package: Then
+              - package: SwiftArmcknight
         {{ yearTargets }}
         {{ yearTestTargets }}
           update:
@@ -131,8 +138,10 @@ enum AoC {
             sources: [update]
             platform: macOS
             deploymentTarget: 10.15
+            requiresObjCLinking: false
             dependencies:
               - package: Then
+              - package: SwiftArmcknight
               - bundle: createYearResources
               - target: aocHelpers
                 link: true
@@ -144,12 +153,7 @@ enum AoC {
         """)
 
         static let makefileTestTask = ("""
-        \txcodebuild -scheme aoc{{ year }}Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | rbenv exec bundle exec xcpretty -t
-        """)
-
-        static let podfileTargets = ("""
-          target "aoc{{ year }}"
-          target "aoc{{ year }}Tests"\n
+        \txcodebuild -scheme aoc{{ year }}Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
         """)
     }
 
@@ -185,11 +189,6 @@ enum AoC {
 
         static let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
         static let bundle = Bundle(url: bundleURL)!
-
-        static let podfileURL = rootURL.appendingPathComponent("Podfile")
-        static var podfileContents: String {
-            try! String(contentsOf: podfileURL)
-        }
     }
 }
 

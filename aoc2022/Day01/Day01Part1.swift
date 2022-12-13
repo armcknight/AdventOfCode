@@ -6,9 +6,8 @@
 //
 
 import aocHelpers
-import FastMath
 import Foundation
-import PippinLibrary
+import SwiftArmcknight
 
 public extension Day01 {
     var part1: Int {
