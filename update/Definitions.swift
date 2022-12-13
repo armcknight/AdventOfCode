@@ -63,6 +63,15 @@ enum AoC {
               targets: [aoc{{ year }}Tests]
         """)
 
+        static let xcodegenYearBenchmarksSchemeTemplate = ("""
+          aoc{{ year }}Benchmarks:
+            build:
+              targets:
+                  aoc{{ year }}Benchmarks: test
+            test:
+              targets: [aoc{{ year }}Benchmarks]
+        """)
+
         static let xcodegenYearTargetTemplate = ("""
           aoc{{ year }}:
             type: library.static
@@ -92,6 +101,16 @@ enum AoC {
                 link: true
         """)
 
+        static let xcodegenYearBenchmarksTargetTemplate = ("""
+          aoc{{ year }}Benchmarks:
+            type: bundle.unit-test
+            platform: macOS
+            deploymentTarget: 10.15
+            sources: [{{ benchmarkSources }}]
+            dependencies:
+              - target: aoc{{ year }}
+        """)
+
         static let xcodegenTemplate = ("""
         name: AdventOfCode
         fileGroups:
@@ -114,6 +133,7 @@ enum AoC {
                 aocHelpers: all
         {{ yearSchemes }}
         {{ yearTestSchemes }}
+        {{ yearBenchmarkSchemes }}
           update:
             build:
               targets:
@@ -126,6 +146,7 @@ enum AoC {
             deploymentTarget: 10.15
         {{ yearTargets }}
         {{ yearTestTargets }}
+        {{ yearBenchmarkTargets }}
           update:
             type: tool
             sources: [update]

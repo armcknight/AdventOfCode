@@ -75,15 +75,15 @@ func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year:
  ```
  path/
  ├── aoc<year>/
- │   ├── Info.plist (for the test target)
+ │   ├── Info.plist (for the test targets)
  │   ├── Day1/
- │   │   ├── Day01Input.swift
+ │   │   ├── Day01Description.swift
  │   │   ├── Day01Part1.swift
  │   │   ├── Day01Part2.swift
- │   │   ├── Day01Problem.swift
- │   │   └── Day1Tests.swift
+ │   │   ├── Day01Tests.swift
+ │   │   └── Day01Benchmarks.swift
  │   ├── Day2/
- │   │   ├── Day02Input.swift
+ │   │   ├── Day02Description.swift
  ...
  ```
  */
@@ -103,7 +103,7 @@ func createSourceFiles(for year: Int) {
 
         try! AoC.File.fileManager.createDirectory(at: dayDirectoryURL, withIntermediateDirectories: true, attributes: nil)
 
-        ["Description", "Part1", "Part2", "Tests"].forEach { name in
+        ["Description", "Part1", "Part2", "Tests", "Benchmarks"].forEach { name in
             let fileURL = dayDirectoryURL.appendingPathComponent("\(dayName)\(name).swift")
 
             defer {
@@ -143,12 +143,19 @@ func generateXcodeGenSpec() {
     let yearSchemes = years.map({
         AoC.Template.xcodegenYearSchemeTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
     }).joined(separator: "\n")
+
     let yearTestSchemes = years.map({
         AoC.Template.xcodegenYearTestsSchemeTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
     }).joined(separator: "\n")
+
+    let yearBenchmarkSchemes = years.map({
+        AoC.Template.xcodegenYearBenchmarksSchemeTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
+    }).joined(separator: "\n")
+
     let yearTargets = years.map({
         AoC.Template.xcodegenYearTargetTemplate.replacingOccurrences(of: "{{ year }}", with: $0)
     }).joined(separator: "\n")
+
     let yearTestTargets = years.map({ year in
         AoC.Template.xcodegenYearTestsTargetTemplate
             .replacingOccurrences(of: "{{ year }}", with: year)
@@ -157,11 +164,21 @@ func generateXcodeGenSpec() {
             }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
     }).joined(separator: "\n")
 
+    let yearBenchmarkTargets = years.map({ year in
+        AoC.Template.xcodegenYearBenchmarksTargetTemplate
+            .replacingOccurrences(of: "{{ year }}", with: year)
+            .replacingOccurrences(of: "{{ benchmarkSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
+                "aoc\(year)/Day\(day)/Day\(day)Benchmarks.swift"
+            }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
+    }).joined(separator: "\n")
+
     try! AoC.Template.xcodegenTemplate
         .replacingOccurrences(of: "{{ yearSchemes }}", with: yearSchemes)
         .replacingOccurrences(of: "{{ yearTestSchemes }}", with: yearTestSchemes)
+        .replacingOccurrences(of: "{{ yearBenchmarksSchemes }}", with: yearBenchmarkSchemes)
         .replacingOccurrences(of: "{{ yearTargets }}", with: yearTargets)
         .replacingOccurrences(of: "{{ yearTestTargets }}", with: yearTestTargets)
+        .replacingOccurrences(of: "{{ yearBenchmarkTargets }}", with: yearBenchmarkTargets)
         .appending("\n")
         .write(to: AoC.File.xcodegenSpecURL, atomically: true, encoding: .utf8)
 }
