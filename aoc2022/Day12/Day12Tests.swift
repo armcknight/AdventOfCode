@@ -17,23 +17,11 @@ class Day12Tests: XCTestCase {
         XCTAssertEqual(Day12.input.part1, -1)
     }
 
-    func testPart1Benchmarked() throws {
-        measure {
-            let _ = Day12.input.part1
-        }
-    }
-
     func testPart2Sample() throws {
         XCTAssertEqual(Day12.sample.part2, -1)
     }
 
     func testPart2() throws {
         XCTAssertEqual(Day12.input.part2, -1)
-    }
-
-    func testPart2Benchmarked() throws {
-        measure {
-            let _ = Day12.input.part2
-        }
     }
 }

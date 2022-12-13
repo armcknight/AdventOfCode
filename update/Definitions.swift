@@ -79,6 +79,7 @@ enum AoC {
               - path: aoc{{ year }}
                 excludes:
                   - "**/*Tests.swift"
+                  - "**/*Benchmarks.swift"
             dependencies:
               - target: aocHelpers
                 link: true
@@ -106,6 +107,7 @@ enum AoC {
           aoc{{ year }}Benchmarks:
             type: bundle.unit-test
             platform: macOS
+            requiresObjCLinking: false
             deploymentTarget: 10.15
             sources: [{{ benchmarkSources }}]
             dependencies:
@@ -150,7 +152,9 @@ enum AoC {
             requiresObjCLinking: false
             dependencies:
               - package: Then
+                link: true
               - package: SwiftArmcknight
+                link: true
         {{ yearTargets }}
         {{ yearTestTargets }}
         {{ yearBenchmarkTargets }}

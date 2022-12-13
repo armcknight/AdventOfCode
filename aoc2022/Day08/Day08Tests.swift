@@ -17,12 +17,6 @@ class Day08Tests: XCTestCase {
         XCTAssertEqual(Day08.input.part1, 1807)
     }
 
-    func testPart1Benchmarked() throws {
-        measure {
-            let _ = Day08.input.part1
-        }
-    }
-
     func testPart2Sample() throws {
         XCTAssertEqual(Day08.sample.part2, 8)
     }
@@ -31,11 +25,5 @@ class Day08Tests: XCTestCase {
         let result = Day08.input.part2
         XCTAssertNotEqual(result, 2160)
         XCTAssertEqual(result, 480000)
-    }
-
-    func testPart2Benchmarked() throws {
-        measure {
-            let _ = Day08.input.part2
-        }
     }
 }

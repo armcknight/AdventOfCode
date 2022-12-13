@@ -175,7 +175,7 @@ func generateXcodeGenSpec() {
     try! AoC.Template.xcodegenTemplate
         .replacingOccurrences(of: "{{ yearSchemes }}", with: yearSchemes)
         .replacingOccurrences(of: "{{ yearTestSchemes }}", with: yearTestSchemes)
-        .replacingOccurrences(of: "{{ yearBenchmarksSchemes }}", with: yearBenchmarkSchemes)
+        .replacingOccurrences(of: "{{ yearBenchmarkSchemes }}", with: yearBenchmarkSchemes)
         .replacingOccurrences(of: "{{ yearTargets }}", with: yearTargets)
         .replacingOccurrences(of: "{{ yearTestTargets }}", with: yearTestTargets)
         .replacingOccurrences(of: "{{ yearBenchmarkTargets }}", with: yearBenchmarkTargets)
