@@ -10,7 +10,11 @@
 */
 public enum Day12: String {
     case sample = """
-{{ sample-input }}
+Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi
 """
 
     case input = """
