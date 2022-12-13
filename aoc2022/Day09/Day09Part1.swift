@@ -7,7 +7,7 @@
 
 import aocHelpers
 import Foundation
-import PippinLibrary
+import SwiftArmcknight
 
 let orthoFactors = [
     "R": (1, 1, 0, 1),

@@ -6,7 +6,7 @@
 //
 
 import aocHelpers
-import FastMath
+import SwiftArmcknight
 import Foundation
 
 func mostCommontDigit(idx: Int, lines: [String]) -> String {

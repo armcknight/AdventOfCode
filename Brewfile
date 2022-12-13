@@ -1,3 +1,3 @@
 brew 'pandoc'
-brew 'rbenv'
+brew 'xcbeautify'
 brew 'xcodegen'
