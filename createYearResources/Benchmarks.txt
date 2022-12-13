@@ -1,0 +1,25 @@
+//
+//  Day{{ day }}Benchmarks.swift
+//  aoc{{ year }}
+//
+//  Created by Andrew McKnight on {{ date }}.
+//
+
+import aoc{{ year }}
+import XCTest
+
+class Day{{ day }}Benchmarks: XCTestCase {
+    func testPart1Benchmarked() throws {
+        throw XCTSkip("Not implemented")
+        measure {
+            let _ = Day{{ day }}.input.part1
+        }
+    }
+
+    func testPart2Benchmarked() throws {
+        throw XCTSkip("Not implemented")
+        measure {
+            let _ = Day{{ day }}.input.part2
+        }
+    }
+}
