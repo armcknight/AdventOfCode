@@ -51,7 +51,7 @@ public extension Day15 {
         typealias GraphType = AdjacencyMatrixGraph<DirectedEdge<Node<Int>, Int>>
         let am: GraphType = .init(adjacencyMatrix: biggrid, nodes: nodes)
 
-        // find the path... needs djikstra or a*
+        // find the path... needs bfs, or djikstra or a*
 
         return biggrid.last!.last!
     }
