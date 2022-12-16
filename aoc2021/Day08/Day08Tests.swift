@@ -19,7 +19,7 @@ class Day08Tests: XCTestCase {
     }
 
     func testPart1() {
-        XCTAssertEqual(Day08.input.part1, -1)
+        XCTAssertEqual(Day08.input.part1, 294)
     }
 
     func testPart2Sample() throws {
