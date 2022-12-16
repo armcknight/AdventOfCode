@@ -12,14 +12,14 @@ class Day09Benchmarks: XCTestCase {
     func testPart1Benchmarked() throws {
         throw XCTSkip("Not implemented")
         measure {
-            let _ = Day09.input.part1
+            let _ = day09Part1(Day09.input.rawValue, codeAge: 25)
         }
     }
 
     func testPart2Benchmarked() throws {
         throw XCTSkip("Not implemented")
         measure {
-            let _ = Day09.input.part2
+            let _ = day09Part2(Day09.input.rawValue, codeAge: 25)
         }
     }
 }
