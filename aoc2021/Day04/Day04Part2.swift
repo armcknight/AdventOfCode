@@ -37,10 +37,11 @@ func playBoard(boards: inout [[[(Int, Bool)]]], boardIdx: Int, call: Int) -> Int
 }
 
 public func day04Part2(_ input: String) -> Int {
-    let lines = input.lines
+    let parts = input.components(separatedBy: "\n\n")
 
-    let calls = lines.first!.split(separator: ",").map { $0.integerValue }
-    var boards = parseBoards(lines: Array(lines[1..<lines.count]))
+    let calls = parts.first!.split(separator: ",").map { $0.integerValue }
+    let boardLines = parts[1..<parts.count].map { $0.components(separatedBy: "\n") }
+    var boards = parseBoards(boards: boardLines)
 
     for call in calls {
 //        print("\ncall: \(call)")

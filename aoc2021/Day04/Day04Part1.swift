@@ -29,22 +29,26 @@ func score(board: [[(Int, Bool)]]) -> Int {
     }
 }
 
-func parseBoards(lines: [String]) -> [[[(Int, Bool)]]] {
-    stride(from: 0, to: lines.count, by: 5).reduce([[[(Int, Bool)]]](), { (result, i) -> [[[(Int, Bool)]]] in
-        let board = (0..<5).reduce([[(Int, Bool)]](), { (result, j) -> [[(Int, Bool)]] in
-            result + [lines[i+j].split(separator: " ").map({ (col) -> (Int, Bool) in
-                (col.integerValue, false)
-            })]
-        })
-        return result + [board]
-    })
+func parseBoard(board: [String]) -> [[(Int, Bool)]] {
+    board.reduce([[(Int, Bool)]]()) { partialResult, line in
+        partialResult + [line.components(separatedBy: .whitespaces).filter { $0 != "" }.map({
+            (Int($0)!, false)
+        })]
+    }
+}
+
+func parseBoards(boards: [[String]]) -> [[[(Int, Bool)]]] {
+    boards.map { boardDesc -> [[(Int, Bool)]] in
+        parseBoard(board: boardDesc)
+    }
 }
 
 public func day04Part1(_ input: String) -> Int {
-    let lines = input.lines
+    let parts = input.components(separatedBy: "\n\n")
 
-    let calls = lines.first!.split(separator: ",").map { $0.integerValue }
-    var boards = parseBoards(lines: Array(lines[1..<lines.count]))
+    let calls = parts.first!.split(separator: ",").map { $0.integerValue }
+    let boardLines = parts[1..<parts.count].map { $0.components(separatedBy: "\n") }
+    var boards = parseBoards(boards: boardLines)
 
     for callIdx in 0..<calls.count {
         let call = calls[callIdx]
