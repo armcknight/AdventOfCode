@@ -66,7 +66,7 @@ nine `c`, both within the limits of their respective policies.
 */
 public enum Day02: String {
 case sample = """
--3 a: abcde
+1-3 a: abcde
 1-3 b: cdefg
 2-9 c: ccccccccc
 """
