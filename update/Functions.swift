@@ -27,6 +27,7 @@ func fetchSynchronously(url: String) -> String {
     urlSession.dataTask(with: URLRequest(url: URL(string: url)!)) { data, response, error in
         defer { group.leave() }
         let status = (response as! HTTPURLResponse).statusCode
+        // If this fails, check that the session cookie is valid and the network connection is operational.
         assert(status >= 200 && status < 300)
         assert(error == nil)
         result = String(data: data!, encoding: .utf8)

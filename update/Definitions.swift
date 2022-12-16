@@ -9,6 +9,9 @@ import aocHelpers
 import Foundation
 import Then
 
+/// This will have to be updated with each new auth session in order to retrieve new problem info.
+let cookie = ProcessInfo.processInfo.environment["cookie"]!
+
 // TODO: copied from Pippin, which can't currently be linked in statically via cocoapods. move its functions into a SPM-managed lib.
 public extension String {
     /// Break up a multiline string into an array of each line's string value.
@@ -143,6 +146,9 @@ enum AoC {
             build:
               targets:
                 update: run
+            run:
+              environmentVariables:
+                cookie: COOKIE_VALUE
         targets:
           aocHelpers:
             type: library.static
@@ -216,8 +222,11 @@ enum AoC {
 }
 
 let config = URLSessionConfiguration.default.then {
+    if cookie == "COOKIE_VALUE" {
+        fatalError("Needs a current session cookie")
+    }
     var headers = $0.httpAdditionalHeaders ?? [:]
-    headers["Cookie"] = "session=53616c7465645f5f5c26d8a40e3bae214739c44a49c6a2ff3c57ad3f2be7ce6d62c7a761617d78b1d5aa237ec25d5d623433df04c745f6a3f312edccaa866404"
+    headers["Cookie"] = "session=\(cookie)"
     $0.httpAdditionalHeaders = headers
 }
 let urlSession = URLSession(configuration: config)
