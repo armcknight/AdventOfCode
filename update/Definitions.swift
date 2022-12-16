@@ -165,8 +165,6 @@ enum AoC {
             deploymentTarget: 10.15
             requiresObjCLinking: false
             dependencies:
-              - package: Then
-              - package: SwiftArmcknight
               - bundle: createYearResources
               - target: aocHelpers
                 link: true
