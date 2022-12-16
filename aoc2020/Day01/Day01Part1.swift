@@ -8,14 +8,16 @@
 import aocHelpers
 import Foundation
 
-public func day01Part1(_ input: String) -> Int? {
-    let list = input.ints
-    for x in list {
-        for y in list {
-            if x + y == 2020 {
-                return x * y
+public extension Day01 {
+    var part1: Int {
+        let list = rawValue.ints
+        for x in list {
+            for y in list {
+                if x + y == 2020 {
+                    return x * y
+                }
             }
         }
+        return 0
     }
-    return nil
 }

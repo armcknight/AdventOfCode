@@ -73,7 +73,9 @@ func search(rules: [Rule], target: String) -> Int {
 }
 
 /// - complexity: slow as shit 😅
-public func day07Part1(_ input: String) -> Int {
-    let rules = buildRuleset(string: input)
-    return search(rules: rules, target: "shiny gold")
+public extension Day07 {
+    var part1: Int {
+        let rules = buildRuleset(string: rawValue)
+        return search(rules: rules, target: "shiny gold")
+    }
 }

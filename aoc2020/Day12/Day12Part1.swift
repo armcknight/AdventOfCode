@@ -14,41 +14,43 @@ public struct Orientation {
     var east = 0
 }
 
-public func day12Part1(_ input: String) -> Int {
-    let final = input.lines.map({ line -> (String, Int) in
-        var x = line
-        let a = String(x.removeFirst())
-        let b = Int(x)!
-        return (a, b)
-    }).reduce(into: Orientation()) { (result, next) in
-        if next.0 == "N" {
-            result.north += next.1
-        } else if next.0 == "E" {
-            result.east += next.1
-        } else if next.0 == "W" {
-            result.east -= next.1
-        } else if next.0 == "S" {
-            result.north -= next.1
-        } else if next.0 == "L" {
-            result.facing = (result.facing + next.1) % 360
-        } else if next.0 == "R" {
-            var new = result.facing - next.1
-            while new < 0 {
-                new += 360
-            }
-            result.facing = new
-        } else if next.0 == "F"{
-            if result.facing == 90 {
+public extension Day12 {
+    var part1: Int {
+        let final = rawValue.lines.map({ line -> (String, Int) in
+            var x = line
+            let a = String(x.removeFirst())
+            let b = Int(x)!
+            return (a, b)
+        }).reduce(into: Orientation()) { (result, next) in
+            if next.0 == "N" {
                 result.north += next.1
-            } else if result.facing == 0 {
+            } else if next.0 == "E" {
                 result.east += next.1
-            } else if result.facing == 180 {
+            } else if next.0 == "W" {
                 result.east -= next.1
-            } else if result.facing == 270 {
+            } else if next.0 == "S" {
                 result.north -= next.1
-            }
-        } else { fatalError("unknown command") }
+            } else if next.0 == "L" {
+                result.facing = (result.facing + next.1) % 360
+            } else if next.0 == "R" {
+                var new = result.facing - next.1
+                while new < 0 {
+                    new += 360
+                }
+                result.facing = new
+            } else if next.0 == "F"{
+                if result.facing == 90 {
+                    result.north += next.1
+                } else if result.facing == 0 {
+                    result.east += next.1
+                } else if result.facing == 180 {
+                    result.east -= next.1
+                } else if result.facing == 270 {
+                    result.north -= next.1
+                }
+            } else { fatalError("unknown command") }
+        }
+        
+        return abs(final.north) + abs(final.east)
     }
-
-    return abs(final.north) + abs(final.east)
 }

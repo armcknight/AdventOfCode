@@ -186,14 +186,14 @@ differences between the charging outlet, the adapters, and your device.
 */
 public enum Day10: String {
 
-public let smallSample = """
+case smallSample = """
 2
 5
 6
 8
 """
 
-public let largeSample = """
+case largeSample = """
 16
 10
 15

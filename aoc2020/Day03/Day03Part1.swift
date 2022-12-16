@@ -26,6 +26,8 @@ func treesOnPath(forest: String, right: Int, down: Int) -> Int {
     return treeCount
 }
 
-public func day03Part1(_ input: String) -> Int {
-    return treesOnPath(forest: input, right: 3, down: 1)
+public extension Day03 {
+    var part1: Int {
+        return treesOnPath(forest: rawValue, right: 3, down: 1)
+    }
 }

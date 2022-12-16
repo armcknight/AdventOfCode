@@ -10,18 +10,20 @@ import XCTest
 
 class Day13Tests: XCTestCase {
     func testPart1Sample() {
-        XCTAssertEqual(day13Part1(day13SampleInput), 295)
+        XCTAssertEqual(Day13.sample.part1, 295)
     }
 
     func testPart1() {
-        XCTAssertEqual(day13Part1(day13Input), 246)
+        XCTAssertEqual(Day13.input.part1, 246)
     }
 
-    func testPart2Sample() {
-        XCTAssertEqual(day13Part2(day13SampleInput), -1)
+    func testPart2Sample() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day13.sample.part2, -1)
     }
 
-    func testPart2() {
-        XCTAssertEqual(day13Part2(day13Input), -1)
+    func testPart2() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day13.input.part2, -1)
     }
 }

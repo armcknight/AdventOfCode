@@ -50,19 +50,21 @@ func transformGrid(grid: [[String]]) -> [[String]] {
     return resultGrid
 }
 
-public func day11Part1(input: String) -> Int {
-    let grid = input.characterGrid
+public extension Day11 {
+    var part1: Int {
+        let grid = rawValue.characterGrid
 
-    var lastGrid: [[String]]
-    var nextGrid = grid
-    repeat {
-        lastGrid = nextGrid
-        nextGrid = transformGrid(grid: lastGrid)
-    } while lastGrid != nextGrid
+        var lastGrid: [[String]]
+        var nextGrid = grid
+        repeat {
+            lastGrid = nextGrid
+            nextGrid = transformGrid(grid: lastGrid)
+        } while lastGrid != nextGrid
 
-    return lastGrid.reduce(0) { (partial, next) -> Int in
-        partial + next.reduce(0, { (partial, next) -> Int in
-            partial + (next == "#" ? 1 : 0)
-        })
+        return lastGrid.reduce(0) { (partial, next) -> Int in
+            partial + next.reduce(0, { (partial, next) -> Int in
+                partial + (next == "#" ? 1 : 0)
+            })
+        }
     }
 }

@@ -87,28 +87,30 @@ func testRule(rules: [Int: [[RuleValue]]], ruleID: Int, message: String, message
 
 }
 
-public func day19Part1(_ input: String) -> Int {
-    let inputParts = input.replacingOccurrences(of: "\n\n", with: "\n;\n").split(separator: "\n").split(separator: ";").map { (next) -> [String] in
-        next.map { String($0) }
+public extension Day19 {
+    var part1: Int {
+        let inputParts = rawValue.replacingOccurrences(of: "\n\n", with: "\n;\n").split(separator: "\n").split(separator: ";").map { (next) -> [String] in
+            next.map { String($0) }
+        }
+        let rules = buildRuleset(lines: inputParts.first!)
+        
+        print(rules)
+        
+        return inputParts.last!.filter({
+            var messageIndex = 0
+            print("################################################################")
+            print("testing message: \($0)")
+            let matched = testRule(rules: rules, ruleID: 0, message: $0, messageIndex: &messageIndex, recursionDepth: 1, ruleIDs: [0])
+            if messageIndex < $0.count {
+                print("message not fully read after matching rule")
+                return false
+            }
+            if matched {
+                print("\($0) matches")
+            } else {
+                print("\($0) does not match")
+            }
+            return matched
+        }).count
     }
-    let rules = buildRuleset(lines: inputParts.first!)
-
-    print(rules)
-
-    return inputParts.last!.filter({
-        var messageIndex = 0
-        print("################################################################")
-        print("testing message: \($0)")
-        let matched = testRule(rules: rules, ruleID: 0, message: $0, messageIndex: &messageIndex, recursionDepth: 1, ruleIDs: [0])
-        if messageIndex < $0.count {
-            print("message not fully read after matching rule")
-            return false
-        }
-        if matched {
-            print("\($0) matches")
-        } else {
-            print("\($0) does not match")
-        }
-        return matched
-    }).count
 }

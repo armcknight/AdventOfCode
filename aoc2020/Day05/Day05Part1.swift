@@ -27,7 +27,9 @@ func seatID(code: String) -> Int {
     return minRow * 8 + minCol
 }
 
-public func day05Part1(_ input: String) -> Int {
-    let list = input.split(separator: "\n").map({seatID(code: String($0))}).sorted()
-    return list.last!
+public extension Day05 {
+    var part1: Int {
+        let list = rawValue.split(separator: "\n").map({seatID(code: String($0))}).sorted()
+        return list.last!
+    }
 }

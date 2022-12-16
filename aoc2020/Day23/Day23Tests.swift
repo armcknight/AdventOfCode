@@ -9,19 +9,23 @@ import aoc2020
 import XCTest
 
 class Day23Tests: XCTestCase {
-    func testPart1Sample() {
-        XCTAssertEqual(day23Part1(day23SampleInput), 67384529)
+    func testPart1Sample() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day23.sample.part1, 67384529)
     }
 
-    func testPart1() {
-        XCTAssertEqual(day23Part1(day23Input), -1)
+    func testPart1() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day23.input.part1, -1)
     }
 
-    func testPart2Sample() {
-        XCTAssertEqual(day23Part2(day23SampleInput), -1)
+    func testPart2Sample() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day23.sample.part2, -1)
     }
 
-    func testPart2() {
-        XCTAssertEqual(day23Part2(day23Input), -1)
+    func testPart2() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day23.input.part2, -1)
     }
 }

@@ -23,9 +23,11 @@ public func differences(sortedRatings: [Int]) -> [Int: Int] {
     return differences
 }
 
-public func day10Part1(input: String) -> Int {
-    let sortedInput = input.ints.sorted()
-    let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
-    let diffs = differences(sortedRatings: sortedRatings)
-    return (diffs[1] ?? 0) * (diffs[3] ?? 0)
+public extension Day10 {
+    var part1: Int {
+        let sortedInput = rawValue.ints.sorted()
+        let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
+        let diffs = differences(sortedRatings: sortedRatings)
+        return (diffs[1] ?? 0) * (diffs[3] ?? 0)
+    }
 }

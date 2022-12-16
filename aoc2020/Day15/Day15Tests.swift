@@ -10,24 +10,24 @@ import XCTest
 
 class Day15Tests: XCTestCase {
     func testPart1Sample() {
-        day15SampleInput.forEach {
-            XCTAssertEqual(day15Part1($0.key), $0.value)
+        Day15.day15SampleInput.forEach {
+            XCTAssertEqual(Day15.compute(turns: 2020, input: $0.key), $0.value)
         }
     }
 
     func testPart1() {
-        XCTAssertEqual(day15Part1(day15Input), 852)
+        XCTAssertEqual(Day15.input.part1, 852)
     }
 
     func testPart2Sample() throws {
         throw XCTSkip("computes the correct answer, but needs an optimal solution, impractical runtime")
-        day15SampleInput2.forEach {
-            XCTAssertEqual(day15Part2($0.key), $0.value)
+        Day15.day15SampleInput2.forEach {
+            XCTAssertEqual(Day15.compute(turns: 30000000, input: $0.key), $0.value)
         }
     }
 
     func testPart2() throws {
         throw XCTSkip("computes the correct answer, but needs an optimal solution, impractical runtime")
-        XCTAssertEqual(day15Part2(day15Input), 6007666)
+        XCTAssertEqual(Day15.input.part2, 6007666)
     }
 }

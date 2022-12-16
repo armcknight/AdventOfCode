@@ -10,19 +10,20 @@ import XCTest
 
 class Day07Tests: XCTestCase {
     func testPart1Sample() {
-        XCTAssertEqual(day07Part1(day07SampleInput), 4)
+        XCTAssertEqual(Day07.sample.part1, 4)
     }
 
-    func testPart1() {
-        XCTAssertEqual(day07Part1(day07Input), 128)
+    func testPart1_VerySlowButDoesIndeedFinish() {
+        XCTAssertEqual(Day07.input.part1, 128)
     }
 
     func testPart2Sample() throws {
         throw XCTSkip("Implementation contains a bug")
-        XCTAssertEqual(day07Part2(day07SampleInput), 126)
+        XCTAssertEqual(Day07.sample.part2, 126)
     }
 
-    func testPart2() {
-        XCTAssertEqual(day07Part2(day07Input), -1)
+    func testPart2() throws {
+        throw XCTSkip("Not finished")
+        XCTAssertEqual(Day07.input.part2, -1)
     }
 }

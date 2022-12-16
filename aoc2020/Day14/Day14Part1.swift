@@ -49,26 +49,28 @@ extension String {
     }
 }
 
-public func day14Part1(_ input: String) -> Int {
-    let lines = input.lines
-    let masks = lines.filter { $0.isMask }
-    let commandSequences = lines.split { $0.isMask }
-    return zip(masks, commandSequences).reduce(into: [Int: Int](), { (result, nextProgram) in
-        let mask = Mask(nextProgram.0)
-        nextProgram.1.map({ line -> (Int, Int) in
-            var index: Int = -1
-            var value: Int = -1
-            try! line.enumerateMatches(with: #"mem\[(\d*)\] = (\d*)"#) { (result) in
-                index = Int(result[1, line])!
-                value = Int(result[2, line])!
+public extension Day14 {
+    var part1: Int {
+        let lines = rawValue.lines
+        let masks = lines.filter { $0.isMask }
+        let commandSequences = lines.split { $0.isMask }
+        return zip(masks, commandSequences).reduce(into: [Int: Int](), { (result, nextProgram) in
+            let mask = Mask(nextProgram.0)
+            nextProgram.1.map({ line -> (Int, Int) in
+                var index: Int = -1
+                var value: Int = -1
+                try! line.enumerateMatches(with: #"mem\[(\d*)\] = (\d*)"#) { (result) in
+                    index = Int(result[1, line])!
+                    value = Int(result[2, line])!
+                }
+                return (index, value)
+            }).reduce(into: [Int: Int](), { (result, next) in
+                result[next.0] = mask.apply(int: next.1)
+            }).forEach { (memoryLocation) in
+                result[memoryLocation.key] = memoryLocation.value
             }
-            return (index, value)
-        }).reduce(into: [Int: Int](), { (result, next) in
-            result[next.0] = mask.apply(int: next.1)
-        }).forEach { (memoryLocation) in
-            result[memoryLocation.key] = memoryLocation.value
+        }).reduce(into: 0) { (result, next) in
+            result += next.value
         }
-    }).reduce(into: 0) { (result, next) in
-        result += next.value
     }
 }

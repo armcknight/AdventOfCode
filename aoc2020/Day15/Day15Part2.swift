@@ -8,7 +8,9 @@
 import aocHelpers
 import Foundation
 
-public func day15Part2(_ input: String) -> Int {
-    // TODO: needs an optimal solution, impractical runtime
-    return compute(turns: 30000000, input: input)
+public extension Day15 {
+    var part2: Int {
+        // TODO: needs an optimal solution, impractical runtime
+        return Day15.compute(turns: 30000000, input: rawValue)
+    }
 }

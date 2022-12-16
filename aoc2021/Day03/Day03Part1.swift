@@ -21,16 +21,18 @@ func counts(lines: [String]) -> [Int] {
     }
 }
 
-public func day03Part1(_ input: String) -> Int {
-    let lines = input.lines
-    var i = 0
-    let gamma = counts(lines: lines).reversed().reduce(into: 0) { (result, next) in
-        if next > lines.count / 2 {
-            result += 2 ** i
+public extension Day03 {
+    var part1: Int {
+        let lines = rawValue.lines
+        var i = 0
+        let gamma = counts(lines: lines).reversed().reduce(into: 0) { (result, next) in
+            if next > lines.count / 2 {
+                result += 2 ** i
+            }
+            i += 1
         }
-        i += 1
-    }
-    let epsilon = gamma ^ String(repeating: "1", count: lines.first!.count).decimalValueOfBinary
+        let epsilon = gamma ^ String(repeating: "1", count: lines.first!.count).decimalValueOfBinary
 
-    return epsilon * gamma
+        return epsilon * gamma
+    }
 }

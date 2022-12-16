@@ -8,8 +8,9 @@
 import aocHelpers
 import Foundation
 
-public func day06Part2(_ input: String) -> Int {
-    let groups = input.replacingOccurrences(of: "\n\n", with: ";").split(separator: ";")
+public extension Day06 {
+    var part2: Int {
+        let groups = rawValue.replacingOccurrences(of: "\n\n", with: ";").split(separator: ";")
         return groups.reduce(0) { (partial, next) -> Int in
             let group = next.split(separator: "\n")
             var dict = [String: Int]()
@@ -30,4 +31,5 @@ public func day06Part2(_ input: String) -> Int {
             print("count: \(filtered.count)")
             return partial + filtered.count
         }
+    }
 }

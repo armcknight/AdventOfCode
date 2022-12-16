@@ -37,6 +37,8 @@ func findLoop(instructions: String) -> Int {
     return acc
 }
 
-public func day08Part1(_ input: String) -> Int {
-    return findLoop(instructions: input)
+public extension Day08 {
+    var part1: Int {
+        return findLoop(instructions: rawValue)
+    }
 }

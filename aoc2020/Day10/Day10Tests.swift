@@ -9,26 +9,25 @@ import aoc2020
 import XCTest
 
 class Day10Tests: XCTestCase {
+    func testPart1LargeSample() {
+        XCTAssertEqual(Day10.largeSample.part1, 35)
+    }
+
     func testPart1() {
-        XCTAssertEqual(day10Part1(input: day10TestInput), 35)
-        XCTAssertEqual(day10Part1(input: day10Input), 2482)
+        XCTAssertEqual(Day10.input.part1, 2482)
     }
 
-    func testPart2Small() {
-        XCTAssertEqual(day10Part2(input: day10SmallTestInput), 2)
+    func testPart2SmallSample() {
+        XCTAssertEqual(Day10.smallSample.part2, 2)
     }
 
-    func testPart2Medium() {
-        XCTAssertEqual(day10Part2(input: day10TestInput), 8)
+    func testPart2LargeSample() {
+        XCTAssertEqual(Day10.largeSample.part2, 8)
     }
 
-    // Does not finish correctly and/or in practical time; need an optimal solution
-//    func testPart2() {
-//        measure {
-//            XCTAssertGreaterThan(day10Part2(input: day10Input), 520605)
-//        }
-//        measure {
-//            XCTAssertEqual(day10Part2(input: day10Input), 0)
-//        }
-//    }
+    func testPart2() throws {
+        throw XCTSkip("Does not finish correctly and/or in practical time; need an optimal solution")
+        XCTAssertGreaterThan(Day10.input.part2, 520605)
+        XCTAssertEqual(Day10.input.part2, 0)
+    }
 }

@@ -8,6 +8,8 @@
 import aocHelpers
 import Foundation
 
-public func day24Part1(_ input: String) -> Int {
-    return -1
+public extension Day24 {
+    var part1: Int {
+        return -1
+    }
 }

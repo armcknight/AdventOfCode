@@ -29,25 +29,27 @@ struct Day16Rule {
     }
 }
 
-public func day16Part1(_ input: String) -> Int {
-    let portions = input
-        .replacingOccurrences(of: "\n\n", with: "\n;\n")
-        .lines
-        .split(separator: ";")
-    let rules = portions[0].reduce(into: [Day16Rule](), { (result, next) in
-        result.append(Day16Rule(string: next))
-    })
-    let nearbyTickets = Array(portions[2])
-    let tickets = nearbyTickets[1 ..< portions[2].count]
-
-    return tickets.reduce(into: 0) { (result, next) in
-        result += next
-            .split(separator: ",")
-            .map({ String($0).integerValue })
-            .filter({ (value) -> Bool in
-                rules.filter({ (rule) -> Bool in
-                    !(rule.ranges.first!.contains(value) || rule.ranges.last!.contains(value))
-                }).count == rules.count
-            }).reduce(0, +)
+public extension Day16 {
+    var part1: Int {
+        let portions = rawValue
+            .replacingOccurrences(of: "\n\n", with: "\n;\n")
+            .lines
+            .split(separator: ";")
+        let rules = portions[0].reduce(into: [Day16Rule](), { (result, next) in
+            result.append(Day16Rule(string: next))
+        })
+        let nearbyTickets = Array(portions[2])
+        let tickets = nearbyTickets[1 ..< portions[2].count]
+        
+        return tickets.reduce(into: 0) { (result, next) in
+            result += next
+                .split(separator: ",")
+                .map({ String($0).integerValue })
+                .filter({ (value) -> Bool in
+                    rules.filter({ (rule) -> Bool in
+                        !(rule.ranges.first!.contains(value) || rule.ranges.last!.contains(value))
+                    }).count == rules.count
+                }).reduce(0, +)
+        }
     }
 }

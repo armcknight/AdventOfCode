@@ -34,10 +34,12 @@ func permutations(array: [Int]) -> Int {
     return t
 }
 
-public func day10Part2(input: String) -> Int {
-    let sortedInput = input.ints.sorted()
-    let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
-    let p = permutations(array: sortedRatings)
-    permutations = []
-    return p + 1
+public extension Day10 {
+    var part2: Int {
+        let sortedInput = rawValue.ints.sorted()
+        let sortedRatings = [0] + sortedInput + [sortedInput.last! + 3]
+        let p = permutations(array: sortedRatings)
+        permutations = []
+        return p + 1
+    }
 }

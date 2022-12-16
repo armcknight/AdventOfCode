@@ -39,28 +39,30 @@ func hasLoop(instructions: [String]) -> (Bool, Int) {
 }
 
 
-public func day08Part2(_ input: String) -> Int? {
-    let array = input.split(separator:  "\n").map({String($0)})
-    var i = 0
-    for instruction in array {
-        let isJmp = instruction.contains("jmp")
-        let isNop = instruction.contains("nop")
-        if isJmp || isNop {
-            let result = hasLoop(instructions: array)
-            if result.0 {
-                var copy = array
-                if isJmp {
-                    copy[i] = array[i].replacingOccurrences(of: "jmp", with: "nop")
-                } else {
-                    copy[i] = array[i].replacingOccurrences(of: "nop", with: "jmp")
-                }
-                let swapResult = hasLoop(instructions: copy)
-                if !swapResult.0 {
-                    return swapResult.1
+public extension Day08 {
+    var part2: Int {
+        let array = rawValue.split(separator:  "\n").map({String($0)})
+        var i = 0
+        for instruction in array {
+            let isJmp = instruction.contains("jmp")
+            let isNop = instruction.contains("nop")
+            if isJmp || isNop {
+                let result = hasLoop(instructions: array)
+                if result.0 {
+                    var copy = array
+                    if isJmp {
+                        copy[i] = array[i].replacingOccurrences(of: "jmp", with: "nop")
+                    } else {
+                        copy[i] = array[i].replacingOccurrences(of: "nop", with: "jmp")
+                    }
+                    let swapResult = hasLoop(instructions: copy)
+                    if !swapResult.0 {
+                        return swapResult.1
+                    }
                 }
             }
+            i += 1
         }
-        i += 1
+        return 0
     }
-    return nil
 }

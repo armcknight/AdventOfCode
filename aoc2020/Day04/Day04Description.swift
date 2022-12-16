@@ -159,7 +159,7 @@ hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in
 """
 
-case day04InvalidInput = """
+case invalidInput = """
 eyr:1972 cid:100
 hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
 
@@ -175,7 +175,7 @@ eyr:2038 hcl:74454a iyr:2023
 pid:3556412378 byr:2007
 """
 
-case day04ValidInput = """
+case validInput = """
 pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
 hcl:#623a2f
 

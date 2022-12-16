@@ -43,35 +43,37 @@ func parseBoards(boards: [[String]]) -> [[[(Int, Bool)]]] {
     }
 }
 
-public func day04Part1(_ input: String) -> Int {
-    let parts = input.components(separatedBy: "\n\n")
-
-    let calls = parts.first!.split(separator: ",").map { $0.integerValue }
-    let boardLines = parts[1..<parts.count].map { $0.components(separatedBy: "\n") }
-    var boards = parseBoards(boards: boardLines)
-
-    for callIdx in 0..<calls.count {
-        let call = calls[callIdx]
-        for boardIdx in 0..<boards.count {
-            for rowIdx in 0..<boards[boardIdx].count {
-                for colIdx in 0..<boards[boardIdx][rowIdx].count {
-                    if boards[boardIdx][rowIdx][colIdx].0 == call {
-                        boards[boardIdx][rowIdx][colIdx].1 = true
-
-                        if isWin(board: boards[boardIdx], row: rowIdx, col: colIdx) {
-                            return score(board: boards[boardIdx]) * call
+public extension Day04 {
+    var part1: Int {
+        let parts = rawValue.components(separatedBy: "\n\n")
+        
+        let calls = parts.first!.split(separator: ",").map { $0.integerValue }
+        let boardLines = parts[1..<parts.count].map { $0.components(separatedBy: "\n") }
+        var boards = parseBoards(boards: boardLines)
+        
+        for callIdx in 0..<calls.count {
+            let call = calls[callIdx]
+            for boardIdx in 0..<boards.count {
+                for rowIdx in 0..<boards[boardIdx].count {
+                    for colIdx in 0..<boards[boardIdx][rowIdx].count {
+                        if boards[boardIdx][rowIdx][colIdx].0 == call {
+                            boards[boardIdx][rowIdx][colIdx].1 = true
+                            
+                            if isWin(board: boards[boardIdx], row: rowIdx, col: colIdx) {
+                                return score(board: boards[boardIdx]) * call
+                            }
                         }
                     }
                 }
             }
         }
+        
+        var boardIdx = 0
+        boards.forEach { (board) in
+            print("board \(boardIdx): \(board)")
+            boardIdx += 1
+        }
+        
+        return -1
     }
-
-    var boardIdx = 0
-    boards.forEach { (board) in
-        print("board \(boardIdx): \(board)")
-        boardIdx += 1
-    }
-
-    return -1
 }
