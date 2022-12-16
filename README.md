@@ -8,9 +8,37 @@ This is generally the order of operations each year to prepare for the next comp
 
 - `make init` to set up the dev env.
 - `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date. (Currently doesn't work in terminal, must run the `update` scheme in the Xcode project.)
+    - Make sure to grab a valid session cookie from the website and put it into the environment variable for the `update` scheme.
 - `make test` to run the tests for all years present.
 
-# Performance
+# Files
+
+Each year has a directory containing a directory for each day. Each day directory contains Description.swift, which has the problem text, sample and real inputs.
+
+Part 1 and 2 implementations have their own files.
+
+Each problem (with very few exceptions) is defined as an raw String value enums, with cases as input, and part 1 and 2 as computed vars in extensions in their files. These are all compiled into a static library target per year.
+
+Tests are compiled into a test target per year. Benchmarks are in yet another test target.
+
+All the implementation and test sources are colocated in each day directory, like so: 
+
+ ```
+ path/
+ ├── aoc<year>/
+ │   ├── Info.plist (for the test targets)
+ │   ├── Day1/
+ │   │   ├── Day01Description.swift
+ │   │   ├── Day01Part1.swift
+ │   │   ├── Day01Part2.swift
+ │   │   ├── Day01Tests.swift
+ │   │   └── Day01Benchmarks.swift
+ │   ├── Day2/
+ │   │   ├── Day02Description.swift
+ ...
+ ```
+
+# Stats
 
 ## 2021
 
