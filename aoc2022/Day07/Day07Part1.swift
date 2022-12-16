@@ -34,11 +34,11 @@ class Dir {
     }
 }
 
-let root = Dir(name: "/")
-var allDirectories = [root]
 let limit = 100000
 
-func buildFilesystem(input: String) {
+func buildFilesystem(input: String) -> [Dir] {
+    let root = Dir(name: "/")
+    var allDirectories = [root]
     var currentWorkingDirectory = root
 
     input.lines.forEach { line in
@@ -78,11 +78,12 @@ func buildFilesystem(input: String) {
             print("adding file \(name) size \(size) to dir \(currentWorkingDirectory.name) size")
         }
     }
+    return allDirectories
 }
+
 public extension Day07 {
     var part1: Int {
-        buildFilesystem(input: rawValue)
-        return allDirectories.reduce(0) { partialResult, dir in
+        return buildFilesystem(input: rawValue).reduce(0) { partialResult, dir in
             let size = dir.totalSize()
             if size <= limit {
                 return partialResult + size
