@@ -227,6 +227,5 @@ rotate column x=11 by 5
 rotate column x=3 by 5
 rotate column x=2 by 5
 rotate column x=1 by 5
-
 """
 }

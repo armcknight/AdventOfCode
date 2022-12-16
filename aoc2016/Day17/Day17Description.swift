@@ -82,6 +82,5 @@ x4
 
 case input = """
 ioramepc
-
 """
 }

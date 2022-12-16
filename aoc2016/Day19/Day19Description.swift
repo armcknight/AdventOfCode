@@ -42,11 +42,9 @@ the presents?*
 */
 public enum Day19: String {
 case sample = """
-
 """
 
 case input = """
 3004953
-
 """
 }

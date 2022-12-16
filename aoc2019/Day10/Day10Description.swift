@@ -141,7 +141,6 @@ asteroids can be detected from that location?*
 */
 public enum Day10: String {
 case sample = """
-
 """
 
 case input = """
@@ -166,6 +165,5 @@ case input = """
 #..#.####.######..###
 ..#.####.############
 ..##...###..#########
-
 """
 }

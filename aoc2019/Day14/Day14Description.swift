@@ -189,6 +189,5 @@ case input = """
 1 XNVT => 2 XRDL
 2 KCNKC => 5 LZFBP
 2 ZBTS, 8 DLCP => 4 NMTGB
-
 """
 }

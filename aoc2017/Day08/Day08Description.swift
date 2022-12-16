@@ -47,7 +47,6 @@ instructions in your puzzle input?
 */
 public enum Day08: String {
 case sample = """
-
 """
 
 case input = """
@@ -1051,6 +1050,5 @@ iyu inc 757 if hfh != 1479
 uoc inc -765 if yg != -1415
 bi inc 637 if nwe == -3005
 ih dec 369 if ih == 1993
-
 """
 }

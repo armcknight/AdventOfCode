@@ -129,6 +129,5 @@ case sample = """
 case input = """
 depth: 11109
 target: 9,731
-
 """
 }

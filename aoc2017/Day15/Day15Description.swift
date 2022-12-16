@@ -76,6 +76,5 @@ case sample = """
 case input = """
 Generator A starts with 679
 Generator B starts with 771
-
 """
 }

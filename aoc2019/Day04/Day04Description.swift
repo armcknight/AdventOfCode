@@ -40,6 +40,5 @@ case sample = """
 
 case input = """
 145852-616942
-
 """
 }

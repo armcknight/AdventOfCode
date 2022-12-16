@@ -143,7 +143,6 @@ behave like three or more opcodes?*
 */
 public enum Day16: String {
 case sample = """
-
 """
 
 case input = """
@@ -4010,6 +4009,5 @@ After:  [2, 0, 1, 0]
 3 1 1 1
 12 1 3 3
 0 3 3 0
-
 """
 }

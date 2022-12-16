@@ -51,7 +51,6 @@ it without line wrapping.)
 */
 public enum Day19: String {
 case sample = """
-
 """
 
 case input = """
@@ -256,6 +255,5 @@ case input = """
                            |               |                       | |                                           |                                           |                   |                     | 
                            +---------------+                       +-+                                           +-------------------------------------------+                   +---------------------+ 
                                                                                                                                                                                                          
-
 """
 }

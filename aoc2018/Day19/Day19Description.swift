@@ -159,6 +159,5 @@ mulr 3 5 3
 addr 1 3 1
 seti 0 0 0
 seti 0 6 5
-
 """
 }

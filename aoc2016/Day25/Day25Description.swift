@@ -63,7 +63,6 @@ register `a` and cause the code to output a clock signal of `0`, `1`,
 */
 public enum Day25: String {
 case sample = """
-
 """
 
 case input = """
@@ -97,6 +96,5 @@ jnz 0 0
 out b
 jnz a -19
 jnz 1 -21
-
 """
 }

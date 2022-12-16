@@ -96,7 +96,6 @@ twice?*
 */
 public enum Day24: String {
 case sample = """
-
 """
 
 case input = """
@@ -105,6 +104,5 @@ case input = """
 .#.#.
 #####
 ####.
-
 """
 }

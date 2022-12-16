@@ -61,7 +61,6 @@ Therefore, a total of `6` programs are in this group; all but program
 */
 public enum Day12: String {
 case sample = """
-
 """
 
 case input = """
@@ -2065,6 +2064,5 @@ case input = """
 1997 <-> 90, 513
 1998 <-> 447, 1500, 1722
 1999 <-> 12, 1537
-
 """
 }

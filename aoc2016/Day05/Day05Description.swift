@@ -42,11 +42,9 @@ Given the actual Door ID, *what is the password*?
 */
 public enum Day05: String {
 case sample = """
-
 """
 
 case input = """
 ojvtpuvg
-
 """
 }

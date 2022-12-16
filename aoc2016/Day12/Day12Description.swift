@@ -67,7 +67,6 @@ left in register `a`?*
 */
 public enum Day12: String {
 case sample = """
-
 """
 
 case input = """
@@ -94,6 +93,5 @@ dec d
 jnz d -2
 dec c
 jnz c -5
-
 """
 }

@@ -41,7 +41,6 @@ puzzle input), *what is the lowest-valued IP* that is not blocked?
 */
 public enum Day20: String {
 case sample = """
-
 """
 
 case input = """
@@ -1074,6 +1073,5 @@ case input = """
 2065382936-2066893485
 3298704119-3299564801
 2194534845-2218883408
-
 """
 }

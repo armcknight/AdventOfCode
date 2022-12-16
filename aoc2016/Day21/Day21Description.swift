@@ -177,6 +177,5 @@ swap position 7 with position 2
 rotate right 1 step
 swap position 3 with position 1
 swap position 4 with position 6
-
 """
 }

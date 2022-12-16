@@ -79,7 +79,6 @@ left in register `a` to the safe.
 */
 public enum Day23: String {
 case sample = """
-
 """
 
 case input = """
@@ -109,6 +108,5 @@ inc d
 jnz d -2
 inc c
 jnz c -5
-
 """
 }

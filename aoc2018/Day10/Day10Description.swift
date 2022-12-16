@@ -205,7 +205,6 @@ position=<-6,  0> velocity=< 2,  0>
 position=< 5,  9> velocity=< 1, -2>
 position=<14,  7> velocity=<-2,  0>
 position=<-3,  6> velocity=< 2, -1>
-
 """
 
 case input = """
@@ -565,6 +564,5 @@ position=<-42399,  32024> velocity=< 4, -3>
 position=< 21463, -42456> velocity=<-2,  4>
 position=< 21463, -31822> velocity=<-2,  3>
 position=<-21094, -21182> velocity=< 2,  2>
-
 """
 }

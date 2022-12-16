@@ -44,11 +44,9 @@ identified in your puzzle input all the way to the access port?
 */
 public enum Day03: String {
 case sample = """
-
 """
 
 case input = """
 325489
-
 """
 }

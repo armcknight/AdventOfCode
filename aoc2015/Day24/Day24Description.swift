@@ -75,7 +75,6 @@ ideal configuration?
 */
 public enum Day24: String {
 case sample = """
-
 """
 
 case input = """
@@ -108,6 +107,5 @@ case input = """
 107
 109
 113
-
 """
 }

@@ -120,7 +120,6 @@ which contain a plant?*
 */
 public enum Day12: String {
 case sample = """
-
 """
 
 case input = """
@@ -158,6 +157,5 @@ initial state: ##.......#.######.##..#...#.#.#..#...#..####..#.##...#....#...##.
 #.... => .
 .##.# => #
 ##..# => #
-
 """
 }

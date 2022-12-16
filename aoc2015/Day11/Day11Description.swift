@@ -58,6 +58,5 @@ x
 
 case input = """
 hepxcrrq
-
 """
 }

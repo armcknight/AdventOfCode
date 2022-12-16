@@ -49,11 +49,9 @@ presents as the number in your puzzle input?
 */
 public enum Day20: String {
 case sample = """
-
 """
 
 case input = """
 33100000
-
 """
 }

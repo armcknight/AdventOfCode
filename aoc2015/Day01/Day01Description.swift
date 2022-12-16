@@ -46,7 +46,6 @@ To *what floor* do the instructions take Santa?
 */
 public enum Day01: String {
 case sample = """
-
 """
 
 case input = """

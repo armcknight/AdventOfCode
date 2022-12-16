@@ -38,6 +38,5 @@ case sample = """
 
 case input = """
 3113322113
-
 """
 }

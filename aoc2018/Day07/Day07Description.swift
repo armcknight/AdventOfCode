@@ -85,7 +85,6 @@ Step A must be finished before step D can begin.
 Step B must be finished before step E can begin.
 Step D must be finished before step E can begin.
 Step F must be finished before step E can begin.
-
 """
 
 case input = """
@@ -190,6 +189,5 @@ Step W must be finished before step D can begin.
 Step C must be finished before step T can begin.
 Step H must be finished before step M can begin.
 Step O must be finished before step Q can begin.
-
 """
 }

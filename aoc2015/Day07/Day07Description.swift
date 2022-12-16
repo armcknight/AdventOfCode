@@ -77,7 +77,6 @@ input), what signal is ultimately provided to *wire `a`*?
 */
 public enum Day07: String {
 case sample = """
-
 """
 
 case input = """
@@ -420,6 +419,5 @@ ab AND ad -> ae
 NOT ac -> ad
 1 AND ht -> hu
 NOT hn -> ho
-
 """
 }

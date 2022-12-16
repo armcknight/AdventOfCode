@@ -58,7 +58,6 @@ input is finished executing?
 */
 public enum Day23: String {
 case sample = """
-
 """
 
 case input = """
@@ -110,6 +109,5 @@ inc a
 jmp +2
 hlf a
 jmp -7
-
 """
 }

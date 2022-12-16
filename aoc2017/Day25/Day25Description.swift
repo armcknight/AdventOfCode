@@ -105,7 +105,6 @@ diagnostic checksum* it produces once it's working again?
 */
 public enum Day25: String {
 case sample = """
-
 """
 
 case input = """
@@ -171,6 +170,5 @@ In state F:
     - Write the value 1.
     - Move one slot to the right.
     - Continue with state C.
-
 """
 }

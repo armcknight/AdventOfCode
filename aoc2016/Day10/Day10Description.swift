@@ -63,7 +63,6 @@ value 3 goes to bot 1
 bot 1 gives low to output 1 and high to bot 0
 bot 0 gives low to output 2 and high to output 0
 value 2 goes to bot 2
-
 """
 
 case input = """
@@ -298,6 +297,5 @@ bot 121 gives low to bot 51 and high to bot 81
 bot 122 gives low to bot 200 and high to bot 7
 bot 96 gives low to bot 25 and high to bot 63
 bot 94 gives low to bot 23 and high to bot 19
-
 """
 }

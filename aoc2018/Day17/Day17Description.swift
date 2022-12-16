@@ -201,7 +201,6 @@ your scan?
 */
 public enum Day17: String {
 case sample = """
-
 """
 
 case input = """
@@ -1686,6 +1685,5 @@ x=469, y=1325..1337
 x=484, y=93..109
 x=418, y=7..24
 x=485, y=241..254
-
 """
 }

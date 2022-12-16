@@ -36,7 +36,6 @@ How many total *square feet of wrapping paper* should they order?
 */
 public enum Day02: String {
 case sample = """
-
 """
 
 case input = """
@@ -1040,6 +1039,5 @@ case input = """
 29x4x8
 21x2x22
 14x12x8
-
 """
 }

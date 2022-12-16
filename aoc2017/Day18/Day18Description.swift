@@ -84,7 +84,6 @@ with a non-zero value?
 */
 public enum Day18: String {
 case sample = """
-
 """
 
 case input = """
@@ -129,6 +128,5 @@ jgz i -11
 snd a
 jgz f -16
 jgz a -19
-
 """
 }

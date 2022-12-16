@@ -81,7 +81,6 @@ group that immediately contains it. (The outermost group gets a score of
 */
 public enum Day09: String {
 case sample = """
-
 """
 
     case input = #"""

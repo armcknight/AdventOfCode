@@ -73,11 +73,9 @@ this example, that would be `638`.
 */
 public enum Day17: String {
 case sample = """
-
 """
 
 case input = """
 328
-
 """
 }

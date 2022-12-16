@@ -152,12 +152,10 @@ as "spending" negative mana.)
 */
 public enum Day22: String {
 case sample = """
-
 """
 
 case input = """
 Hit Points: 51
 Damage: 9
-
 """
 }

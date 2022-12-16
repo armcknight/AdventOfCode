@@ -115,7 +115,6 @@ case sample = """
 [1518-11-05 00:03] Guard #99 begins shift
 [1518-11-05 00:45] falls asleep
 [1518-11-05 00:55] wakes up
-
 """
 
 case input = """
@@ -1098,6 +1097,5 @@ case input = """
 [1518-05-31 00:40] wakes up
 [1518-08-17 00:47] wakes up
 [1518-05-18 00:57] wakes up
-
 """
 }

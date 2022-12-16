@@ -63,7 +63,6 @@ instructions executed.)
 */
 public enum Day21: String {
 case sample = """
-
 """
 
 case input = """
@@ -99,6 +98,5 @@ seti 7 8 1
 eqrr 4 0 2
 addr 2 1 1
 seti 5 3 1
-
 """
 }

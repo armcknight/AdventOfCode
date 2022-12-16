@@ -205,7 +205,6 @@ In this example, the location of the first crash is *`7,3`*.
 */
 public enum Day13: String {
 case sample = """
-
 """
 
     case input = #"""

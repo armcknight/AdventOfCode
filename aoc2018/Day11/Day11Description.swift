@@ -94,6 +94,5 @@ case sample = """
 
 case input = """
 9424
-
 """
 }

@@ -121,7 +121,6 @@ Thus, after `2` iterations, the grid contains `12` pixels that are *on*.
 */
 public enum Day21: String {
 case sample = """
-
 """
 
 case input = """
@@ -233,6 +232,5 @@ case input = """
 ###/###/#.# => #.#./#.#./##../....
 ###/#.#/### => #.../##.#/.#../..#.
 ###/###/### => ##../..#./##../..#.
-
 """
 }

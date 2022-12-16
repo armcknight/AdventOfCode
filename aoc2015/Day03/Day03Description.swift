@@ -34,7 +34,6 @@ children at only `2` houses.
 */
 public enum Day03: String {
 case sample = """
-
 """
 
 case input = """

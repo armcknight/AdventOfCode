@@ -94,11 +94,9 @@ Starting with the map in your puzzle input, in a total of `40` rows
 */
 public enum Day18: String {
 case sample = """
-
 """
 
 case input = """
 .^^^.^.^^^.^.......^^.^^^^.^^^^..^^^^^.^.^^^..^^.^.^^..^.^..^^...^.^^.^^^...^^.^.^^^..^^^^.....^....
-
 """
 }

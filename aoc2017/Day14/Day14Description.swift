@@ -62,11 +62,9 @@ Given your actual key string, *how many squares are used*?
 */
 public enum Day14: String {
 case sample = """
-
 """
 
 case input = """
 hfdlxzhv
-
 """
 }

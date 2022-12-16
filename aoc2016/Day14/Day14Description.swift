@@ -60,11 +60,9 @@ Given the actual salt in your puzzle input, *what index* produces your
 */
 public enum Day14: String {
 case sample = """
-
 """
 
 case input = """
 ngcjuoqr
-
 """
 }

@@ -229,7 +229,6 @@ given in your scan for `1000` steps?
 */
 public enum Day12: String {
 case sample = """
-
 """
 
 case input = """
@@ -237,6 +236,5 @@ case input = """
 <x=4, y=10, z=10>
 <x=17, y=-5, z=6>
 <x=13, y=-3, z=0>
-
 """
 }

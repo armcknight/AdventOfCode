@@ -94,11 +94,9 @@ Here are a few more examples:
 */
 public enum Day09: String {
 case sample = """
-
 """
 
 case input = """
 447 players; last marble is worth 71510 points
-
 """
 }

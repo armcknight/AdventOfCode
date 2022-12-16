@@ -65,7 +65,6 @@ vntsnd
 vrdear
 dvrsen
 enarar
-
 """
 
 case input = """
@@ -667,6 +666,5 @@ tmbfyyvz
 cosjhwru
 aqwtipsw
 pmympjrh
-
 """
 }

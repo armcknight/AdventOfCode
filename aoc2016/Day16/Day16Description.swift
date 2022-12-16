@@ -90,11 +90,9 @@ state in your puzzle input, *what is the correct checksum*?
 */
 public enum Day16: String {
 case sample = """
-
 """
 
 case input = """
 11110010111001001
-
 """
 }

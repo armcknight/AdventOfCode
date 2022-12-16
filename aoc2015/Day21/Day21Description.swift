@@ -90,13 +90,11 @@ the fight?
 */
 public enum Day21: String {
 case sample = """
-
 """
 
 case input = """
 Hit Points: 100
 Damage: 8
 Armor: 2
-
 """
 }

@@ -92,7 +92,6 @@ jptl (61)
 ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)
-
 """
 
 case input = """
@@ -1274,6 +1273,5 @@ coxuj (85)
 xfbrfa (84)
 hbcnhi (7) -> lzqmapb, trkiub
 tnmtz (26)
-
 """
 }

@@ -227,7 +227,6 @@ public enum Day24: String {
 case sample = """
 8 units each with 729 hit points (weak to fire; immune to cold, slashing)
 with an attack that does 8 radiation damage at initiative 10
-
 """
 
 case input = """
@@ -254,6 +253,5 @@ Infection:
 6961 units each with 11069 hit points (weak to fire) with an attack that does 2 radiation damage at initiative 20
 2837 units each with 29483 hit points (weak to cold) with an attack that does 20 bludgeoning damage at initiative 9
 8714 units each with 7890 hit points with an attack that does 1 cold damage at initiative 3
-
 """
 }

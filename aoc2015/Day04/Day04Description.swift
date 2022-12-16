@@ -34,11 +34,9 @@ the MD5 hash of `pqrstuv1048970` looks like `000006136ef...`.
 */
 public enum Day04: String {
 case sample = """
-
 """
 
 case input = """
 bgvyzdsv
-
 """
 }

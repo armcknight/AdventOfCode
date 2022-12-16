@@ -73,6 +73,5 @@ case sample = """
 
 case input = """
 1362
-
 """
 }

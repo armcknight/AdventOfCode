@@ -92,11 +92,9 @@ case sample = """
 4 |  7  12  18
 5 | 11  17
 6 | 16
-
 """
 
 case input = """
 To continue, please consult the code grid in the manual.  Enter the code at row 2981, column 3075.
-
 """
 }

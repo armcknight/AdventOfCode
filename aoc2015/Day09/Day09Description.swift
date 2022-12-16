@@ -44,7 +44,6 @@ case sample = """
 ondon to Dublin = 464
 London to Belfast = 518
 Dublin to Belfast = 141
-
 """
 
 case input = """
@@ -76,6 +75,5 @@ Arbre to Straylight = 40
 Snowdin to Tambi = 15
 Snowdin to Straylight = 99
 Tambi to Straylight = 70
-
 """
 }

@@ -189,7 +189,6 @@ position of card `2019`?*
 */
 public enum Day22: String {
 case sample = """
-
 """
 
 case input = """
@@ -293,6 +292,5 @@ cut 6321
 deal with increment 50
 cut 7244
 deal with increment 23
-
 """
 }

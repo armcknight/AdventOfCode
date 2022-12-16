@@ -87,11 +87,9 @@ recipes in your puzzle input?*
 */
 public enum Day14: String {
 case sample = """
-
 """
 
 case input = """
 323081
-
 """
 }
