@@ -30,10 +30,4 @@ class Day07Tests: XCTestCase {
     func testPart2() {
         XCTAssertEqual(Day07.input.part2, 96864235)
     }
-
-    func testPart2Benchmarked() {
-        measure {
-            XCTAssertEqual(Day07.input.part2, 96864235)
-        }
-    }
 }

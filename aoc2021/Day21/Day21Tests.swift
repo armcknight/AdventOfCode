@@ -17,12 +17,6 @@ class Day21Tests: XCTestCase {
         XCTAssertEqual(Day21.input.part1, 598416)
     }
 
-    func testPart1Benchmarked() {
-        measure {
-            let _ = Day21.input.part1
-        }
-    }
-
     func testPart2Sample() throws {
         throw XCTSkip("Not finished")
         XCTAssertEqual(Day21.sample.part2, 444356092776315)
@@ -31,12 +25,5 @@ class Day21Tests: XCTestCase {
     func testPart2() throws {
         throw XCTSkip("Not finished")
         XCTAssertEqual(Day21.input.part2, -1)
-    }
-
-    func testPart2Benchmarked() throws {
-        throw XCTSkip("Not finished")
-        measure {
-            XCTAssertEqual(Day21.input.part2, -1)
-        }
     }
 }

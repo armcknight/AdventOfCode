@@ -9,7 +9,8 @@ import aoc2021
 import XCTest
 
 class Day08Tests: XCTestCase {
-    func testPart1Sample() {
+    func testPart1Sample() throws {
+        throw XCTSkip("Not finished")
         XCTAssertEqual(Day08.sample.part1, -1)
     }
 
@@ -21,11 +22,13 @@ class Day08Tests: XCTestCase {
         XCTAssertEqual(Day08.input.part1, -1)
     }
 
-    func testPart2Sample() {
+    func testPart2Sample() throws {
+        throw XCTSkip("Not finished")
         XCTAssertEqual(Day08.sample.part2, -1)
     }
 
-    func testPart2BiggerSample() {
+    func testPart2BiggerSample() throws {
+        throw XCTSkip("Not finished")
         let answers = """
 fdgacbe cefdb cefbgd gcbe: 8394
 fcgedb cgb dgebacf gc: 9781
@@ -43,11 +46,5 @@ fgae cfgab fg bagce: 4315
 
     func testPart2() {
         XCTAssertEqual(Day08.input.part2, -1)
-    }
-
-    func testPart2Benchmarked() {
-        measure {
-            XCTAssertEqual(Day08.input.part2, -1)
-        }
     }
 }
