@@ -31,7 +31,7 @@ public extension Day09 {
 
         func insertTailVisited(x: Int, y: Int) {
             if !tailVisited.contains([x, y]) {
-                print("adding tail position: \(x),\(y)")
+//                print("adding tail position: \(x),\(y)")
             }
             tailVisited.insert([x, y], at: tailVisited.count)
         }
