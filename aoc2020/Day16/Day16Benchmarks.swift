@@ -10,7 +10,6 @@ import XCTest
 
 class Day16Benchmarks: XCTestCase {
     func testPart1Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
             let _ = Day16.input.part1
         }

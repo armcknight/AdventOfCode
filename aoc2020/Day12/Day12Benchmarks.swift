@@ -10,14 +10,12 @@ import XCTest
 
 class Day12Benchmarks: XCTestCase {
     func testPart1Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
             let _ = Day12.input.part1
         }
     }
 
     func testPart2Benchmarked() throws {
-        throw XCTSkip("Not implemented")
         measure {
             let _ = Day12.input.part2
         }
