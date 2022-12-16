@@ -330,7 +330,7 @@ public extension Array<String> {
             }
         }
 
-        var result = [[String]]()
+        var result = Array<[String]>(repeating: Array<String>(repeating: " ", count: rectified.count), count: rectified[0].count)
         let matrix = rectified.map { $0.map { String($0) } }
         matrix.enumerate { row, col, element in
             result[col][row] = element

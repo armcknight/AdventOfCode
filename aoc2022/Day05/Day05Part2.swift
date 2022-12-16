@@ -16,11 +16,11 @@ public extension Day05 {
             let result = try! line.regexResult(from: #"move (\d*) from (\d*) to (\d*)"#)
             return (Int(result[1, line])!, Int(result[2, line])! - 1, Int(result[3, line])! - 1)
         }.forEach {
-            let items = stacks[$0.from].reversed()[0 ..< $0.amount].reversed()
-            for _ in 0 ..< $0.amount { stacks[$0.from].removeLast() }
-            stacks[$0.to].append(contentsOf: items)
+            let items = stacks[$0.from][0 ..< $0.amount]
+            for _ in 0 ..< $0.amount { stacks[$0.from].removeFirst() }
+            stacks[$0.to].insert(contentsOf: items, at: 0)
         }
 
-        return stacks.map({ $0.last! }).joined()
+        return stacks.map({ $0.first! }).joined()
     }
 }
