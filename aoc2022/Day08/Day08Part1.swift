@@ -5,7 +5,6 @@
 //  Created by Andrew McKnight on Dec 4, 2022.
 //
 
-import aocHelpers
 import Foundation
 
 typealias SightLines = (rowLeft: [Int], rowRight: [Int], colUp: [Int], colDown: [Int])

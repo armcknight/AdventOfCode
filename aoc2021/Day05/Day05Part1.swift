@@ -5,7 +5,6 @@
 //  Created by Andrew McKnight on Nov 30, 2021.
 //
 
-import aocHelpers
 import Foundation
 
 public extension Day05 {

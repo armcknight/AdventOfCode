@@ -5,7 +5,6 @@
 //  Created by Andrew McKnight on Dec 18, 2020.
 //
 
-import aocHelpers
 import Foundation
 
 func findWeakness(codes: [Int], errorCode: Int) -> Int? {

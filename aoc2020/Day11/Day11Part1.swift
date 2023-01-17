@@ -5,7 +5,6 @@
 //  Created by Andrew McKnight on 12/9/20.
 //
 
-import aocHelpers
 import Foundation
 
 func iterateNeighbors(grid: [[String]], i: Int, j: Int) -> Int {

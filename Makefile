@@ -10,11 +10,12 @@ update:
 
 .PHONY: test
 test:
-	xcodebuild -scheme aoc2020Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2021Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2015Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2016Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2017Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2018Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2019Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
-	xcodebuild -scheme aoc2022Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
+	xcodebuild -scheme aoc2020Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2021Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2015Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2016Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2017Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2018Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2019Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2022Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
+	xcodebuild -scheme aoc2023Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter

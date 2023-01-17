@@ -5,7 +5,6 @@
 //  Created by Andrew McKnight on Nov 30, 2021.
 //
 
-import aocHelpers
 import Foundation
 
 func printBoard(boards: [[[(Int, Bool)]]], boardIdx: Int) {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftArmcknight
 
 func injectMissingTestTasks(for year: Int) {
     let taskLine = AoC.Template.makefileTestTask.replacingOccurrences(of: "{{ year }}", with: String(year))
@@ -108,7 +109,7 @@ func createSourceFiles(for year: Int) {
             let fileURL = dayDirectoryURL.appendingPathComponent("\(dayName)\(name).swift")
 
             defer {
-                if name == "Description" && isProblemAvailable(year: year, day: day) {
+                if hasCookie && name == "Description" && isProblemAvailable(year: year, day: day) {
                     injectProblemDetails(fileURL, day: day, fixedWidthDay: fixedWidthDay, year: year)
                 }
             }

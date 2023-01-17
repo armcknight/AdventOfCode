@@ -5,9 +5,10 @@
 //  Created by Andrew McKnight on 12/3/22.
 //
 
-import aocHelpers
 import Foundation
 import Then
+
+let hasCookie = ProcessInfo.processInfo.environment.keys.contains("cookie")
 
 /// This will have to be updated with each new auth session in order to retrieve new problem info.
 let cookie = ProcessInfo.processInfo.environment["cookie"]!
@@ -84,8 +85,6 @@ enum AoC {
                   - "**/*Tests.swift"
                   - "**/*Benchmarks.swift"
             dependencies:
-              - target: aocHelpers
-                link: true
               - package: RegularExpressionDecoder
             platform: macOS
             deploymentTarget: 10.15
@@ -135,10 +134,6 @@ enum AoC {
           SwiftArmcknight:
             path: ./swift-armcknight
         schemes:
-          aocHelpers:
-            build:
-              targets:
-                aocHelpers: all
         {{ yearSchemes }}
         {{ yearTestSchemes }}
         {{ yearBenchmarkSchemes }}
@@ -150,17 +145,6 @@ enum AoC {
               environmentVariables:
                 cookie: COOKIE_VALUE
         targets:
-          aocHelpers:
-            type: library.static
-            sources: [aocHelpers]
-            platform: macOS
-            deploymentTarget: 10.15
-            requiresObjCLinking: false
-            dependencies:
-              - package: Then
-                link: true
-              - package: SwiftArmcknight
-                link: true
         {{ yearTargets }}
         {{ yearTestTargets }}
         {{ yearBenchmarkTargets }}
@@ -172,8 +156,8 @@ enum AoC {
             requiresObjCLinking: false
             dependencies:
               - bundle: createYearResources
-              - target: aocHelpers
-                link: true
+              - package: Then
+              - package: SwiftArmcknight
           createYearResources:
             type: bundle
             sources: [createYearResources]
@@ -182,7 +166,7 @@ enum AoC {
         """)
 
         static let makefileTestTask = ("""
-        \txcodebuild -scheme aoc{{ year }}Tests -workspace AdventOfCode.xcworkspace test 2>/dev/null | xcbeautify
+        \txcodebuild -scheme aoc{{ year }}Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter
         """)
     }
 
@@ -214,7 +198,7 @@ enum AoC {
         }
 
         static let xcodegenSpecURL = rootURL.appendingPathComponent("AdventOfCode.yml")
-        static let xcodeWorkspaceURL = rootURL.appendingPathComponent("AdventOfCode.xcworkspace")
+        static let xcodeWorkspaceURL = rootURL.appendingPathComponent("AdventOfCode.xcodeproj")
 
         static let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
         static let bundle = Bundle(url: bundleURL)!
