@@ -28,4 +28,10 @@ class Day17Tests: XCTestCase {
         throw XCTSkip("Not finished")
         XCTAssertEqual(Day17.input.part2, 968)
     }
+
+    func testPart2Benchmarked() {
+        measure {
+            XCTAssertEqual(Day17.input.part2, 968)
+        }
+    }
 }
