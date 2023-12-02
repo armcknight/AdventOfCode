@@ -167,7 +167,7 @@ enum AoC {
         """)
 
         static let makefileTestTask = ("""
-        \txcodebuild -scheme aoc{{ year }}Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter
+        \txcodebuild -scheme aoc{{ year }}Tests -project AdventOfCode.xcodeproj test 2>/dev/null | xcbeautify --quieter --is-ci
         """)
     }
 
