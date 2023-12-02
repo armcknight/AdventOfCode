@@ -19,13 +19,6 @@ class Day02Tests: XCTestCase {
         XCTAssertEqual(Day02.input.part1, 0)
     }
 
-    func testPart1Benchmarked() throws {
-        throw XCTSkip("Not implemented")
-        measure {
-            let _ = Day02.input.part1
-        }
-    }
-
     func testPart2Sample() throws {
         throw XCTSkip("Not implemented")
         XCTAssertEqual(Day02.sample.part2, 0)
@@ -34,12 +27,5 @@ class Day02Tests: XCTestCase {
     func testPart2() throws {
         throw XCTSkip("Not implemented")
         XCTAssertEqual(Day02.input.part2, 0)
-    }
-
-    func testPart2Benchmarked() throws {
-        throw XCTSkip("Not implemented")
-        measure {
-            let _ = Day02.input.part2
-        }
     }
 }
