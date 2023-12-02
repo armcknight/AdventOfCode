@@ -144,6 +144,7 @@ enum AoC {
             run:
               environmentVariables:
                 cookie: COOKIE_VALUE
+                year: YEAR
         targets:
         {{ yearTargets }}
         {{ yearTestTargets }}
@@ -178,7 +179,7 @@ enum AoC {
         static let date = Foundation.Date()
         static let dateString = formatter.string(from: date)
         static let calendar = Calendar(identifier: .gregorian)
-        static let currentDateComponents = calendar.dateComponents(Set([.day, .year, .hour]), from: date)
+        static let currentDateComponents = calendar.dateComponents(Set([.day, .year, .hour, .month]), from: date)
         static let currentDay = currentDateComponents.day!
         static let currentDayString = String(currentDay)
         static let currentYear = currentDateComponents.year!

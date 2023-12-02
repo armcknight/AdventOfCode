@@ -69,11 +69,17 @@ func extractDescription(description: String) -> String {
 
 func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year: Int) {
     var content = try! String(contentsOf: fileURL)
+    
     let descriptionPlaceholder = "{{ description }}"
     let inputPlaceholder = "{{ input }}"
     let sampleInputPlaceholder = "{{ sample-input }}"
 
+    guard content.contains(descriptionPlaceholder), content.contains(inputPlaceholder), content.contains(sampleInputPlaceholder) else {
+        print("Already have problem details for year \(year) day \(day), won't request again")
+        return
+    }
     
+    print("Fetching problem details for year \(year) day \(day)")
     switch fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)") {
     case .failure(let fetchError):
         switch fetchError {
@@ -151,8 +157,12 @@ func createSourceFiles(for year: Int) {
                 }
             }
 
-            guard !AoC.File.fileManager.fileExists(atPath: fileURL.path) else { return }
+            guard !AoC.File.fileManager.fileExists(atPath: fileURL.path) else {
+                print("Already created \(fileURL)")
+                return
+            }
 
+            print("Creating \(fileURL)")
             try! String(contentsOf: AoC.File.bundle.url(forResource: name, withExtension: "txt")!)
                 .replacingOccurrences(of: "{{ date }}", with: AoC.Date.dateString)
                 .replacingOccurrences(of: "{{ day }}", with: fixedWidthDay)
@@ -165,7 +175,7 @@ func createSourceFiles(for year: Int) {
 func availableProblemDays(year: Int) -> ClosedRange<Int> {
     var utcCalendar = Calendar(identifier: .gregorian)
     utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
-    let currentDateComponentsUTC = utcCalendar.dateComponents([.day, .year], from: AoC.Date.date)
+    let currentDateComponentsUTC = utcCalendar.dateComponents([.day, .year, .month], from: AoC.Date.date)
     let currentYearUTC = currentDateComponentsUTC.year!
     
     if year < currentYearUTC {
