@@ -22,16 +22,38 @@ func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
 }
 
-func fetchSynchronously(url: String) -> String {
+enum FetchError: Error {
+    case notYetAvailable
+    case requestError
+    case networkError
+}
+
+func fetchSynchronously(url: String) -> Result<String, FetchError> {
     group.enter()
-    var result: String!
+    var result: Result<String, FetchError>
     urlSession.dataTask(with: URLRequest(url: URL(string: url)!)) { data, response, error in
         defer { group.leave() }
+        
+        guard error == nil else {
+            result = .failure(.networkError)
+            return
+        }
+        
         let status = (response as! HTTPURLResponse).statusCode
+        
+        // if this path is taken, most likely the problem doesn't exist yet, like trying to fetch year X day 5 when it's still day 4
+        guard status != 404 else {
+            result = .failure(.networkError)
+            return
+        }
+        
         // If this fails, check that the session cookie is valid and the network connection is operational.
-        assert(status >= 200 && status < 300)
-        assert(error == nil)
-        result = String(data: data!, encoding: .utf8)
+        guard status >= 200 && status < 300 else {
+            result = .failure(.requestError)
+            return
+        }
+    
+        result = .success(String(data: data!, encoding: .utf8)!)
     }.resume()
     group.wait()
     return result
@@ -51,25 +73,40 @@ func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year:
     let inputPlaceholder = "{{ input }}"
     let sampleInputPlaceholder = "{{ sample-input }}"
 
-    lazy var description: String = {
-        let problem = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)")
-        return extractDescription(description: problem)
-    }()
-    if content.contains(descriptionPlaceholder) {
-        let markdown = Process.runBrewedWithResult("pandoc", stdin: description, "--from", "html", "--to", "markdown_strict")
-        content = content.replacingOccurrences(of: descriptionPlaceholder, with: markdown).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
-    }
-    if content.contains(sampleInputPlaceholder) {
-        let extractedSection = extractSampleInput(description: description)
-        let sampleInput = extractedSection.lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
-        content = content.replacingOccurrences(of: sampleInputPlaceholder, with: sampleInput)
-    }
+    
+    switch fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)") {
+    case .failure(let fetchError):
+        switch fetchError {
+        case .networkError:
+            
+        case .notYetAvailable:
+            
+        case .requestError:
+            
+        }
+    case .success(let problem):
+        let description = extractDescription(description: problem)
+        
+        if content.contains(descriptionPlaceholder) {
+            let markdown = Process.runBrewedWithResult("pandoc", stdin: description, "--from", "html", "--to", "markdown_strict")
+            content = content.replacingOccurrences(of: descriptionPlaceholder, with: markdown).lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
+        }
+        if content.contains(sampleInputPlaceholder) {
+            let extractedSection = extractSampleInput(description: description)
+            let sampleInput = extractedSection.lines.map({$0.trimmingCharacters(in: .whitespaces)}).joined(separator: "\n")
+            content = content.replacingOccurrences(of: sampleInputPlaceholder, with: sampleInput)
+        }
 
-    if content.contains(inputPlaceholder) {
-        let input = fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)/input").trimmingCharacters(in: .newlines)
-        content = content.replacingOccurrences(of: inputPlaceholder, with: input)
+        if content.contains(inputPlaceholder) {
+            switch fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)/input") {
+            case .failure(let fetchError):
+                
+            case .success(let input):
+                content = content.replacingOccurrences(of: inputPlaceholder, with: input.trimmingCharacters(in: .newlines))
+            }
+        }
+        try! content.write(to: fileURL, atomically: false, encoding: .utf8)
     }
-    try! content.write(to: fileURL, atomically: false, encoding: .utf8)
 }
 
 /**
