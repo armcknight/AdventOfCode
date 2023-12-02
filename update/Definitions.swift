@@ -22,6 +22,8 @@ public extension String {
 }
 // end copied code from Pippin
 
+let macosDeploymentTarget = "13.0"
+
 enum AoC {
     enum Template {
         static let infoplistContents = ("""
@@ -86,9 +88,9 @@ enum AoC {
                   - "**/*Benchmarks.swift"
             dependencies:
               - package: RegularExpressionDecoder
+              - package: SwiftArmcknight
             platform: macOS
-            deploymentTarget: 10.15
-            requiresObjCLinking: false
+            deploymentTarget: \(macosDeploymentTarget)
             scheme:
               testTargets:
                 - aoc{{ year }}Tests
@@ -98,19 +100,19 @@ enum AoC {
           aoc{{ year }}Tests:
             type: bundle.unit-test
             platform: macOS
-            requiresObjCLinking: false
-            deploymentTarget: 10.15
+            deploymentTarget: \(macosDeploymentTarget)
             sources: [{{ testSources }}]
             dependencies:
               - target: aoc{{ year }}
+              - package: SwiftArmcknight
+                link: true
         """)
 
         static let xcodegenYearBenchmarksTargetTemplate = ("""
           aoc{{ year }}Benchmarks:
             type: bundle.unit-test
             platform: macOS
-            requiresObjCLinking: false
-            deploymentTarget: 10.15
+            deploymentTarget: \(macosDeploymentTarget)
             sources: [{{ benchmarkSources }}]
             dependencies:
               - target: aoc{{ year }}
@@ -152,7 +154,7 @@ enum AoC {
             type: tool
             sources: [update]
             platform: macOS
-            deploymentTarget: 10.15
+            deploymentTarget: \(macosDeploymentTarget)
             requiresObjCLinking: false
             dependencies:
               - bundle: createYearResources
@@ -162,7 +164,7 @@ enum AoC {
             type: bundle
             sources: [createYearResources]
             platform: macOS
-            deploymentTarget: 10.15
+            deploymentTarget: \(macosDeploymentTarget)
         """)
 
         static let makefileTestTask = ("""
