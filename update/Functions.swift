@@ -22,7 +22,7 @@ func fixedWidthDay(day: Int) -> String {
     day < 10 ? "0\(day)" : "\(day)"
 }
 
-enum FetchError: Error {
+enum FetchError: String, Error {
     case notYetAvailable
     case requestError
     case networkError
@@ -30,7 +30,7 @@ enum FetchError: Error {
 
 func fetchSynchronously(url: String) -> Result<String, FetchError> {
     group.enter()
-    var result: Result<String, FetchError>
+    var result: Result<String, FetchError>!
     urlSession.dataTask(with: URLRequest(url: URL(string: url)!)) { data, response, error in
         defer { group.leave() }
         
@@ -78,11 +78,11 @@ func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year:
     case .failure(let fetchError):
         switch fetchError {
         case .networkError:
-            
+            fatalError("Network failure")
         case .notYetAvailable:
-            
+            fatalError("Shouldn't have requested an unavailable day problem")
         case .requestError:
-            
+            fatalError("Unsuccessful request")
         }
     case .success(let problem):
         let description = extractDescription(description: problem)
@@ -100,7 +100,7 @@ func injectProblemDetails(_ fileURL: URL, day: Int, fixedWidthDay: String, year:
         if content.contains(inputPlaceholder) {
             switch fetchSynchronously(url: "https://adventofcode.com/\(year)/day/\(day)/input") {
             case .failure(let fetchError):
-                
+                fatalError(fetchError.rawValue)
             case .success(let input):
                 content = content.replacingOccurrences(of: inputPlaceholder, with: input.trimmingCharacters(in: .newlines))
             }
@@ -135,7 +135,7 @@ func createSourceFiles(for year: Int) {
         try! AoC.Template.infoplistContents.write(to: infoPlistURL, atomically: true, encoding: .utf8)
     }
 
-    for day in 1...25 {
+    for day in availableProblemDays(year: year) {
         let fixedWidthDay = fixedWidthDay(day: day)
         let dayName = "Day" + fixedWidthDay
         let dayDirectoryURL = yearDirectoryURL.appendingPathComponent(dayName)
@@ -146,7 +146,7 @@ func createSourceFiles(for year: Int) {
             let fileURL = dayDirectoryURL.appendingPathComponent("\(dayName)\(name).swift")
 
             defer {
-                if hasCookie && name == "Description" && isProblemAvailable(year: year, day: day) {
+                if hasCookie && name == "Description" {
                     injectProblemDetails(fileURL, day: day, fixedWidthDay: fixedWidthDay, year: year)
                 }
             }
@@ -162,14 +162,23 @@ func createSourceFiles(for year: Int) {
     }
 }
 
-func isProblemAvailable(year: Int, day: Int) -> Bool {
+func availableProblemDays(year: Int) -> ClosedRange<Int> {
     var utcCalendar = Calendar(identifier: .gregorian)
     utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
     let currentDateComponentsUTC = utcCalendar.dateComponents([.day, .year], from: AoC.Date.date)
-    let currentDayUTC = currentDateComponentsUTC.day!
     let currentYearUTC = currentDateComponentsUTC.year!
-
-    return year <= currentYearUTC && day <= currentDayUTC
+    
+    if year < currentYearUTC {
+        return 1...25
+    }
+    
+    let currentMonthUTC = currentDateComponentsUTC.month!
+    if currentMonthUTC < 12 {
+        fatalError("Gotta wait till December! :)")
+    }
+    
+    let currentDayUTC = currentDateComponentsUTC.day!
+    return 1...currentDayUTC
 }
 
 func generateXcodeGenSpec() {
@@ -198,7 +207,7 @@ func generateXcodeGenSpec() {
     let yearTestTargets = years.map({ year in
         AoC.Template.xcodegenYearTestsTargetTemplate
             .replacingOccurrences(of: "{{ year }}", with: year)
-            .replacingOccurrences(of: "{{ testSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
+            .replacingOccurrences(of: "{{ testSources }}", with: availableProblemDays(year: Int(year)!).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
                 "aoc\(year)/Day\(day)/Day\(day)Tests.swift"
             }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
     }).joined(separator: "\n")
@@ -206,7 +215,7 @@ func generateXcodeGenSpec() {
     let yearBenchmarkTargets = years.map({ year in
         AoC.Template.xcodegenYearBenchmarksTargetTemplate
             .replacingOccurrences(of: "{{ year }}", with: year)
-            .replacingOccurrences(of: "{{ benchmarkSources }}", with: (1...25).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
+            .replacingOccurrences(of: "{{ benchmarkSources }}", with: availableProblemDays(year: Int(year)!).map({fixedWidthDay(day: $0)}).map({ (day) -> String in
                 "aoc\(year)/Day\(day)/Day\(day)Benchmarks.swift"
             }).joined(separator: ",").appending(",aoc\(year)/Info.plist"))
     }).joined(separator: "\n")
