@@ -121,7 +121,6 @@ enum AoC {
         fileGroups:
           - AdventOfCode.yml
           - README.md
-          - Gemfile
           - Brewfile
           - Makefile
         packages:
