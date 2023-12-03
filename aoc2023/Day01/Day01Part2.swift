@@ -56,7 +56,7 @@ public extension Day01 {
             
             let value = a + b
             
-            print("input: \(line); value: \(value)")
+//            print("input: \(line); value: \(value)")
             
             partialResult += Int(value)!
         }

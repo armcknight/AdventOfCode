@@ -44,21 +44,21 @@ public extension Day02 {
     
     var part1: Int {
         extract.filter { game in
-            print("testing \(game.0): \(game.1)")
+//            print("testing \(game.0): \(game.1)")
             return game.1.reduce(true) { partialResult, counts in
                 if let redResult = counts.red, let redSpec = Day02.spec.red, redResult > redSpec {
-                    print("failed on red")
+//                    print("failed on red")
                     return partialResult && false
                 }
                 if let greenResult = counts.green, let greenSpec = Day02.spec.green, greenResult > greenSpec {
-                    print("failed on green")
+//                    print("failed on green")
                     return partialResult && false
                 }
                 if let blueResult = counts.blue, let blueSpec = Day02.spec.blue, blueResult > blueSpec {
-                    print("failed on blue")
+//                    print("failed on blue")
                     return partialResult && false
                 }
-                print("passed")
+//                print("passed")
                 return partialResult && true
             }
         }.reduce(0) { partialResult, game in
