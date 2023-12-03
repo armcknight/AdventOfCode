@@ -174,7 +174,7 @@ func createSourceFiles(for year: Int) {
 
 func availableProblemDays(year: Int) -> ClosedRange<Int> {
     var utcCalendar = Calendar(identifier: .gregorian)
-    utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+    utcCalendar.timeZone = TimeZone(secondsFromGMT: -5 * 60 * 60)! // new problems come out at midnight eastern time
     let currentDateComponentsUTC = utcCalendar.dateComponents([.day, .year, .month], from: AoC.Date.date)
     let currentYearUTC = currentDateComponentsUTC.year!
     

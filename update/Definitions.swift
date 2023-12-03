@@ -116,6 +116,8 @@ enum AoC {
             sources: [{{ benchmarkSources }}]
             dependencies:
               - target: aoc{{ year }}
+              - package: SwiftArmcknight
+                link: true
         """)
 
         static let xcodegenTemplate = ("""
