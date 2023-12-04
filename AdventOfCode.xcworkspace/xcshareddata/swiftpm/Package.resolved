@@ -2,12 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "RegularExpressionDecoder",
+        "repositoryURL": "https://github.com/Flight-School/RegularExpressionDecoder",
+        "state": {
+          "branch": null,
+          "revision": "745d535b8cee97a3053b4b8f1fa2e7c4af838c97",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "Then",
         "repositoryURL": "https://github.com/devxoul/Then",
         "state": {
           "branch": null,
-          "revision": "d41ef523faef0f911369f79c0b96815d9dbb6d7a",
-          "version": "3.0.0"
+          "revision": "e421a7b3440a271834337694e6050133a3958bc7",
+          "version": "2.7.0"
         }
       }
     ]
