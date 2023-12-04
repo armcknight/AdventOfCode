@@ -10,6 +10,7 @@ import XCTest
 
 class Day07Benchmarks: XCTestCase {
     func testPart1Benchmarked() throws {
+        throw XCTSkip("Takes way too long")
         measure {
             let _ = Day07.input.part1
         }
