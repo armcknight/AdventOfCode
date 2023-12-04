@@ -88,7 +88,7 @@ bag?* (The list of rules is quite long; make sure you get all of it.)
 */
 public enum Day07: String {
 case sample = """
-ight red bags contain 1 bright white bag, 2 muted yellow bags.
+bright red bags contain 1 bright white bag, 2 muted yellow bags.
 dark orange bags contain 3 bright white bags, 4 muted yellow bags.
 bright white bags contain 1 shiny gold bag.
 muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
