@@ -20,6 +20,16 @@
 		84743B1B2B1D494F0011E966 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84743B152B1D494F0011E966 /* Info.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		84743B1C2B1D9F9B0011E966 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84743AEA2B1D47FF0011E966 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84743B0A2B1D49450011E966;
+			remoteInfo = createYearResources;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		84743AF02B1D47FF0011E966 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -122,6 +132,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				84743B1D2B1D9F9B0011E966 /* PBXTargetDependency */,
 			);
 			name = update;
 			packageProductDependencies = (
@@ -225,6 +236,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84743B1D2B1D9F9B0011E966 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84743B0A2B1D49450011E966 /* createYearResources */;
+			targetProxy = 84743B1C2B1D9F9B0011E966 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		84743AF72B1D47FF0011E966 /* Debug */ = {
