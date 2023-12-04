@@ -88,9 +88,7 @@ enum AoC {
                   - "**/*Benchmarks.swift"
             dependencies:
               - package: RegularExpressionDecoder
-                link: true
               - package: SwiftArmcknight
-                link: true
             platform: macOS
             deploymentTarget: \(macosDeploymentTarget)
             scheme:
