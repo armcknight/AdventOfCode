@@ -122,11 +122,6 @@ enum AoC {
 
         static let xcodegenTemplate = ("""
         name: AdventOfCode
-        fileGroups:
-          - AdventOfCode.yml
-          - README.md
-          - Brewfile
-          - Makefile
         packages:
           Then:
             url: https://github.com/devxoul/Then
@@ -140,33 +135,10 @@ enum AoC {
         {{ yearSchemes }}
         {{ yearTestSchemes }}
         {{ yearBenchmarkSchemes }}
-          update:
-            build:
-              targets:
-                update: run
-            run:
-              environmentVariables:
-                cookie: COOKIE_VALUE
-                year: YEAR
         targets:
         {{ yearTargets }}
         {{ yearTestTargets }}
         {{ yearBenchmarkTargets }}
-          update:
-            type: tool
-            sources: [update]
-            platform: macOS
-            deploymentTarget: \(macosDeploymentTarget)
-            requiresObjCLinking: false
-            dependencies:
-              - bundle: createYearResources
-              - package: Then
-              - package: SwiftArmcknight
-          createYearResources:
-            type: bundle
-            sources: [createYearResources]
-            platform: macOS
-            deploymentTarget: \(macosDeploymentTarget)
         """)
 
         static let makefileTestTask = ("""
@@ -202,7 +174,6 @@ enum AoC {
         }
 
         static let xcodegenSpecURL = rootURL.appendingPathComponent("AdventOfCode.yml")
-        static let xcodeWorkspaceURL = rootURL.appendingPathComponent("AdventOfCode.xcodeproj")
 
         static let bundleURL = URL(fileURLWithPath: "createYearResources.bundle", relativeTo: URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
         static let bundle = Bundle(url: bundleURL)!

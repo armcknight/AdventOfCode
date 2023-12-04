@@ -1,9 +1,5 @@
 xcuserdata/
 .DS_Store
-*.xcodeproj/
-*.xcworkspace/
-Pods/
-vendor/
-createYearBuild/
-create-year
-/AdventOfCode.yml
+AdventOfCode.xcodeproj/
+updateBuild/
+AdventOfCode.yml

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:AdventOfCode.yml">
+   </FileRef>
+   <FileRef
+      location = "group:Brewfile">
+   </FileRef>
+   <FileRef
+      location = "group:Makefile">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:update.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AdventOfCode.xcodeproj">
+   </FileRef>
+</Workspace>

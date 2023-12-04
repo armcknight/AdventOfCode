@@ -244,7 +244,3 @@ func generateXcodeGenSpec() {
 func generateXcodeProject() {
     Process.runBrewed("xcodegen", "--spec", AoC.File.xcodegenSpecURL.path)
 }
-
-func openXcodeProject() {
-    Process.run("/usr/bin/xed", AoC.File.xcodeWorkspaceURL.path)
-}

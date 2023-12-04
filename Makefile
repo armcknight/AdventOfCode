@@ -5,7 +5,7 @@ init:
 
 .PHONY: update
 update:
-	xcrun xcodebuild -scheme update -derivedDataPath updateBuild | xcbeautify
+	xcrun xcodebuild -project update.xcodeproj -scheme update -derivedDataPath updateBuild | xcbeautify
 	./updateBuild/Build/Products/Debug/update
 
 .PHONY: test
