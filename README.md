@@ -2,14 +2,22 @@
 
 My solutions to challenges at https://adventofcode.com.
 
+# TODO
+
+- [ ] Generate the README from a template, with the following things automatically added:
+    - [ ] Parse the output from `make benchmark` to extract a table of the runtimes to insert into this README at the bottom, after the stats.
+    - [ ] Scrape my personal stats: https://adventofcode.com/2023/leaderboard/self
+
 # Top-level operations
 
 This is generally the order of operations each year to prepare for the next competition.
 
 - `make init` to set up the dev env.
-- `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date. (Currently doesn't work in terminal, must run the `update` scheme in the Xcode project.)
-    - Make sure to grab a valid session cookie from the website and put it into the environment variable for the `update` scheme.
+- `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date.
+    - Make sure to grab a valid session cookie from the website and put it into the environment variable for the `update` scheme, and maybe set the current year in the `year` env variable. 
+        - **NOTE:** Do this in a private scheme, not the shared one, to avoid committing the session cookie and pushing it to the public.
 - `make test` to run the tests for all years present.
+- `make benchmark` to run all the benchmarks.
 
 # Files
 
