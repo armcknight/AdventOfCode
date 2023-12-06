@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftArmcknight
-import Then
 
 public extension Day01 {
     var part1: Int {
