@@ -26,7 +26,45 @@ public extension Day05 {
                 }
             }
         }
-        
+
+//        public func splitRange(lowerBound: Int = 0, upperBound: Int, almanacLevel level: Int) -> Int {
+//            let lowestDest = almanac[level]
+//            if lowerBound == upperBound {
+//                return lowerBound
+//            }
+//
+//            let midValue = lowerBound + (upperBound - lowerBound) / 2
+//
+//            let result = block(midValue)
+//            if result == .orderedAscending {
+//                return binarySearchRecursive(lowerBound: lowerBound, upperBound: midValue, block: block)
+//            } else if result == .orderedDescending {
+//                return binarySearchRecursive(lowerBound: midValue + 1, upperBound: upperBound, block: block)
+//            } else {
+//                return midValue
+//            }
+//        }
+//
+//        var seedRanges = [Range<Int>]()
+//        stride(from: 0, to: seeds.count, by: 2).forEach { nextRange in
+//            print("starting seed range: \(nextRange)")
+//            let lower = seeds[nextRange]
+//            let upper = seeds[nextRange] + seeds[nextRange + 1]
+//
+//            let firstSubrangeUpperBound = splitRange(lowerBound: lower, upperBound: upper) { next in
+//
+//            }
+//
+//        }
+
+        // split ranges
+
+        // do the pathfinding with just the lower bound from each subrange
+
+
+
+        // ---old attempt---
+
         func computePath(_ next: Int, _ partialResult: Int) -> Int {
             func getNextResult(almanacPart: Int, next: Int) -> Int {
                 if let match = almanac[almanacPart].map({ kv in
