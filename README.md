@@ -6,6 +6,7 @@ My solutions to challenges at https://adventofcode.com.
 
 - [ ] Generate the README from a template, with the following things automatically added:
     - [ ] Parse the output from `make benchmark` to extract a table of the runtimes to insert into this README at the bottom, after the stats.
+        - [ ] Generate a graph!
     - [ ] Scrape my personal stats: https://adventofcode.com/2023/leaderboard/self
 
 # Top-level operations
