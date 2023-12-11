@@ -106,6 +106,8 @@ enum AoC {
               - target: aoc{{ year }}
               - package: SwiftArmcknight
                 link: true
+              - package: RegularExpressionDecoder
+                link: true
         """)
 
         static let xcodegenYearBenchmarksTargetTemplate = ("""
@@ -117,6 +119,8 @@ enum AoC {
             dependencies:
               - target: aoc{{ year }}
               - package: SwiftArmcknight
+                link: true
+              - package: RegularExpressionDecoder
                 link: true
         """)
 
