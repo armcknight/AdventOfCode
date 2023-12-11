@@ -43,7 +43,7 @@ public extension Day08 {
             step += 1
         }
         
-        print(stepsPerPath)
+//        print(stepsPerPath)
         return stepsPerPath.lcm
     }
 }
