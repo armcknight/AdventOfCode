@@ -22,7 +22,7 @@ struct Location: Decodable {
 
 public extension Day08 {
     var part1: Int {
-        let parts = rawValue.paragraphs
+        let parts = rawValue.paragraphLines
         let directions = parts[0][0].map { String($0) }
         let map = parts[1].reduce(into: [String: (left: String, right: String)]()) { partialResult, next in
             let pattern: RegularExpressionPattern<Location, Location.CodingKeys> = #"(?<\#(.name)>[A-Z]{3}) = \((?<\#(.left)>[A-Z]{3}), (?<\#(.right)>[A-Z]{3})\)"#

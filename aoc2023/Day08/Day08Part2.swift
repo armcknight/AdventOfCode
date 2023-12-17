@@ -11,7 +11,7 @@ import RegularExpressionDecoder
 
 public extension Day08 {
     var part2: Int {
-        let parts = rawValue.paragraphs
+        let parts = rawValue.paragraphLines
         let directions = parts[0][0].map { String($0) }
         let map = parts[1].reduce(into: [String: (left: String, right: String)]()) { partialResult, next in
             let pattern: RegularExpressionPattern<Location, Location.CodingKeys> = #"(?<\#(.name)>[0-9A-Z]{3}) = \((?<\#(.left)>[0-9A-Z]{3}), (?<\#(.right)>[0-9A-Z]{3})\)"#

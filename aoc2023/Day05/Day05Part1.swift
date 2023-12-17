@@ -13,7 +13,7 @@ public extension Day05 {
         var seeds = [Int]()
         var almanac = [[Int: Int]]()
         
-        rawValue.paragraphs.enumerated().forEach { next in
+        rawValue.paragraphLines.enumerated().forEach { next in
             if next.offset == 0 {
                 seeds = next.element[0].keyValuePairs[0].1.ints(separator: " ")
             } else {
@@ -43,7 +43,7 @@ public extension Day05 {
         var seeds = [Int]()
         var almanac = [[Range<Int>: Range<Int>]]()
         
-        rawValue.paragraphs.enumerated().forEach { next in
+        rawValue.paragraphLines.enumerated().forEach { next in
             if next.offset == 0 {
                 seeds = next.element[0].keyValuePairs[0].1.ints(separator: " ")
             } else {
