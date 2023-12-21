@@ -14,8 +14,7 @@ class Day13Tests: XCTestCase {
     }
 
     func testPart1() throws {
-        throw XCTSkip("Not implemented")
-        XCTAssertEqual(Day13.input.part1, 0)
+        XCTAssertEqual(Day13.input.part1, 36015)
     }
 
     func testPart2Sample() throws {
