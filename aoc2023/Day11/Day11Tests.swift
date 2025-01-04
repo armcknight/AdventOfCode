@@ -24,6 +24,6 @@ class Day11Tests: XCTestCase {
     func testPart2() throws {
         let result = Day11.input.part2
         XCTAssertNotEqual(result, 726820896326)
-        XCTAssertEqual(result, 0)
+        XCTAssertEqual(result, 726820169514)
     }
 }

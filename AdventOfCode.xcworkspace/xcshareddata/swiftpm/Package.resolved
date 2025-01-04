@@ -1,23 +1,25 @@
 {
-  "pins" : [
-    {
-      "identity" : "regularexpressiondecoder",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Flight-School/RegularExpressionDecoder",
-      "state" : {
-        "revision" : "745d535b8cee97a3053b4b8f1fa2e7c4af838c97",
-        "version" : "0.1.0"
+  "object": {
+    "pins": [
+      {
+        "package": "RegularExpressionDecoder",
+        "repositoryURL": "https://github.com/Flight-School/RegularExpressionDecoder",
+        "state": {
+          "branch": null,
+          "revision": "745d535b8cee97a3053b4b8f1fa2e7c4af838c97",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Then",
+        "repositoryURL": "https://github.com/devxoul/Then",
+        "state": {
+          "branch": null,
+          "revision": "e421a7b3440a271834337694e6050133a3958bc7",
+          "version": "2.7.0"
+        }
       }
-    },
-    {
-      "identity" : "then",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/devxoul/Then",
-      "state" : {
-        "revision" : "e421a7b3440a271834337694e6050133a3958bc7",
-        "version" : "2.7.0"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }

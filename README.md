@@ -8,6 +8,7 @@ My solutions to challenges at https://adventofcode.com.
     - [ ] Parse the output from `make benchmark` to extract a table of the runtimes to insert into this README at the bottom, after the stats.
         - [ ] Generate a graph!
     - [ ] Scrape my personal stats: https://adventofcode.com/2023/leaderboard/self
+- [ ] Add link to each problem at the top of each problem description like https://adventofcode.com/$year/day/$day
 
 # Top-level operations
 
@@ -16,7 +17,7 @@ This is generally the order of operations each year to prepare for the next comp
 - `make init` to set up the dev env.
 - `make update` to ensure all available years are scaffolded and available days' descriptions and inputs are filled in, and the generated Xcode project is up to date.
     - Make sure to grab a valid session cookie from the website and put it into the environment variable for the `update` scheme, and maybe set the current year in the `year` env variable. 
-        - **NOTE:** Do this in a private scheme, not the shared one, to avoid committing the session cookie and pushing it to the public.
+        - **NOTE:** Do this in a private scheme cloned from the shared one and not committed to the repo, to avoid committing the session cookie and pushing it to the public.
 - `make test` to run the tests for all years present.
 - `make benchmark` to run all the benchmarks.
 
